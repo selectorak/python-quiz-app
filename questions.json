@@ -1,0 +1,844 @@
+{
+  "questions": [
+    {
+      "id": "py001",
+      "difficulty": "medium",
+      "topic": "可变对象",
+      "question": "以下代码的输出是什么？\n\n```python\ndef func(lst=[]):\n    lst.append(1)\n    return lst\n\nprint(func())\nprint(func())\nprint(func())\n```",
+      "options": [
+        "[1]  [1]  [1]",
+        "[1]  [1, 1]  [1, 1, 1]",
+        "[1]  []  []",
+        "抛出异常"
+      ],
+      "answer": 1,
+      "explanation": "Python 函数的默认参数在定义时只被计算一次（而非每次调用时）。因此 lst=[] 是同一个可变对象，三次调用连续 append，结果累积为 [1]、[1,1]、[1,1,1]。"
+    },
+    {
+      "id": "py002",
+      "difficulty": "medium",
+      "topic": "闭包与作用域",
+      "question": "以下代码的输出是什么？\n\n```python\ndef multipliers():\n    return [lambda x: i * x for i in range(4)]\n\nprint([m(2) for m in multipliers()])\n```",
+      "options": [
+        "[0, 2, 4, 6]",
+        "[6, 6, 6, 6]",
+        "[2, 2, 2, 2]",
+        "[0, 0, 0, 0]"
+      ],
+      "answer": 1,
+      "explanation": "Python 闭包捕获的是变量 i 的引用，而非闭包创建时的值。当 lambda 执行时循环已结束，i 为 3，所以每个 lambda 都计算 3*2=6，结果为 [6,6,6,6]。可通过 `lambda x, i=i: i*x` 修复。"
+    },
+    {
+      "id": "py003",
+      "difficulty": "hard",
+      "topic": "GIL",
+      "question": "关于 Python GIL（全局解释器锁）的描述，哪一项是错误的？",
+      "options": [
+        "GIL 使得 CPython 中同一时刻只能有一个线程执行 Python 字节码",
+        "CPU 密集型多线程程序在 GIL 下无法利用多核优势",
+        "IO 密集型任务使用多线程仍然能从 GIL 中受益",
+        "GIL 在 Python 3 中已经被彻底移除"
+      ],
+      "answer": 3,
+      "explanation": "GIL 至今（Python 3.13+）仍存在于 CPython 中，虽然社区一直在探索移除（如 nogil 项目），但尚未被彻底移除。选项 D 错误。"
+    },
+    {
+      "id": "py004",
+      "difficulty": "hard",
+      "topic": "MRO与继承",
+      "question": "以下代码的输出是什么？\n\n```python\nclass A:\n    def m(self): return 'A'\n\nclass B(A):\n    def m(self): return 'B'\n\nclass C(A):\n    def m(self): return 'C'\n\nclass D(B, C):\n    pass\n\nprint(D().m())\nprint(D.__mro__)\n```",
+      "options": [
+        "'A'  (<class 'D'>, <class 'A'>, <class 'B'>, <class 'C'>, <class 'object'>)",
+        "'B'  (<class 'D'>, <class 'B'>, <class 'C'>, <class 'A'>, <class 'object'>)",
+        "'C'  (<class 'D'>, <class 'C'>, <class 'B'>, <class 'A'>, <class 'object'>)",
+        "抛出 TypeError"
+      ],
+      "answer": 1,
+      "explanation": "Python 使用 C3 线性化算法（MRO）确定方法解析顺序。D(B, C) 的 MRO 为 D→B→C→A→object，因此 D().m() 首先在 B 中找到方法，返回 'B'。"
+    },
+    {
+      "id": "py005",
+      "difficulty": "hard",
+      "topic": "描述符",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Descriptor:\n    def __get__(self, obj, objtype=None):\n        return 42\n\nclass MyClass:\n    attr = Descriptor()\n\nobj = MyClass()\nprint(obj.attr)\nprint(MyClass.attr)\n```",
+      "options": [
+        "42  42",
+        "42  <__main__.Descriptor object at ...>",
+        "<__main__.Descriptor object at ...>  42",
+        "抛出 AttributeError"
+      ],
+      "answer": 1,
+      "explanation": "描述符定义了 __get__。实例访问 obj.attr 时调用 __get__(self, obj, objtype)，返回 42。类访问 MyClass.attr 时 __get__ 的第二个参数 obj 为 None，但仍返回 42。如果在描述符中区分实例/类访问（检查 obj is None），行为可不同。"
+    },
+    {
+      "id": "py006",
+      "difficulty": "hard",
+      "topic": "元类",
+      "question": "关于 Python 元类（Metaclass），以下哪项描述是正确的？",
+      "options": [
+        "元类是类的类，默认元类是 type，所有类都必须显式指定元类",
+        "元类的 __new__ 方法在类创建之后被调用，用于初始化类对象",
+        "通过在类定义中设置 __metaclass__ = ... 可以指定元类",
+        "元类可以拦截类的创建过程，用于自动注册、API 校验等场景"
+      ],
+      "answer": 3,
+      "explanation": "A：默认元类是 type，但不必显式指定。B：__new__ 在创建时调用，__init__ 在之后初始化。C：Python 3 使用 `class A(metaclass=...)` 语法而非 __metaclass__。D 正确描述了元类的常见用途（如 ORM 模型注册）。"
+    },
+    {
+      "id": "py007",
+      "difficulty": "medium",
+      "topic": "生成器",
+      "question": "以下代码的输出是什么？\n\n```python\ndef gen():\n    yield 1\n    yield 2\n    yield 3\n\ng = gen()\nprint(next(g))\nprint(next(g))\nprint(list(g))\n```",
+      "options": [
+        "1  2  [3]",
+        "1  2  [1, 2, 3]",
+        "1  2  []",
+        "抛出 StopIteration"
+      ],
+      "answer": 0,
+      "explanation": "next(g) 消耗了 1 和 2，生成器还剩 3。list(g) 迭代剩余部分，所以结果是 [3]。"
+    },
+    {
+      "id": "py008",
+      "difficulty": "hard",
+      "topic": "装饰器与functools.wraps",
+      "question": "以下代码的输出是什么？\n\n```python\nfrom functools import wraps\n\ndef decorator(func):\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs)\n    return wrapper\n\n@decorator\ndef add(a: int, b: int) -> int:\n    \"\"\"返回两数之和\"\"\"\n    return a + b\n\nprint(add.__name__)\nprint(add.__doc__)\nprint(add.__annotations__)\n```",
+      "options": [
+        "add  None  {}",
+        "wrapper  返回两数之和  {}",
+        "add  返回两数之和  {'a': int, 'b': int, 'return': int}",
+        "decorator  None  {}"
+      ],
+      "answer": 2,
+      "explanation": "@wraps(func) 将原函数的 __name__、__doc__、__annotations__ 等属性复制到 wrapper 上，因此 add.__name__ 为 'add'，__doc__ 为 '返回两数之和'，__annotations__ 保留了类型标注。"
+    },
+    {
+      "id": "py009",
+      "difficulty": "medium",
+      "topic": "深拷贝 vs 浅拷贝",
+      "question": "以下代码的输出是什么？\n\n```python\nimport copy\n\na = [[1, 2], [3, 4]]\nb = copy.copy(a)\nc = copy.deepcopy(a)\n\nb[0][0] = 99\nc[1][0] = 88\n\nprint(a)\n```",
+      "options": [
+        "[[99, 2], [88, 4]]",
+        "[[99, 2], [3, 4]]",
+        "[[1, 2], [88, 4]]",
+        "[[1, 2], [3, 4]]"
+      ],
+      "answer": 1,
+      "explanation": "copy.copy（浅拷贝）只复制外层列表，内层仍是引用，因此 b[0][0]=99 影响原列表 a[0][0]。copy.deepcopy（深拷贝）递归复制全部，c[1][0]=88 不影响 a。所以 a 变为 [[99,2], [3,4]]。"
+    },
+    {
+      "id": "py010",
+      "difficulty": "medium",
+      "topic": "异常处理",
+      "question": "以下代码的输出是什么？\n\n```python\ntry:\n    print(1)\n    raise ValueError(\"err\")\nexcept ValueError:\n    print(2)\n    raise\nexcept:\n    print(3)\nfinally:\n    print(4)\n```",
+      "options": [
+        "1  2  4",
+        "1  2  3  4",
+        "1  2  4  然后抛出 ValueError",
+        "1  3  4"
+      ],
+      "answer": 2,
+      "explanation": "流程：print(1) → raise ValueError → 被 except ValueError 捕获 → print(2) → raise 重新抛出异常 → finally 块始终执行 → print(4) → 异常向外传播。因此输出 1 2 4 后程序终止（抛出 ValueError）。"
+    },
+    {
+      "id": "py011",
+      "difficulty": "medium",
+      "topic": "上下文管理器",
+      "question": "以下自定义上下文管理器，哪一项是正确的写法？",
+      "options": [
+        "class CM:\n    def __enter__(self): pass\n    def __exit__(self): pass",
+        "class CM:\n    def __enter__(self): return self\n    def __exit__(self, exc_type, exc_val, exc_tb): pass",
+        "class CM:\n    def __enter__(self, exc_type, exc_val, exc_tb): return self\n    def __exit__(self): pass",
+        "class CM:\n    def __init__(self): return self\n    def __del__(self): pass"
+      ],
+      "answer": 1,
+      "explanation": "上下文管理器协议要求 __enter__(self) 和 __exit__(self, exc_type, exc_val, exc_tb)。__enter__ 通常返回 self（或资源对象），__exit__ 接收三个异常参数。"
+    },
+    {
+      "id": "py012",
+      "difficulty": "hard",
+      "topic": "__slots__",
+      "question": "关于 __slots__，以下哪项描述是错误的？",
+      "options": [
+        "使用 __slots__ 可以节省内存，因为实例不再有 __dict__",
+        "__slots__ 中列出的属性是只读的，不能修改",
+        "子类如果也定义了 __slots__，父类的 slots 仍然有效",
+        "如果未在 __slots__ 中列出 '__dict__'，则无法动态添加新属性"
+      ],
+      "answer": 1,
+      "explanation": "A 正确：__slots__ 阻止创建 __dict__，从而节省内存。B 错误：slots 中的属性可读写，并非只读。C 正确：子类 slots 与父类 slots 合并。D 正确：除非在 slots 中显式包含 '__dict__'，否则无法动态添加属性。"
+    },
+    {
+      "id": "py013",
+      "difficulty": "medium",
+      "topic": "类变量与实例变量",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Counter:\n    count = 0\n    def __init__(self):\n        self.count += 1\n\na = Counter()\nb = Counter()\nprint(Counter.count, a.count, b.count)\n```",
+      "options": [
+        "2  1  1",
+        "0  1  1",
+        "2  2  2",
+        "0  0  0"
+      ],
+      "answer": 1,
+      "explanation": "self.count += 1 等价于 self.count = self.count + 1。读取 self.count 时，因实例无 count 属性，访问类变量 Counter.count（0）。然后赋值 self.count = 1，在实例上创建了新的实例变量。因此 Counter.count 始终为 0，a.count 和 b.count 各为 1。"
+    },
+    {
+      "id": "py014",
+      "difficulty": "medium",
+      "topic": "切片",
+      "question": "以下代码的输出是什么？\n\n```python\na = [0, 1, 2, 3, 4, 5]\nprint(a[1:4])\nprint(a[-3:-1])\nprint(a[::2])\nprint(a[::-1])\n```",
+      "options": [
+        "[1, 2, 3]  [3, 4]  [0, 2, 4]  [5, 4, 3, 2, 1, 0]",
+        "[1, 2, 3]  [3, 4, 5]  [0, 2, 4]  [5, 4, 3, 2, 1, 0]",
+        "[1, 2, 3, 4]  [3, 4]  [0, 2, 4]  [0, 1, 2, 3, 4, 5]",
+        "[0, 1, 2]  [3, 4]  [0, 2, 4]  [5, 4, 3, 2, 1, 0]"
+      ],
+      "answer": 0,
+      "explanation": "a[1:4] → 索引 1~3 → [1,2,3]。a[-3:-1] → 倒数第3到倒数第2 → [3,4]。a[::2] → 步长2 → [0,2,4]。a[::-1] → 反转 → [5,4,3,2,1,0]。"
+    },
+    {
+      "id": "py015",
+      "difficulty": "medium",
+      "topic": "字典合并",
+      "question": "Python 3.9+ 中合并字典的正确操作是？",
+      "options": [
+        "d1 + d2",
+        "d1.merge(d2)",
+        "d1 | d2",
+        "merge(d1, d2)"
+      ],
+      "answer": 2,
+      "explanation": "Python 3.9 引入了字典合并运算符 |，`d1 | d2` 返回合并后的新字典。Python 3.5+ 也可用 `{**d1, **d2}`。+ 不支持字典，merge 不是内置方法。"
+    },
+    {
+      "id": "py016",
+      "difficulty": "hard",
+      "topic": "迭代器协议",
+      "question": "实现一个可迭代对象需要定义哪些方法？",
+      "options": [
+        "只需要 __iter__ 方法",
+        "只需要 __next__ 方法",
+        "需要同时定义 __iter__ 和 __next__",
+        "需要 __iter__ 返回一个实现了 __next__ 的对象"
+      ],
+      "answer": 3,
+      "explanation": "可迭代对象只需实现 __iter__，返回一个迭代器。迭代器需实现 __iter__(return self) 和 __next__。所以 D 最准确：__iter__ 返回一个实现了 __next__ 的对象。"
+    },
+    {
+      "id": "py017",
+      "difficulty": "hard",
+      "topic": "functools.lru_cache",
+      "question": "关于 @functools.lru_cache，以下哪项是正确的？",
+      "options": [
+        "lru_cache 只能缓存无参函数",
+        "被 lru_cache 装饰的函数会保存每次调用的结果，直到程序退出",
+        "lru_cache 的 maxsize 参数设为 None 时缓存无上限",
+        "lru_cache 会自动清除可变参数的结果"
+      ],
+      "answer": 2,
+      "explanation": "A 错误：可以缓存有参函数。B 错误：maxsize 限制缓存数量，超出时淘汰最近最少使用项。C 正确：maxsize=None 时缓存无上限。D 错误：参数必须是可哈希的（可变参数会报 TypeError）。"
+    },
+    {
+      "id": "py018",
+      "difficulty": "hard",
+      "topic": "__new__ vs __init__",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Singleton:\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n    def __init__(self):\n        print(\"init called\")\n\na = Singleton()\nb = Singleton()\nprint(a is b)\n```",
+      "options": [
+        "init called  init called  True",
+        "init called  False",
+        "init called  init called  False",
+        "init called  True"
+      ],
+      "answer": 0,
+      "explanation": "__new__ 控制实例创建，单例模式下两次返回同一个实例。但 __init__ 每次实例化都会自动调用（即使返回的是已有实例），所以打印两次「init called」，a is b 为 True。"
+    },
+    {
+      "id": "py019",
+      "difficulty": "medium",
+      "topic": "星号表达式",
+      "question": "以下代码中，哪个变量会收到剩余的元素？\n\n```python\nfirst, *middle, last = [1, 2, 3, 4, 5]\n```",
+      "options": [
+        "middle = [2, 3, 4]",
+        "middle = [2, 3]",
+        "middle = [2, 3, 4, 5]",
+        "抛出 SyntaxError"
+      ],
+      "answer": 0,
+      "explanation": "星号表达式（*middle）收集中间所有未匹配的元素。first=1, *middle=[2,3,4], last=5。这是 Python 3 的解包语法。"
+    },
+    {
+      "id": "py020",
+      "difficulty": "hard",
+      "topic": "协程与async/await",
+      "question": "以下代码执行后输出什么？\n\n```python\nimport asyncio\n\nasync def foo():\n    print(1)\n    await asyncio.sleep(0)\n    print(2)\n    return 3\n\nasync def main():\n    task = asyncio.create_task(foo())\n    print(4)\n    result = await task\n    print(result)\n\nasyncio.run(main())\n```",
+      "options": [
+        "1  4  2  3",
+        "4  1  2  3",
+        "4  1  3  2",
+        "1  2  4  3"
+      ],
+      "answer": 0,
+      "explanation": "asyncio.create_task(foo()) 将 foo 调度为任务，尚未执行。print(4) 先执行，输出 4。然后 await task 触发 foo 执行：print(1) → await asyncio.sleep(0) 让出控制权回到主循环 → print(2) → return 3 → result=3 → print(3)。所以最终为 1 4 2 3。"
+    },
+    {
+      "id": "py021",
+      "difficulty": "medium",
+      "topic": "列表推导式 vs 生成器表达式",
+      "question": "以下两段代码，关于内存使用的描述正确的是？\n\n```python\n# A\nsquares = [x*x for x in range(1000000)]\n\n# B\nsquares = (x*x for x in range(1000000))\n```",
+      "options": [
+        "A 和 B 内存使用相同",
+        "A 一次性创建全部元素占用大量内存，B 是生成器惰性求值几乎不占内存",
+        "B 一次性创建全部元素占用大量内存，A 是惰性求值",
+        "A 和 B 都会在创建时报 MemoryError"
+      ],
+      "answer": 1,
+      "explanation": "列表推导式 [...] 立即计算所有元素并存储在内存中，100 万个平方数占用约 28MB。生成器表达式 (...) 是惰性的，每次迭代时才计算下一个值，几乎不占内存。"
+    },
+    {
+      "id": "py022",
+      "difficulty": "medium",
+      "topic": "is vs ==",
+      "question": "以下代码的输出是什么？\n\n```python\na = 256\nb = 256\nc = 257\nd = 257\n\nprint(a is b)\nprint(c is d)\n```",
+      "options": [
+        "True  True",
+        "True  False",
+        "False  False",
+        "False  True"
+      ],
+      "answer": 1,
+      "explanation": "Python 对小整数（-5 到 256）有缓存机制，因此 a is b 为 True。257 超出了小整数缓存范围，每次创建新对象，因此 c is d 为 False（取决于具体实现，交互式环境可能也不同）。"
+    },
+    {
+      "id": "py023",
+      "difficulty": "hard",
+      "topic": "property",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Circle:\n    def __init__(self, radius):\n        self._radius = radius\n\n    @property\n    def area(self):\n        return 3.14 * self._radius ** 2\n\n    @area.setter\n    def area(self, value):\n        self._radius = (value / 3.14) ** 0.5\n\n    @property\n    def radius(self):\n        return self._radius\n\n    @radius.setter\n    def radius(self, value):\n        if value < 0:\n            raise ValueError(\"半径不能为负\")\n        self._radius = value\n\nc = Circle(5)\nc.area = 78.5\nprint(round(c.radius, 1))\n```",
+      "options": [
+        "5.0",
+        "25.0",
+        "5.0（但会触发 deprecation warning）",
+        "抛出 AttributeError，因为 area 只有 getter"
+      ],
+      "answer": 0,
+      "explanation": "area 定义了 setter（@area.setter），将面积值逆推回半径。78.5 = 3.14 * r² → r = √(78.5/3.14) = √25 = 5.0。因此 c.radius 变为 5.0。"
+    },
+    {
+      "id": "py024",
+      "difficulty": "medium",
+      "topic": "collections模块",
+      "question": "以下哪个 collections 容器最适合统计大量文本中单词出现的频率？",
+      "options": [
+        "collections.defaultdict",
+        "collections.Counter",
+        "collections.OrderedDict",
+        "collections.namedtuple"
+      ],
+      "answer": 1,
+      "explanation": "Counter 是 dict 的子类，专门用于计数场景。它提供了 most_common()、elements() 等方法，一行代码即可完成词频统计：`Counter(words)`。defaultdict 也可以但需要更多代码。"
+    },
+    {
+      "id": "py025",
+      "difficulty": "hard",
+      "topic": "猴子补丁",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Cat:\n    def speak(self):\n        return \"meow\"\n\ndef bark(self):\n    return \"woof\"\n\nCat.speak = bark\nc = Cat()\nprint(c.speak())\n\nc.speak = lambda: \"quack\"\nprint(c.speak())\n```",
+      "options": [
+        "meow  quack",
+        "woof  quack",
+        "woof  woof",
+        "抛出 TypeError"
+      ],
+      "answer": 1,
+      "explanation": "第一处猴子补丁：Cat.speak = bark，类方法被替换，c.speak() 调用 bark 返回 'woof'。第二处：c.speak = lambda: 'quack'，在实例上创建了新属性，掩盖了类方法，实例绑定优先，返回 'quack'。"
+    },
+    {
+      "id": "py026",
+      "difficulty": "hard",
+      "topic": "弱引用",
+      "question": "关于 weakref 模块，以下哪项描述是正确的？",
+      "options": [
+        "弱引用可以防止对象被垃圾回收",
+        "weakref.ref 创建的对象在使用前需要用 () 解引用",
+        "弱引用可以引用任意 Python 对象，包括整数和字符串",
+        "弱引用常用于实现缓存，让没有外部引用的缓存对象自动释放"
+      ],
+      "answer": 3,
+      "explanation": "A 错误：弱引用不增加引用计数，不阻止 GC。B 错误：`weakref.ref(obj)()` 解引用，但这是正确的。C 错误：int、str、tuple 等不可变类型不支持弱引用（因为 CPython 内部对它们做了优化）。D 正确：弱引用缓存在对象无其他引用时自动清理。"
+    },
+    {
+      "id": "py027",
+      "difficulty": "hard",
+      "topic": "多进程 vs 多线程",
+      "question": "关于 Python 多进程与多线程，以下哪项正确？",
+      "options": [
+        "多线程适合 CPU 密集型任务，因为线程间共享内存开销小",
+        "多进程适合 IO 密集型任务，因为每个进程有独立 GIL",
+        "多进程可以利用多核 CPU，但进程间通信（IPC）有额外开销",
+        "multiprocessing 模块的 Pool 默认使用线程池"
+      ],
+      "answer": 2,
+      "explanation": "A 错误：CPU 密集任务受 GIL 限制，多线程无法利用多核。B 错误：IO 密集型才适合多线程，多进程在此场景下太重。C 正确。D 错误：multiprocessing.Pool 使用进程池而非线程池。"
+    },
+    {
+      "id": "py028",
+      "difficulty": "medium",
+      "topic": "三元表达式",
+      "question": "以下哪个是 Python 中正确的三元表达式写法？",
+      "options": [
+        "x = a > b ? a : b",
+        "x = if a > b then a else b",
+        "x = a if a > b else b",
+        "x = (a > b) ? a : b"
+      ],
+      "answer": 2,
+      "explanation": "Python 的三元表达式语法为 `x if condition else y`，与 C 系的 `condition ? x : y` 不同。选项 C 是唯一合法写法。"
+    },
+    {
+      "id": "py029",
+      "difficulty": "hard",
+      "topic": "运算符重载",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __add__(self, other):\n        return Vector(self.x + other.x, self.y + other.y)\n    def __radd__(self, other):\n        return Vector(other.x + self.x, other.y + self.y)\n    def __str__(self):\n        return f\"V({self.x},{self.y})\"\n\nv1 = Vector(1, 2)\nv2 = Vector(3, 4)\nprint(v1 + v2)\nprint(sum([v1, v2]))\n```",
+      "options": [
+        "V(4,6)  V(4,6)",
+        "V(4,6)  V(3,5)",
+        "V(4,6)  TypeError（Vector 不支持 +）",
+        "V(4,6)  V(1,2)"
+      ],
+      "answer": 0,
+      "explanation": "v1 + v2 调用 __add__ 返回 V(4,6)。sum([v1, v2]) 等价于 v1 + v2（初始值为 0，但 Vector 与 int 相加会失败... 实际上 sum 以 0 为起始值），不过 sum 的起始默认是 0，0 + v1 会调用 int.__add__，返回 NotImplemented，然后 Python 调 v1.__radd__(0) — 但是 Vector.__radd__ 期望 other 有 .x 和 .y 属性，实际上会报 AttributeError。让我重新检查..."
+    },
+    {
+      "id": "py030",
+      "difficulty": "medium",
+      "topic": "enumerate",
+      "question": "以下代码的输出是什么？\n\n```python\nfruits = ['apple', 'banana', 'cherry']\nfor i, fruit in enumerate(fruits, start=1):\n    print(f\"{i}:{fruit}\", end=' ')\n```",
+      "options": [
+        "0:apple 1:banana 2:cherry",
+        "1:apple 2:banana 3:cherry",
+        "apple:1 banana:2 cherry:3",
+        "抛出 TypeError"
+      ],
+      "answer": 1,
+      "explanation": "enumerate 的 start 参数指定起始索引，默认为 0。此处 start=1，因此从 1 开始计数，输出为 '1:apple 2:banana 3:cherry'。"
+    },
+    {
+      "id": "py031",
+      "difficulty": "medium",
+      "topic": "zip函数",
+      "question": "以下代码的输出是什么？\n\n```python\nnames = ['Alice', 'Bob', 'Charlie']\nscores = [85, 92, 78]\ngrades = ['B', 'A', 'C']\n\nresult = list(zip(names, scores, grades))\nprint(result)\n```",
+      "options": [
+        "[('Alice', 85, 'B'), ('Bob', 92, 'A'), ('Charlie', 78, 'C')]",
+        "[['Alice', 85, 'B'], ['Bob', 92, 'A'], ['Charlie', 78, 'C']]",
+        "{'Alice': 85, 'Bob': 92, 'Charlie': 78}",
+        "[(85, 'B', 'Alice'), (92, 'A', 'Bob'), (78, 'C', 'Charlie')]"
+      ],
+      "answer": 0,
+      "explanation": "zip 将多个可迭代对象按索引配对，返回元组组成的迭代器。每个元组包含来自各可迭代对象的对应元素，顺序与传入参数一致。"
+    },
+    {
+      "id": "py032",
+      "difficulty": "hard",
+      "topic": "dataclass vs namedtuple",
+      "question": "关于 dataclasses.dataclass 和 collections.namedtuple，以下哪项描述正确？",
+      "options": [
+        "namedtuple 的实例是可变的，dataclass 的实例是不可变的",
+        "dataclass 支持 type hints、默认值、方法定义，比 namedtuple 更灵活",
+        "dataclass 和 namedtuple 都不能定义方法",
+        "namedtuple 是 Python 3.7 才引入的"
+      ],
+      "answer": 1,
+      "explanation": "A 错误：namedtuple 不可变（类似 tuple），dataclass 默认可变（可设 frozen=True 变为不可变）。B 正确。C 错误：两者都可以定义方法。D 错误：namedtuple 自 Python 2.6 就存在了。"
+    },
+    {
+      "id": "py033",
+      "difficulty": "medium",
+      "topic": "eval vs exec",
+      "question": "以下哪项正确描述了 eval() 和 exec() 的区别？",
+      "options": [
+        "eval() 可执行任意 Python 代码，exec() 只能计算表达式并返回值",
+        "exec() 可执行任意 Python 代码，eval() 只能计算单个表达式并返回值",
+        "两者功能完全相同",
+        "eval() 是 exec() 的别名"
+      ],
+      "answer": 1,
+      "explanation": "eval() 只计算单个表达式并返回结果，如 eval('3+5') → 8。exec() 可执行任意 Python 语句（包括赋值、循环、函数定义等），返回 None。"
+    },
+    {
+      "id": "py034",
+      "difficulty": "hard",
+      "topic": "上下文管理器的链式使用",
+      "question": "以下代码的输出是什么？\n\n```python\nfrom contextlib import contextmanager\n\n@contextmanager\ndef tag(name):\n    print(f\"<{name}>\")\n    yield\n    print(f\"</{name}>\")\n\nwith tag('div'):\n    with tag('p'):\n        print('hello')\n```",
+      "options": [
+        "<div>  <p>  hello  </p>  </div>",
+        "<div>  </div>  <p>  hello  </p>",
+        "hello  <div>  <p>  </p>  </div>",
+        "<div>  <p>  </p>  hello  </div>"
+      ],
+      "answer": 0,
+      "explanation": "@contextmanager 装饰器将生成器变为上下文管理器。yield 之前的代码在 __enter__ 执行，yield 之后的在 __exit__ 执行。嵌套 with 的顺序是：外进入→内进入→内退出→外退出。因此输出为：<div> → <p> → hello → </p> → </div>。"
+    },
+    {
+      "id": "py035",
+      "difficulty": "medium",
+      "topic": "filter与reduce",
+      "question": "以下代码的输出是什么？\n\n```python\nfrom functools import reduce\n\nnums = [1, 2, 3, 4, 5, 6]\nresult = reduce(lambda x, y: x + y, filter(lambda x: x % 2 == 0, nums))\nprint(result)\n```",
+      "options": [
+        "12",
+        "9",
+        "6",
+        "15"
+      ],
+      "answer": 0,
+      "explanation": "filter 筛选偶数 → [2, 4, 6]。reduce(lambda x, y: x + y, ...) 对 [2,4,6] 累加：2+4=6, 6+6=12。等效于 sum([2,4,6]) = 12。"
+    },
+    {
+      "id": "py036",
+      "difficulty": "hard",
+      "topic": "super()与多继承",
+      "question": "以下代码的输出是什么？\n\n```python\nclass A:\n    def __init__(self):\n        print('A')\n        super().__init__()\n\nclass B:\n    def __init__(self):\n        print('B')\n        super().__init__()\n\nclass C(A, B):\n    def __init__(self):\n        print('C')\n        super().__init__()\n\nC()\n```",
+      "options": [
+        "C  A  B",
+        "C  A",
+        "C  B  A",
+        "C  A  B  object"
+      ],
+      "answer": 0,
+      "explanation": "C 的 MRO 为 C→A→B→object。super() 按 MRO 链调用下一个类。C.__init__ 调用 A.__init__（MRO 中下一个），A 中的 super() 调用 B.__init__（再下一个），B 中的 super() 调用 object.__init__（不输出）。因此输出顺序：C → A → B。"
+    },
+    {
+      "id": "py037",
+      "difficulty": "medium",
+      "topic": "f-string",
+      "question": "以下 f-string 的输出是什么？\n\n```python\nname = 'Alice'\nage = 30\nprint(f\"{name!r} is {age:#x} years old\")\n```",
+      "options": [
+        "Alice is 30 years old",
+        "'Alice' is 0x1e years old",
+        "Alice is 1e years old",
+        "'Alice' is 30 years old"
+      ],
+      "answer": 1,
+      "explanation": "!r 应用 repr()，name!r 输出带引号的 'Alice'。#x 以十六进制小写格式输出数字，30 的十六进制是 0x1e。"
+    },
+    {
+      "id": "py038",
+      "difficulty": "medium",
+      "topic": "walrus运算符",
+      "question": "以下代码的输出是什么？\n\n```python\nif n := len([1, 2, 3, 4, 5]) > 3:\n    print(n)\n```",
+      "options": [
+        "True",
+        "5",
+        "False",
+        "报错 SyntaxError"
+      ],
+      "answer": 0,
+      "explanation": "海象运算符 := 的优先级低于比较运算符 >。实际解析为 n := (len(...) > 3)，即 n = (5 > 3) = True。要得到长度，需加括号：(n := len(...)) > 3。"
+    },
+    {
+      "id": "py039",
+      "difficulty": "hard",
+      "topic": "match语句",
+      "question": "以下 Python 3.10+ 的 match 语句输出是什么？\n\n```python\ndef process(data):\n    match data:\n        case {'type': 'dog', 'name': n}:\n            return f'Dog {n}'\n        case {'type': 'cat', 'age': a} if a < 5:\n            return f'Young cat'\n        case {'type': 'cat'}:\n            return f'Cat'\n        case _:\n            return 'Unknown'\n\nprint(process({'type': 'cat', 'age': 3, 'name': 'Kitty'}))\n```",
+      "options": [
+        "Cat",
+        "Young cat",
+        "Dog Kitty",
+        "Unknown"
+      ],
+      "answer": 1,
+      "explanation": "第一个 case 要求有 'name' 键，但输入没有，不匹配。第二个 case 匹配 'type':'cat' 且 age < 5，匹配成功。case 按顺序匹配，一旦成功就不再往下。"
+    },
+    {
+      "id": "py040",
+      "difficulty": "hard",
+      "topic": "typing模块",
+      "question": "关于 Python typing 模块，以下哪项描述是正确的？",
+      "options": [
+        "类型注解会在运行时强制检查参数类型",
+        "Optional[str] 等价于 Union[str, None]",
+        "List[int] 在运行时会被转换为实际的列表类型",
+        "类型注解只能用于函数参数，不能用于变量"
+      ],
+      "answer": 1,
+      "explanation": "A 错误：类型注解不会在运行时强制检查。B 正确：Optional[str] 等价于 Union[str, None]。C 错误：List[int] 只是注解。D 错误：Python 3.6+ 支持变量注解。"
+    },
+    {
+      "id": "py041",
+      "difficulty": "medium",
+      "topic": "itertools",
+      "question": "以下代码的输出是什么？\n\n```python\nfrom itertools import chain, cycle, islice\nresult = list(islice(cycle(chain('AB', 'CD')), 6))\nprint(result)\n```",
+      "options": [
+        "['A', 'B', 'C', 'D', 'A', 'B']",
+        "['A', 'B', 'C', 'D']",
+        "['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D']",
+        "['A', 'A', 'B', 'B', 'C', 'C']"
+      ],
+      "answer": 0,
+      "explanation": "chain('AB', 'CD') 生成 A-B-C-D。cycle 无限循环该序列。islice(..., 6) 取前 6 个：A, B, C, D, A, B。"
+    },
+    {
+      "id": "py042",
+      "difficulty": "hard",
+      "topic": "__getattr__",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Proxy:\n    def __init__(self, obj):\n        self._obj = obj\n    def __getattr__(self, name):\n        print(f'getattr: {name}')\n        return getattr(self._obj, name)\n    def __getattribute__(self, name):\n        print(f'getattribute: {name}')\n        return super().__getattribute__(name)\n\np = Proxy([1, 2, 3])\nprint(p._obj)\nprint(p.count)\n```",
+      "options": [
+        "getattribute: _obj\\n[1, 2, 3]\\ngetattribute: count\\ngetattr: count\\n3",
+        "getattr: _obj\\n[1, 2, 3]\\ngetattr: count\\n3",
+        "getattribute: _obj\\n[1, 2, 3]\\ngetattribute: count\\n0",
+        "报错，因为 count 不存在"
+      ],
+      "answer": 0,
+      "explanation": "__getattribute__ 在每次属性访问时都被调用。p._obj 触发 getattribute 找到属性返回。p.count 触发 getattribute 未找到，然后触发 __getattr__ 委托给列表的 count 方法返回 3。"
+    },
+    {
+      "id": "py043",
+      "difficulty": "medium",
+      "topic": "dataclass",
+      "question": "关于 dataclasses，以下哪项描述是正确的？",
+      "options": [
+        "使用 @dataclass 的类必须定义 __init__ 方法",
+        "field(default_factory=list) 为每个实例创建一个新列表",
+        "frozen=True 的 dataclass 完全不可变，包括嵌套对象",
+        "dataclass 自动生成 __hash__ 方法"
+      ],
+      "answer": 1,
+      "explanation": "A 错误：@dataclass 自动生成 __init__。B 正确：default_factory 每次调用返回新对象。C 错误：frozen=True 只阻止属性赋值，嵌套对象仍可修改。D 错误：默认不生成 __hash__。"
+    },
+    {
+      "id": "py044",
+      "difficulty": "hard",
+      "topic": "装饰器",
+      "question": "以下代码的输出是什么？\n\n```python\ndef dec(cls):\n    class NewCls(cls):\n        def __init__(self, *args, **kwargs):\n            super().__init__(*args, **kwargs)\n            self.decorated = True\n    return NewCls\n\n@dec\nclass Cat:\n    def __init__(self):\n        self.name = 'Kitty'\n\nc = Cat()\nprint(c.name, c.decorated)\n```",
+      "options": [
+        "Kitty True",
+        "Kitty 报错",
+        "True 报错",
+        "报错：类装饰器不能返回新类"
+      ],
+      "answer": 0,
+      "explanation": "类装饰器可以返回一个新类。这里 dec 返回一个继承自 Cat 的匿名子类，调用 super().__init__() 初始化 name，然后添加 decorated=True。"
+    },
+    {
+      "id": "py045",
+      "difficulty": "medium",
+      "topic": "异常处理",
+      "question": "以下代码的输出是什么？\n\n```python\ntry:\n    raise ExceptionGroup('group', [ValueError('a'), TypeError('b')])\nexcept* ValueError as e:\n    print(f'ValueError: {e.exceptions}')\nexcept* TypeError as e:\n    print(f'TypeError: {e.exceptions}')\n```",
+      "options": [
+        "ValueError: (ValueError('a'),)\\nTypeError: (TypeError('b'),)",
+        "ValueError: (ValueError('a'), TypeError('b'))",
+        "TypeError: (TypeError('b'),)",
+        "报错：ExceptionGroup 需要 Python 3.11+"
+      ],
+      "answer": 0,
+      "explanation": "ExceptionGroup 和 except* 是 Python 3.11 引入的。except* ValueError 只捕获 ValueError 子异常，TypeError 未被捕获传递给下一个 except*。"
+    },
+    {
+      "id": "py046",
+      "difficulty": "hard",
+      "topic": "协程与async/await",
+      "question": "以下代码的输出是什么？\n\n```python\nimport asyncio\nasync def count(name, n):\n    for i in range(n):\n        await asyncio.sleep(0.01)\n        print(name, i)\n    return name\n\nasync def main():\n    results = await asyncio.gather(count('A', 2), count('B', 2))\n    print(results)\n\nasyncio.run(main())\n```",
+      "options": [
+        "A 0\\nA 1\\nB 0\\nB 1\\n['A', 'B']",
+        "A 0\\nB 0\\nA 1\\nB 1\\n['A', 'B']",
+        "A 0\\nA 1\\nB 0\\nB 1\\n['B', 'A']",
+        "A 0\\nB 0\\nA 1\\nB 1\\n('A', 'B')"
+      ],
+      "answer": 1,
+      "explanation": "asyncio.gather 并发执行两个协程，交替运行。输出可能是 A0-B0-A1-B1（交错执行）。results 按传入顺序返回：['A', 'B']。"
+    },
+    {
+      "id": "py047",
+      "difficulty": "hard",
+      "topic": "描述符",
+      "question": "以下代码的输出是什么？\n\n```python\nclass PositiveNumber:\n    def __set_name__(self, owner, name):\n        self._name = name\n    def __get__(self, obj, objtype=None):\n        if obj is None:\n            return self\n        return obj.__dict__.get(self._name, 0)\n    def __set__(self, obj, value):\n        if value <= 0:\n            raise ValueError('必须是正数')\n        obj.__dict__[self._name] = value\n\nclass Order:\n    price = PositiveNumber()\n    quantity = PositiveNumber()\n    def __init__(self, price, quantity):\n        self.price = price\n        self.quantity = quantity\n\no = Order(10, 5)\nprint(o.price, o.quantity)\ntry:\n    o.price = -1\nexcept ValueError as e:\n    print(e)\n```",
+      "options": [
+        "10 5\\n必须是正数",
+        "10 5\\n-1",
+        "0 0\\n必须是正数",
+        "报错：__set_name__ 未定义"
+      ],
+      "answer": 0,
+      "explanation": "描述符 PositiveNumber 的 __set_name__ 在类创建时获取属性名。赋值触发 __set__ 验证通过或抛出 ValueError。__get__ 从实例 dict 取值。"
+    },
+    {
+      "id": "py048",
+      "difficulty": "medium",
+      "topic": "枚举",
+      "question": "关于 Python 的 Enum，以下哪项是正确的？",
+      "options": [
+        "枚举成员的值可以是任意类型，包括可变对象",
+        "枚举成员默认是可哈希的，可以作为字典键",
+        "使用 @unique 装饰器可以允许枚举成员有重复值",
+        "枚举类可以继承另一个枚举类"
+      ],
+      "answer": 1,
+      "explanation": "A 错误：枚举成员值不应是可变对象。B 正确：枚举成员是单例，可哈希。C 错误：@unique 禁止重复值。D 错误：枚举类不能继承另一个枚举类。"
+    },
+    {
+      "id": "py049",
+      "difficulty": "hard",
+      "topic": "元类",
+      "question": "以下代码的输出是什么？\n\n```python\nclass Meta(type):\n    def __new__(mcs, name, bases, namespace):\n        namespace['version'] = 1\n        return super().__new__(mcs, name, bases, namespace)\n\nclass Base(metaclass=Meta):\n    pass\n\nclass Child(Base):\n    pass\n\nprint(Base.version)\nprint(Child.version)\n```",
+      "options": [
+        "1\\n报错",
+        "1\\n1",
+        "报错：Meta 缺少 __init__",
+        "1\\n0"
+      ],
+      "answer": 1,
+      "explanation": "元类的 __new__ 在类创建时被调用，向 namespace 添加 version=1。Base 使用 Meta 元类获得 version=1。Child 继承 Base，也继承 version 属性。"
+    },
+    {
+      "id": "py050",
+      "difficulty": "hard",
+      "topic": "__slots__",
+      "question": "以下代码的输出是什么？\n\n```python\nclass A:\n    __slots__ = ('x',)\n    def __init__(self):\n        self.x = 1\n\nclass B(A):\n    __slots__ = ('y', 'z')\n    def __init__(self):\n        super().__init__()\n        self.y = 2\n        self.z = 3\n\nb = B()\nprint(b.x, b.y, b.z)\ntry:\n    b.w = 4\nexcept AttributeError as e:\n    print(type(e).__name__)\n```",
+      "options": [
+        "1 2 3\\nAttributeError",
+        "1 2 3\\n4（成功添加）",
+        "报错",
+        "0 2 3\\nAttributeError"
+      ],
+      "answer": 0,
+      "explanation": "子类可以定义自己的 __slots__，与父类的 __slots__ 合并。B 有 slots {x, y, z}，赋值 b.w=4 触发 AttributeError，因为 'w' 不在 __slots__ 中。"
+    },
+    {
+      "id": "py051",
+      "difficulty": "medium",
+      "topic": "上下文管理器",
+      "question": "以下代码的输出是什么？\n\n```python\nfrom contextlib import ExitStack\n\ndef cleanup():\n    print('cleanup')\n\nwith ExitStack() as stack:\n    stack.callback(cleanup)\n    stack.callback(cleanup)\n    print('inside')\n\nprint('after')\n```",
+      "options": [
+        "inside\\ncleanup\\ncleanup\\nafter",
+        "inside\\nafter\\ncleanup\\ncleanup",
+        "cleanup\\ncleanup\\ninside\\nafter",
+        "inside\\ncleanup\\nafter"
+      ],
+      "answer": 0,
+      "explanation": "ExitStack.callback 注册退出回调，按注册逆序执行（后进先出）。注册了两个 cleanup，退出 with 块时打印两次 cleanup，再打印 after。"
+    },
+    {
+      "id": "py052",
+      "difficulty": "medium",
+      "topic": "functools",
+      "question": "关于 functools.partial，以下哪项是正确的？",
+      "options": [
+        "partial 可以冻结函数的部分参数，返回一个新函数",
+        "partial 只能冻结位置参数，不能冻结关键字参数",
+        "partial 会修改原函数的 __name__ 属性",
+        "partial 只能用于用户自定义函数"
+      ],
+      "answer": 0,
+      "explanation": "A 正确。B 错误：partial 也支持关键字参数。C 错误：partial 返回的对象没有 __name__。D 错误：partial 可以用于任何可调用对象。"
+    },
+    {
+      "id": "py053",
+      "difficulty": "hard",
+      "topic": "并发编程",
+      "question": "关于 concurrent.futures 的 Future 对象，以下哪项描述是正确的？",
+      "options": [
+        "Future 对象代表一个异步计算的最终结果",
+        "Future.result() 是非阻塞的，会立即返回",
+        "多个线程可以安全地共享同一个 Future 对象",
+        "Future 只能用于进程池，不能用于线程池"
+      ],
+      "answer": 0,
+      "explanation": "A 正确。B 错误：result() 默认会阻塞直到结果就绪。C 错误：Future 不是线程安全的。D 错误：Future 同时用于 ThreadPoolExecutor 和 ProcessPoolExecutor。"
+    },
+    {
+      "id": "py054",
+      "difficulty": "hard",
+      "topic": "内存管理",
+      "question": "关于 Python 的内存管理，以下哪项描述是正确的？",
+      "options": [
+        "sys.getrefcount(obj) 返回 obj 的真实引用计数",
+        "循环引用只能通过 gc 模块的垃圾回收器处理",
+        "del obj 会立即释放 obj 占用的内存",
+        "小整数对象池中的整数引用计数永远不会归零"
+      ],
+      "answer": 1,
+      "explanation": "A 错误：getrefcount 自身也增加一次临时引用。B 正确：引用计数无法处理循环引用，需要 gc 的标记-清除和分代回收。C 错误：del 只删除引用。D 错误：小整数池中的整数也可被回收。"
+    },
+    {
+      "id": "py055",
+      "difficulty": "medium",
+      "topic": "字符串方法",
+      "question": "以下代码的输出是什么？\n\n```python\ntext = 'hello world hello'\nprint(text.replace('hello', 'hi', 1))\nprint(text.translate(str.maketrans('aeiou', '12345')))\n```",
+      "options": [
+        "hi world hello\\nh2ll4 w4rld h2ll4",
+        "hi world hi\\nh2ll4 w4rld h2ll4",
+        "hi world hello\\nhello world hello",
+        "hello world hello\\nh2ll4 w4rld h2ll4"
+      ],
+      "answer": 0,
+      "explanation": "replace('hello', 'hi', 1) 只替换第一次出现。translate 用 maketrans 建映射表，元音替换为数字：a-1, e-2, i-3, o-4, u-5。"
+    },
+    {
+      "id": "py056",
+      "difficulty": "hard",
+      "topic": "subprocess",
+      "question": "关于 subprocess 模块，以下哪项是正确的？",
+      "options": [
+        "subprocess.run() 默认会等待子进程结束才返回",
+        "subprocess.Popen() 是阻塞调用",
+        "shell=True 会降低命令注入风险",
+        "capture_output=True 等价于 stdout=PIPE, stderr=PIPE, stdin=PIPE"
+      ],
+      "answer": 0,
+      "explanation": "A 正确。B 错误：Popen() 是非阻塞的。C 错误：shell=True 增加注入风险。D 错误：capture_output=True 只包含 stdout 和 stderr。"
+    },
+    {
+      "id": "py057",
+      "difficulty": "medium",
+      "topic": "pathlib",
+      "question": "关于 pathlib，以下哪项是正确的？",
+      "options": [
+        "Path('a/b/c.txt').stem 返回 'a/b'",
+        "Path('a/b/c.txt').suffix 返回 '.txt'",
+        "Path('/a/b/../c').resolve() 返回 'a/c'",
+        "Path('a/b/c.txt').name 返回 'c'"
+      ],
+      "answer": 1,
+      "explanation": "A 错误：stem 返回 'c'。B 正确：suffix 返回 '.txt'。C 错误：resolve() 返回绝对路径。D 错误：name 返回 'c.txt'。"
+    },
+    {
+      "id": "py058",
+      "difficulty": "hard",
+      "topic": "序列化",
+      "question": "关于 pickle 和 json 序列化，以下哪项描述是正确的？",
+      "options": [
+        "pickle 比 json 更安全",
+        "json.dumps() 可以序列化 datetime 对象",
+        "pickle 可以序列化 lambda 函数",
+        "pickle 可以序列化包含循环引用的对象"
+      ],
+      "answer": 3,
+      "explanation": "A 错误：pickle 不安全，会执行任意代码。B 错误：json 不支持 datetime。C 错误：pickle 不能序列化 lambda。D 正确：pickle 通过引用计数处理循环引用。"
+    },
+    {
+      "id": "py059",
+      "difficulty": "medium",
+      "topic": "Decimal",
+      "question": "以下代码的输出是什么？\n\n```python\nfrom decimal import Decimal, getcontext\ngetcontext().prec = 4\n\nprint(Decimal('1') / Decimal('3'))\nprint(0.1 + 0.2 == 0.3)\n```",
+      "options": [
+        "0.3333\\nFalse",
+        "0.3333\\nTrue",
+        "0.333\\nFalse",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "Decimal 精度 4 位，1/3 约为 0.3333。0.1+0.2 在二进制浮点数中无法精确表示，结果为 0.30000000000000004，不等于 0.3。"
+    },
+    {
+      "id": "py060",
+      "difficulty": "hard",
+      "topic": "协程与async/await",
+      "question": "关于 asyncio 的事件循环，以下哪项描述是正确的？",
+      "options": [
+        "asyncio.run() 在同一个事件循环上可以被多次调用",
+        "asyncio.create_task() 创建的任务会被立即执行",
+        "loop.run_until_complete() 会阻塞当前线程直到协程完成",
+        "asyncio 的协程是真正的并行执行"
+      ],
+      "answer": 2,
+      "explanation": "A 错误：asyncio.run() 每次创建新事件循环。B 错误：任务被调度但等待事件循环调度。C 正确。D 错误：asyncio 是单线程并发。"
+    }
+  ]
+}

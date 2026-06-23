@@ -1,0 +1,7 @@
+include questions.json
+include exam_questions.json
+include requirements.txt
+include wsgi.py
+recursive-include templates *.html
+recursive-include static *.js *.css
+recursive-include tests *.py

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-quiz-app"
+version = "2.0.0"
+description = "Python 基础考察题库 — 在线答题系统"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["python", "quiz", "flask", "education"]
+authors = [
+    {name = "Python Quiz Contributors"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Education",
+]
+dependencies = [
+    "flask>=3.0",
+]
+
+[project.optional-dependencies]
+prod = ["waitress>=3.0"]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/your-username/python-quiz-app"
+Issues = "https://github.com/your-username/python-quiz-app/issues"
+
+[tool.setuptools]
+py-modules = ["app", "wsgi"]
+include-package-data = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

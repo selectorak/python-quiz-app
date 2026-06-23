@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python 基础考察题库</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- 全局加载遮罩 -->
+<div id="loading-overlay" class="loading-overlay" style="display:none;">
+    <div class="loading-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-text" id="loading-text">加载中...</div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- 标题 -->
+    <header class="header">
+        <h1>🐍 Python 基础考察</h1>
+        <p class="subtitle">中高难度 · 每题附解析</p>
+    </header>
+
+    <!-- 配置 / 开始 -->
+    <section id="config-section" class="card">
+        <h2>开始答题</h2>
+        <p>从题库中随机抽题，答对 60% 即为合格。</p>
+        <div class="config-row">
+            <label for="bank-select">题库选择：</label>
+            <select id="bank-select">
+                <option value="">加载中...</option>
+            </select>
+            <span id="bank-info" class="text-muted" style="font-size:0.85rem;"></span>
+        </div>
+        <div class="config-row">
+            <label for="count-select">题目数量：</label>
+            <select id="count-select">
+                <option value="5">5 题（快速热身）</option>
+                <option value="10">10 题</option>
+                <option value="15" selected>15 题（推荐）</option>
+                <option value="20">20 题</option>
+                <option value="25">25 题</option>
+                <option value="30">30 题</option>
+                <option value="all">全部练习</option>
+            </select>
+        </div>
+        <div class="config-row">
+            <label for="topic-select">主题筛选：</label>
+            <select id="topic-select">
+                <option value="">全部主题</option>
+            </select>
+        </div>
+        <div class="config-row">
+            <label for="difficulty-select">难度筛选：</label>
+            <select id="difficulty-select">
+                <option value="">全部难度</option>
+                <option value="medium">中等</option>
+                <option value="hard">困难</option>
+            </select>
+        </div>
+        <div class="config-row" style="flex-wrap:nowrap;">
+            <label for="search-input" style="flex-shrink:0;">🔍 搜索：</label>
+            <input type="text" id="search-input" placeholder="输入关键字搜索题目..." style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:0.95rem;background:var(--card-bg);color:var(--text);min-width:0;">
+            <button id="search-btn" class="btn btn-primary" style="padding:8px 16px;">搜索</button>
+        </div>
+        <div class="config-row">
+            <label>
+                <input type="checkbox" id="timed-mode" style="margin-right:4px;accent-color:var(--primary);">
+                ⏱ 限时模式
+            </label>
+            <select id="time-limit-select" style="padding:6px 10px;border:1px solid var(--border);border-radius:8px;font-size:0.9rem;">
+                <option value="5">5 分钟</option>
+                <option value="10" selected>10 分钟</option>
+                <option value="15">15 分钟</option>
+                <option value="30">30 分钟</option>
+            </select>
+            <span id="search-result-info" style="font-size:0.85rem;color:var(--text-muted);margin-left:auto;"></span>
+        </div>
+        <div class="config-row">
+            <button id="start-btn" class="btn btn-primary">开始答题</button>
+            <button id="resume-btn" class="btn btn-secondary" style="display:none;">▶ 继续上次答题</button>
+        </div>
+    </section>
+
+    <!-- 成绩历史 -->
+    <section id="history-section" class="card">
+        <h2>📈 成绩历史</h2>
+        <div id="history-container">
+            <p style="color:var(--text-muted);text-align:center;padding:16px;">暂无记录</p>
+        </div>
+        <div class="result-actions" style="margin-top:8px;">
+            <button id="history-clear-btn" class="btn btn-secondary" style="font-size:0.85rem;">清空历史</button>
+        </div>
+    </section>
+
+    <!-- 答题区 -->
+    <section id="quiz-section" class="card" style="display:none;">
+        <div class="quiz-header">
+            <span id="progress-text">第 0 / 0 题</span>
+            <span id="timer-display">⏱ 00:00</span>
+        </div>
+        <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <div class="quiz-content">
+            <div class="quiz-main">
+                <div id="question-container"></div>
+                <div class="quiz-footer">
+                    <button id="prev-btn" class="btn btn-secondary" disabled>上一题</button>
+                    <button id="next-btn" class="btn btn-secondary">下一题</button>
+                    <button id="submit-btn" class="btn btn-primary" style="display:none;">提交答卷</button>
+                </div>
+            </div>
+            <div class="question-nav" id="question-nav">
+                <div class="question-nav-header">题目导航</div>
+                <div class="question-nav-list" id="question-nav-list"></div>
+            </div>
+        </div>
+        <div class="shortcut-hint">
+            <span>← → 切换 · </span>
+            <span>1-6 选选项 · </span>
+            <span>Enter 提交</span>
+        </div>
+    </section>
+
+    <!-- 结果区 -->
+    <section id="result-section" class="card" style="display:none;">
+        <h2>📊 答题结果</h2>
+        <div id="score-display" class="score-box"></div>
+        <div id="review-container"></div>
+        <div class="result-actions">
+            <button id="retry-btn" class="btn btn-primary">再来一轮</button>
+        </div>
+    </section>
+
+    <!-- 错题本 -->
+    <section id="wrong-section" class="card">
+        <h2>📕 错题本 <span id="wrong-count" style="font-size:0.8rem;color:var(--text-muted);font-weight:400;"></span></h2>
+        <div id="wrong-container"></div>
+        <div class="result-actions">
+            <button id="wrong-retry-btn" class="btn btn-primary">重做错题</button>
+            <button id="wrong-clear-btn" class="btn btn-secondary" style="margin-left:8px;">清空错题本</button>
+        </div>
+    </section>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

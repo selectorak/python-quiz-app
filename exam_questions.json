@@ -1,0 +1,2510 @@
+{
+  "questions": [
+    {
+      "id": "exam001",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "下列关于面向对象三大特性的描述，错误的是：",
+      "options": [
+        "封装：将数据和对数据的操作绑定在一起，隐藏内部实现细节",
+        "继承：子类可以复用父类的代码，并能扩展新功能",
+        "多态：同一操作作用于不同对象，可以有不同的解释和执行结果",
+        "封装必须使用私有属性才能实现，否则不算封装"
+      ],
+      "answer": 3,
+      "explanation": "本题考查面向对象编程的基础知识。\n\n正确答案是D选项：封装必须使用私有属性才能实现，否则不算封装"
+    },
+    {
+      "id": "exam002",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "关于类属性和实例属性，下列说法正确的是：",
+      "options": [
+        "类属性属于实例对象，每个实例对象都有一份拷贝",
+        "实例属性属于类，被所有实例对象共享",
+        "通过实例对象可以访问类属性，但不能修改类属性",
+        "通过类名可以修改类属性，修改后所有实例对象访问到的值都会改变"
+      ],
+      "answer": 3,
+      "explanation": "类属性属于类本身，被所有实例共享。通过类名可以修改类属性，修改后所有实例访问到的值都会改变。实例通过实例名访问类属性，但只能访问不能修改（实例同名属性会遮盖类属性）。\n\n正确答案是D选项：通过类名可以修改类属性，修改后所有实例对象访问到的值都会改变"
+    },
+    {
+      "id": "exam003",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "现有以下代码： 输出结果为：\n\n```python\n   class Student:\n       school = \"第一中学\"\n       \n       def __init__(self, name):\n           self.name = name\n   \n   s1 = Student(\"张三\")\n   s2 = Student(\"李四\")\n   Student.school = \"第二中学\"\n   print(s1.school, s2.school)\n```",
+      "options": [
+        "第一中学 第一中学",
+        "第二中学 第二中学",
+        "第一中学 第二中学",
+        "第二中学 第一中学"
+      ],
+      "answer": 1,
+      "explanation": "__init__是Python类的构造方法，在创建对象时自动调用，可以有参数。它不应该返回任何值（隐式返回None）。如果子类没有定义__init__，会自动调用父类的__init__。\n\n正确答案是B选项：第二中学 第二中学"
+    },
+    {
+      "id": "exam004",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "关于类方法和静态方法，下列说法错误的是：",
+      "options": [
+        "类方法使用`@classmethod`装饰器，第一个参数是cls",
+        "静态方法使用`@staticmethod`装饰器，不需要传递self或cls参数",
+        "类方法可以访问和修改类属性",
+        "静态方法可以访问和修改实例属性"
+      ],
+      "answer": 3,
+      "explanation": "类方法（@classmethod）的第一个参数是cls，可以访问和修改类属性；静态方法（@staticmethod）不需要self或cls参数，本质上就是普通函数，不能访问实例属性。\n\n正确答案是D选项：静态方法可以访问和修改实例属性"
+    },
+    {
+      "id": "exam005",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "在Python中，关于`@staticmethod`和`@classmethod`的区别，正确的是：",
+      "options": [
+        "静态方法可以通过类名调用，类方法不能",
+        "类方法可以通过实例对象调用，静态方法不能",
+        "类方法的第一个参数是类本身，可以调用其他类方法",
+        "静态方法可以被子类重写，类方法不能"
+      ],
+      "answer": 2,
+      "explanation": "本题考查面向对象编程的基础知识。\n\n正确答案是C选项：类方法的第一个参数是类本身，可以调用其他类方法"
+    },
+    {
+      "id": "exam006",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "下列关于单继承的描述，正确的是：",
+      "options": [
+        "一个子类可以有多个直接父类",
+        "子类会自动拥有父类的所有属性和方法",
+        "子类不能拥有和父类同名的属性",
+        "父类的私有属性和方法子类完全无法访问"
+      ],
+      "answer": 1,
+      "explanation": "单继承中，子类自动拥有父类的所有非私有属性和方法。子类可以通过重写来覆盖父类的方法，也可以通过super()调用父类方法。\n\n正确答案是B选项：子类会自动拥有父类的所有属性和方法"
+    },
+    {
+      "id": "exam007",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "现有以下代码： 这体现了面向对象的哪个特性？\n\n```python\n   class Animal:\n       def __init__(self):\n           self.type = \"动物\"\n       \n       def speak(self):\n           print(\"动物在叫\")\n   \n   class Dog(Animal):\n       def speak(self):\n           print(\"汪汪汪\")\n   \n   dog = Dog()\n   dog.speak()\n```",
+      "options": [
+        "封装",
+        "继承",
+        "多态",
+        "抽象"
+      ],
+      "answer": 2,
+      "explanation": "__init__是Python类的构造方法，在创建对象时自动调用，可以有参数。它不应该返回任何值（隐式返回None）。如果子类没有定义__init__，会自动调用父类的__init__。\n\n正确答案是C选项：多态"
+    },
+    {
+      "id": "exam008",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "关于多继承，下列说法正确的是：",
+      "options": [
+        "Python支持多继承，但会引发歧义，因此不推荐使用",
+        "在多继承中，如果父类有同名方法，子类必须重写该方法",
+        "Python使用C3线性化算法解决多继承的方法解析顺序问题",
+        "多继承中，`super()`总是调用第一个父类的方法"
+      ],
+      "answer": 2,
+      "explanation": "Python支持多继承，通过C3线性化算法（MRO）解决方法解析顺序问题。super()在多继承中会按照MRO顺序调用父类方法。\n\n正确答案是C选项：Python使用C3线性化算法解决多继承的方法解析顺序问题"
+    },
+    {
+      "id": "exam009",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "以下关于`super()`函数的说法，错误的是：",
+      "options": [
+        "`super()`可以在子类中调用父类的方法",
+        "`super()`不需要显式传递父类名",
+        "`super()`只能用在单继承中，多继承中无法使用",
+        "`super()`在多继承中会按照MRO顺序调用父类方法"
+      ],
+      "answer": 2,
+      "explanation": "super()函数用于调用父类方法，不需要显式传递父类名，在多继承中遵循MRO顺序调用。\n\n正确答案是C选项：`super()`只能用在单继承中，多继承中无法使用"
+    },
+    {
+      "id": "exam010",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "现有以下代码： 输出结果为：\n\n```python\n    class A:\n        def show(self):\n            print(\"A\")\n    \n    class B(A):\n        def show(self):\n            print(\"B\")\n            super().show()\n    \n    class C(A):\n        def show(self):\n            print(\"C\")\n            super().show()\n    \n    class D(B, C):\n        pass\n    \n    d = D()\n    d.show()\n```",
+      "options": [
+        "B A",
+        "B C A",
+        "C B A",
+        "B A C"
+      ],
+      "answer": 1,
+      "explanation": "super()函数用于调用父类方法，不需要显式传递父类名，在多继承中遵循MRO顺序调用。\n\n正确答案是B选项：B C A"
+    },
+    {
+      "id": "exam011",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "关于私有属性和私有方法，下列说法正确的是：",
+      "options": [
+        "以双下划线开头的属性和方法就是真正的私有，外部绝对无法访问",
+        "私有属性可以在类内部通过`self.__属性名`访问",
+        "私有方法可以在类外部通过实例对象直接调用",
+        "子类可以直接继承父类的私有属性"
+      ],
+      "answer": 1,
+      "explanation": "Python中的私有属性（以双下划线开头）通过名称改写（name mangling）实现：_类名__属性名。在类内部可以正常访问，子类不能直接继承父类的私有属性，但可以通过父类的公有方法间接访问。\n\n正确答案是B选项：私有属性可以在类内部通过`self.__属性名`访问"
+    },
+    {
+      "id": "exam012",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "以下关于多层继承的说法，正确的是：",
+      "options": [
+        "多层继承是指一个类同时继承多个类",
+        "在多层继承中，子类只能调用直接父类的方法",
+        "多层继承可能形成继承链，如C继承B，B继承A",
+        "多层继承必须使用`super()`才能调用父类方法"
+      ],
+      "answer": 2,
+      "explanation": "本题考查面向对象编程的基础知识。\n\n正确答案是C选项：多层继承可能形成继承链，如C继承B，B继承A"
+    },
+    {
+      "id": "exam013",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "现有以下代码： 执行结果会是：\n\n```python\n    class Parent:\n        __secret = \"密码\"\n        \n        def get_secret(self):\n            return self.__secret\n    \n    class Child(Parent):\n        def show(self):\n            return self.__secret\n    \n    c = Child()\n    print(c.get_secret())\n    print(c.show())\n```",
+      "options": [
+        "输出\"密码\"和\"密码\"",
+        "输出\"密码\"和报错",
+        "报错",
+        "输出None和None"
+      ],
+      "answer": 1,
+      "explanation": "本题考查面向对象编程的基础知识。\n\n正确答案是B选项：输出\"密码\"和报错"
+    },
+    {
+      "id": "exam014",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "关于类属性与实例属性的查找顺序，下列说法正确的是：",
+      "options": [
+        "先找实例属性，再找类属性",
+        "先找类属性，再找实例属性",
+        "同时查找，哪个先找到用哪个",
+        "实例属性和类属性不能重名"
+      ],
+      "answer": 0,
+      "explanation": "类属性属于类本身，被所有实例共享。通过类名可以修改类属性，修改后所有实例访问到的值都会改变。实例通过实例名访问类属性，但只能访问不能修改（实例同名属性会遮盖类属性）。\n\n正确答案是A选项：先找实例属性，再找类属性"
+    },
+    {
+      "id": "exam015",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "以下关于`__init__`魔法方法的说法，错误的是：",
+      "options": [
+        "`__init__`在创建对象时自动调用",
+        "`__init__`方法可以有参数",
+        "`__init__`方法必须返回一个对象",
+        "如果子类没有定义`__init__`，会自动调用父类的`__init__`"
+      ],
+      "answer": 2,
+      "explanation": "__init__是Python类的构造方法，在创建对象时自动调用，可以有参数。它不应该返回任何值（隐式返回None）。如果子类没有定义__init__，会自动调用父类的__init__。\n\n正确答案是C选项：`__init__`方法必须返回一个对象"
+    },
+    {
+      "id": "exam016",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "下列关于对象与类的关系，说法正确的是：",
+      "options": [
+        "类是对象的具体化，对象是类的抽象",
+        "一个类只能创建一个对象",
+        "对象在内存中是独立存在的，拥有自己的数据空间",
+        "修改类的属性会影响所有已创建对象的实例属性"
+      ],
+      "answer": 2,
+      "explanation": "对象在内存中是独立存在的，拥有自己的数据空间。类是对象的抽象和模板，对象是类的具体实例。\n\n正确答案是C选项：对象在内存中是独立存在的，拥有自己的数据空间"
+    },
+    {
+      "id": "exam017",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "现有以下代码： 输出结果为：\n\n```python\n    class MyClass:\n        count = 0\n        \n        def __init__(self):\n            MyClass.count += 1\n        \n        @classmethod\n        def get_count(cls):\n            return cls.count\n    \n    a = MyClass()\n    b = MyClass()\n    print(MyClass.get_count())\n```",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "报错"
+      ],
+      "answer": 2,
+      "explanation": "__init__是Python类的构造方法，在创建对象时自动调用，可以有参数。它不应该返回任何值（隐式返回None）。如果子类没有定义__init__，会自动调用父类的__init__。\n\n正确答案是C选项：2"
+    },
+    {
+      "id": "exam018",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "关于子类重写父类的同名属性和方法，下列说法正确的是：",
+      "options": [
+        "子类重写父类方法后，无法再调用父类的原方法",
+        "子类重写父类属性后，父类的属性值会改变",
+        "子类可以重写父类的私有方法",
+        "子类重写父类方法后，仍可通过`super()`调用父类方法"
+      ],
+      "answer": 3,
+      "explanation": "子类重写父类方法后，可以使用super().方法名()或父类名.方法名(self)调用父类被重写的方法。\n\n正确答案是D选项：子类重写父类方法后，仍可通过`super()`调用父类方法"
+    },
+    {
+      "id": "exam019",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "以下关于类方法的使用场景，正确的是：",
+      "options": [
+        "需要访问实例属性时使用类方法",
+        "需要创建类的实例时使用类方法",
+        "不需要访问实例属性，但需要访问类属性时使用类方法",
+        "类方法不能用于替代构造函数"
+      ],
+      "answer": 2,
+      "explanation": "类方法（@classmethod）的第一个参数是cls，可以访问和修改类属性；静态方法（@staticmethod）不需要self或cls参数，本质上就是普通函数，不能访问实例属性。\n\n正确答案是C选项：不需要访问实例属性，但需要访问类属性时使用类方法"
+    },
+    {
+      "id": "exam020",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "关于Python中的魔法方法，下列说法错误的是：",
+      "options": [
+        "`__str__`方法用于返回对象的字符串表示",
+        "`__repr__`方法通常用于调试，返回更详细的信息",
+        "`__del__`方法在对象被删除时自动调用",
+        "`__new__`方法在`__init__`之后调用"
+      ],
+      "answer": 3,
+      "explanation": "Python的魔法方法（双下划线方法）提供了特殊的对象行为。__str__用于字符串表示，__repr__用于调试，__del__在对象被删除时调用，__new__在__init__之前调用并负责创建实例。\n\n正确答案是D选项：`__new__`方法在`__init__`之后调用"
+    },
+    {
+      "id": "exam021",
+      "difficulty": "hard",
+      "topic": "面向对象编程",
+      "question": "现有以下代码： 输出结果为：\n\n```python\n    class A:\n        def __init__(self):\n            self.value = 10\n        \n        def __str__(self):\n            return f\"值: {self.value}\"\n    \n    a = A()\n    print(a)\n```",
+      "options": [
+        "`<__main__.A object at 0x...>`",
+        "`值: 10`",
+        "`10`",
+        "报错"
+      ],
+      "answer": 1,
+      "explanation": "__init__是Python类的构造方法，在创建对象时自动调用，可以有参数。它不应该返回任何值（隐式返回None）。如果子类没有定义__init__，会自动调用父类的__init__。\n\n正确答案是B选项：`值: 10`"
+    },
+    {
+      "id": "exam022",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "关于静态方法，下列说法正确的是：",
+      "options": [
+        "静态方法必须通过实例对象调用",
+        "静态方法可以访问类的所有属性",
+        "静态方法不需要self或cls参数，本质上就是普通函数",
+        "静态方法不能被子类继承"
+      ],
+      "answer": 2,
+      "explanation": "类方法（@classmethod）的第一个参数是cls，可以访问和修改类属性；静态方法（@staticmethod）不需要self或cls参数，本质上就是普通函数，不能访问实例属性。\n\n正确答案是C选项：静态方法不需要self或cls参数，本质上就是普通函数"
+    },
+    {
+      "id": "exam023",
+      "difficulty": "medium",
+      "topic": "面向对象编程",
+      "question": "下列关于子类调用父类的同名属性和方法的说法，错误的是：",
+      "options": [
+        "可以使用`父类名.方法名(self)`的方式调用",
+        "可以使用`super().方法名()`的方式调用",
+        "在多继承中，`super()`会按照MRO顺序调用",
+        "子类必须重写父类的方法才能调用父类的方法"
+      ],
+      "answer": 3,
+      "explanation": "本题考查面向对象编程的基础知识。\n\n正确答案是D选项：子类必须重写父类的方法才能调用父类的方法"
+    },
+    {
+      "id": "exam024",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "Python 中用于输出信息到控制台的内置函数是（ ）",
+      "options": [
+        "`input()`",
+        "`print()`",
+        "`output()`",
+        "`write()`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是B选项：`print()`"
+    },
+    {
+      "id": "exam025",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "以下哪个选项是 Python 中正确的多行注释方式？（ ）",
+      "options": [
+        "`// ... //`",
+        "`/* ... */`",
+        "`''' ... '''` 或 `\"\"\" ... \"\"\"`",
+        "`# ... #`"
+      ],
+      "answer": 2,
+      "explanation": "Python中使用三个单引号（'''...'''）或三个双引号（\"\"\"...\"\"\"）实现多行注释。//...//和/*...*/是其他语言的注释方式。\n\n正确答案是C选项：`''' ... '''` 或 `\"\"\" ... \"\"\"`"
+    },
+    {
+      "id": "exam026",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "下列变量名中，符合 Python 命名规范且合法的是（ ）",
+      "options": [
+        "`1st_patient`",
+        "`patient-name`",
+        "`_patient_id`",
+        "`def`"
+      ],
+      "answer": 2,
+      "explanation": "Python变量名必须以字母或下划线开头，不能以数字开头，不能使用Python关键字（如def、class等）。下划线开头的变量名是合法的。\n\n正确答案是C选项：`_patient_id`"
+    },
+    {
+      "id": "exam027",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "执行 `x = 10; y = 3; print(x / y)` 的输出类型是（ ）",
+      "options": [
+        "int",
+        "float",
+        "str",
+        "complex"
+      ],
+      "answer": 1,
+      "explanation": "print()是Python内置的输出函数，用于将信息打印到控制台。input()用于读取输入，output()和write()不是Python内置函数。\n\n正确答案是B选项：float"
+    },
+    {
+      "id": "exam028",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "表达式 `(2 + 3) * 4 ** 2 // 5` 的值是（ ）",
+      "options": [
+        "20",
+        "40",
+        "16",
+        "32"
+      ],
+      "answer": 2,
+      "explanation": "Python中**是指数运算符，优先级高于乘除。计算顺序：先算4**2=16，然后是(2+3)*16=80，最后80//5=16。\n\n正确答案是C选项：16"
+    },
+    {
+      "id": "exam029",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "下列逻辑表达式中，结果为 `True` 的是（ ）",
+      "options": [
+        "`(5 > 3) and (2 > 4)`",
+        "`(4 == 4) or (1 != 1)`",
+        "`not (6 <= 5)`",
+        "`(3 >= 3) and (2 < 1)`"
+      ],
+      "answer": 1,
+      "explanation": "逻辑运算符中，and要求两边都为True才返回True，or要求至少一边为True。not取反。\n\n正确答案是B选项：`(4 == 4) or (1 != 1)`"
+    },
+    {
+      "id": "exam030",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于三目运算符 `a if condition else b`，以下说法正确的是（ ）",
+      "options": [
+        "它只能用于数值类型",
+        "如果 `condition` 为真，则表达式的值为 `b`",
+        "可以嵌套使用",
+        "它的优先级高于赋值运算符"
+      ],
+      "answer": 2,
+      "explanation": "Python的三目运算符语法为：a if condition else b。当condition为真时返回a，否则返回b。可以嵌套使用，优先级低于赋值运算符。\n\n正确答案是C选项：可以嵌套使用"
+    },
+    {
+      "id": "exam031",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "以下代码的输出结果是（ ）\n\n```python\n   for i in range(3):\n       if i == 1:\n           continue\n       print(i, end='')\n   else:\n       print('end')\n```",
+      "options": [
+        "`0end`",
+        "`02end`",
+        "`0 2 end`",
+        "`0 2`"
+      ],
+      "answer": 1,
+      "explanation": "print()是Python内置的输出函数，用于将信息打印到控制台。input()用于读取输入，output()和write()不是Python内置函数。\n\n正确答案是B选项：`02end`"
+    },
+    {
+      "id": "exam032",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "列表推导式 `[i**2 for i in range(4) if i % 2 == 0]` 的结果是（ ）",
+      "options": [
+        "`[0, 1, 4, 9]`",
+        "`[0, 4]`",
+        "`[0, 4, 16]`",
+        "`[1, 9]`"
+      ],
+      "answer": 1,
+      "explanation": "列表推导式[i**2 for i in range(4) if i%2==0]中，range(4)产生0,1,2,3，if i%2==0过滤出0和2，i**2得到0和4，结果为[0,4]。\n\n正确答案是B选项：`[0, 4]`"
+    },
+    {
+      "id": "exam033",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "字符串 `s = \"Hello\\\\tWorld\"`，执行 `len(s)` 的结果是（ ）",
+      "options": [
+        "10",
+        "11",
+        "12",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "字符串中的转义字符\\t代表一个制表符（一个字符）。因此\"Hello\\tWorld\"有12个字符：H,e,l,l,o,\\t,W,o,r,l,d（注意\\t是一个转义字符）。\n\n正确答案是B选项：11"
+    },
+    {
+      "id": "exam034",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "下列哪个操作可以向列表 `lst = [1, 2, 3]` 的末尾添加元素 4？（ ）",
+      "options": [
+        "`lst.add(4)`",
+        "`lst.append(4)`",
+        "`lst.insert(4)`",
+        "`lst.extend(4)`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是B选项：`lst.append(4)`"
+    },
+    {
+      "id": "exam035",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于元组的描述，错误的是（ ）",
+      "options": [
+        "元组是不可变的序列",
+        "元组可以用逗号创建，括号可省略",
+        "元组中的元素可以是任意类型",
+        "元组支持 `append()` 方法"
+      ],
+      "answer": 3,
+      "explanation": "元组是不可变序列，使用逗号创建，括号可省略。元素可以是任意类型，但元组没有append()、extend()等修改方法。\n\n正确答案是D选项：元组支持 `append()` 方法"
+    },
+    {
+      "id": "exam036",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "对于字典 `d = {'a': 1, 'b': 2}`，执行 `d.get('c', 0)` 的结果是（ ）",
+      "options": [
+        "`None`",
+        "`0`",
+        "引发 KeyError",
+        "`'c'`"
+      ],
+      "answer": 1,
+      "explanation": "dict.get(key, default)方法安全地获取字典值，如果键不存在返回默认值而不抛出KeyError。\n\n正确答案是B选项：`0`"
+    },
+    {
+      "id": "exam037",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于集合，下列说法正确的是（ ）",
+      "options": [
+        "集合使用 `[]` 定义",
+        "集合中的元素必须是可哈希的",
+        "集合是有序的",
+        "集合可以包含重复元素"
+      ],
+      "answer": 1,
+      "explanation": "集合中的元素必须是可哈希的（不可变类型如int、str、tuple），集合是无序、不重复的元素集。\n\n正确答案是B选项：集合中的元素必须是可哈希的"
+    },
+    {
+      "id": "exam038",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "定义函数 `def func(a, b=[]): b.append(a); return b`，连续调用 `func(1)` 和 `func(2)` 后，第二次调用返回的值是（ ）",
+      "options": [
+        "`[1]`",
+        "`[2]`",
+        "`[1, 2]`",
+        "`[]`"
+      ],
+      "answer": 2,
+      "explanation": "列表的append()方法在末尾添加元素。add()是集合的方法，insert()需要指定位置，extend()需要可迭代对象。\n\n正确答案是C选项：`[1, 2]`"
+    },
+    {
+      "id": "exam039",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于 `import` 语句，以下哪种写法可以导入 `pathlib` 模块中的 `Path` 类？（ ）",
+      "options": [
+        "`import pathlib.Path`",
+        "`from pathlib import Path`",
+        "`import Path from pathlib`",
+        "`from Path import pathlib`"
+      ],
+      "answer": 1,
+      "explanation": "导入模块中特定类/函数的语法是：from module import Class。import module.Class是错误的写法。\n\n正确答案是B选项：`from pathlib import Path`"
+    },
+    {
+      "id": "exam040",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "使用 `pathlib.Path` 获取当前文件所在目录的父目录，正确的是（ ）",
+      "options": [
+        "`Path(__file__).parent.parent`",
+        "`Path(__file__).parents[1]`",
+        "`Path(__file__).resolve().parent`",
+        "以上都可以"
+      ],
+      "answer": 3,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是D选项：以上都可以"
+    },
+    {
+      "id": "exam041",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "以下文件操作中，能够以写入模式打开文件（如果文件不存在则创建，存在则覆盖）的模式字符串是（ ）",
+      "options": [
+        "`'r'`",
+        "`'a'`",
+        "`'w'`",
+        "`'x'`"
+      ],
+      "answer": 2,
+      "explanation": "文件模式中，'r'只读（文件必须存在），'w'写入（覆盖，不存在则创建），'a'追加（不存在则创建），'x'排他创建（文件存在则报错）。\n\n正确答案是C选项：`'w'`"
+    },
+    {
+      "id": "exam042",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "关于异常处理，下列代码的输出是（ ）\n\n```python\n    try:\n        print(1/0)\n    except ZeroDivisionError:\n        print('error')\n    else:\n        print('no error')\n    finally:\n        print('finally')\n```",
+      "options": [
+        "`error` `finally`",
+        "`error` `no error` `finally`",
+        "`no error` `finally`",
+        "`finally`"
+      ],
+      "answer": 0,
+      "explanation": "print()是Python内置的输出函数，用于将信息打印到控制台。input()用于读取输入，output()和write()不是Python内置函数。\n\n正确答案是A选项：`error` `finally`"
+    },
+    {
+      "id": "exam043",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "关于 `with` 语句，下列说法错误的是（ ）",
+      "options": [
+        "可以用于自动管理文件资源",
+        "可以同时管理多个上下文管理器",
+        "自定义类需要实现 `__enter__` 和 `__exit__` 方法才能用于 `with`",
+        "`with` 语句不能用于数据库连接"
+      ],
+      "answer": 3,
+      "explanation": "with语句用于上下文管理，自动调用__exit__方法释放资源。可以同时管理多个上下文管理器。自定义类需实现__enter__和__exit__方法。\n\n正确答案是D选项：`with` 语句不能用于数据库连接"
+    },
+    {
+      "id": "exam044",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "下列哪个不是面向对象的三大特性之一？（ ）",
+      "options": [
+        "封装",
+        "继承",
+        "多态",
+        "递归"
+      ],
+      "answer": 3,
+      "explanation": "面向对象三大特性是封装、继承、多态。递归是一种编程技术，不是面向对象的特性。\n\n正确答案是D选项：递归"
+    },
+    {
+      "id": "exam045",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "在 Python 中，定义一个类使用关键字（ ）",
+      "options": [
+        "`struct`",
+        "`class`",
+        "`def`",
+        "`object`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是B选项：`class`"
+    },
+    {
+      "id": "exam046",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "以下代码中，`isinstance(c, A)` 的结果是（ ）\n\n```python\n    class A: pass\n    class B(A): pass\n    class C(B): pass\n    c = C()\n```",
+      "options": [
+        "`True`",
+        "`False`",
+        "报错",
+        "`None`"
+      ],
+      "answer": 0,
+      "explanation": "isinstance()检查对象是否是类的实例（包括子类关系）。由于C继承自B继承自A，c是C的实例，也是A的子类的实例，因此isinstance(c, A)返回True。\n\n正确答案是A选项：`True`"
+    },
+    {
+      "id": "exam047",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "关于 `__init__` 方法的说法，正确的是（ ）",
+      "options": [
+        "它在对象创建之后自动调用",
+        "它必须显式调用才能初始化",
+        "它不能有参数",
+        "它只能返回 `None`"
+      ],
+      "answer": 0,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是A选项：它在对象创建之后自动调用"
+    },
+    {
+      "id": "exam048",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "在 Python 中，用于表示私有属性的命名约定是（ ）",
+      "options": [
+        "以单下划线开头，如 `_age`",
+        "以双下划线开头，如 `__age`",
+        "以双下划线开头和结尾，如 `__age__`",
+        "以单下划线结尾，如 `age_`"
+      ],
+      "answer": 1,
+      "explanation": "Python中双下划线开头（__age）表示私有属性，通过名称改写实现。单下划线开头（_age）是约定为保护的属性（仍可从外部访问）。\n\n正确答案是B选项：以双下划线开头，如 `__age`"
+    },
+    {
+      "id": "exam049",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于继承，下列说法正确的是（ ）",
+      "options": [
+        "Python 不支持多继承",
+        "子类会自动调用父类的 `__init__` 方法",
+        "子类可以通过 `super()` 调用父类方法",
+        "子类不能重写父类的方法"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是C选项：子类可以通过 `super()` 调用父类方法"
+    },
+    {
+      "id": "exam050",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "下列哪个特殊方法用于定义对象的长度（被 `len()` 调用）？（ ）",
+      "options": [
+        "`__len__`",
+        "`__length__`",
+        "`__size__`",
+        "`__str__`"
+      ],
+      "answer": 0,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是A选项：`__len__`"
+    },
+    {
+      "id": "exam051",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于类方法和静态方法，描述正确的是（ ）",
+      "options": [
+        "类方法使用 `@staticmethod` 装饰",
+        "静态方法可以访问类属性",
+        "类方法的第一个参数是 `cls`",
+        "静态方法的第一个参数是 `self`"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是C选项：类方法的第一个参数是 `cls`"
+    },
+    {
+      "id": "exam052",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "以下代码的输出是（ ）\n\n```python\n    class Parent:\n        def show(self):\n            print(\"Parent\")\n    class Child(Parent):\n        def show(self):\n            print(\"Child\")\n    obj = Child()\n    obj.show()\n```",
+      "options": [
+        "`Parent`",
+        "`Child`",
+        "报错",
+        "无输出"
+      ],
+      "answer": 1,
+      "explanation": "print()是Python内置的输出函数，用于将信息打印到控制台。input()用于读取输入，output()和write()不是Python内置函数。\n\n正确答案是B选项：`Child`"
+    },
+    {
+      "id": "exam053",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "在 Python 中，`object` 类是（ ）",
+      "options": [
+        "所有类的基类",
+        "抽象类",
+        "接口类",
+        "不可实例化的类"
+      ],
+      "answer": 0,
+      "explanation": "在Python中，所有类都默认继承自object基类。object是所有类的根类。\n\n正确答案是A选项：所有类的基类"
+    },
+    {
+      "id": "exam054",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于多态，下列说法错误的是（ ）",
+      "options": [
+        "不同类的对象可以对同一消息作出不同响应",
+        "多态通过继承和方法重写实现",
+        "Python 不支持多态",
+        "多态增加了代码的灵活性"
+      ],
+      "answer": 2,
+      "explanation": "多态是指不同类的对象可以对同一消息作出不同响应。Python通过继承和方法重写实现多态，同时Python的\"鸭子类型\"也体现了多态。\n\n正确答案是C选项：Python 不支持多态"
+    },
+    {
+      "id": "exam055",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "以下代码中，`x` 的输出是（ ）\n\n```python\n    class Test:\n        count = 0\n        def __init__(self):\n            Test.count += 1\n    t1 = Test()\n    t2 = Test()\n    x = Test.count\n```",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python编程的核心概念。\n\n正确答案是C选项：2"
+    },
+    {
+      "id": "exam056",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "关于 `@property` 装饰器，说法正确的是（ ）",
+      "options": [
+        "它将方法变成属性调用，无需括号",
+        "它只能用于只读属性",
+        "它必须与 `@setter` 一起使用",
+        "它只能用于实例方法"
+      ],
+      "answer": 0,
+      "explanation": "@property装饰器将方法变成属性调用，无需括号即可访问。它可以用来将getter方法变成只读属性。\n\n正确答案是A选项：它将方法变成属性调用，无需括号"
+    },
+    {
+      "id": "exam057",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "下列代码中，访问私有属性 `__value` 的正确方式是（ ）\n\n```python\n    class MyClass:\n        def __init__(self):\n            self.__value = 10\n    obj = MyClass()\n```",
+      "options": [
+        "`obj.__value`",
+        "`obj._MyClass__value`",
+        "`obj._value`",
+        "`obj.value`"
+      ],
+      "answer": 1,
+      "explanation": "Python中双下划线开头（__age）表示私有属性，通过名称改写实现。单下划线开头（_age）是约定为保护的属性（仍可从外部访问）。\n\n正确答案是B选项：`obj._MyClass__value`"
+    },
+    {
+      "id": "exam058",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "关于抽象类（ABC），下列说法正确的是（ ）",
+      "options": [
+        "抽象类可以直接实例化",
+        "使用 `abc` 模块可以定义抽象基类",
+        "抽象方法可以有默认实现",
+        "抽象类不能包含普通方法"
+      ],
+      "answer": 1,
+      "explanation": "抽象基类（ABC）使用abc模块定义，通过继承ABC类并使用@abstractmethod装饰器标记抽象方法。抽象类不能直接实例化。\n\n正确答案是B选项：使用 `abc` 模块可以定义抽象基类"
+    },
+    {
+      "id": "exam059",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "以下哪个是正确的方法重写示例？（ ）",
+      "options": [
+        "子类定义一个与父类同名但参数不同的方法",
+        "子类定义一个与父类同名且参数相同的方法",
+        "子类定义一个与父类不同名的方法",
+        "子类中不能重写方法"
+      ],
+      "answer": 1,
+      "explanation": "方法重写（Override）是指子类定义与父类同名且参数相同的方法，从而覆盖父类的实现。\n\n正确答案是B选项：子类定义一个与父类同名且参数相同的方法"
+    },
+    {
+      "id": "exam060",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "关于 `__slots__` 的作用，描述正确的是（ ）",
+      "options": [
+        "限制实例可以添加的属性",
+        "提高属性访问速度并节省内存",
+        "不能与继承一起使用",
+        "以上 A 和 B 都正确"
+      ],
+      "answer": 3,
+      "explanation": "__slots__限制实例可以添加的属性，同时提高属性访问速度并节省内存（因为不再需要__dict__来存储实例属性）。\n\n正确答案是D选项：以上 A 和 B 都正确"
+    },
+    {
+      "id": "exam061",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "以下代码的输出是（ ）\n\n```python\n    class A:\n        def __init__(self):\n            self.x = 1\n    class B(A):\n        def __init__(self):\n            super().__init__()\n            self.y = 2\n    b = B()\n    print(b.x, b.y)\n```",
+      "options": [
+        "`1 2`",
+        "报错，因为 `x` 未定义",
+        "`None 2`",
+        "`0 2`"
+      ],
+      "answer": 0,
+      "explanation": "print()是Python内置的输出函数，用于将信息打印到控制台。input()用于读取输入，output()和write()不是Python内置函数。\n\n正确答案是A选项：`1 2`"
+    },
+    {
+      "id": "exam062",
+      "difficulty": "medium",
+      "topic": "Python基础与OOP",
+      "question": "关于 `isinstance()` 和 `issubclass()`，说法正确的是（ ）",
+      "options": [
+        "`isinstance(obj, cls)` 检查 obj 是否是 cls 的实例",
+        "`issubclass(cls1, cls2)` 检查 cls1 是否是 cls2 的子类",
+        "两者都考虑继承关系",
+        "以上都对"
+      ],
+      "answer": 3,
+      "explanation": "isinstance()检查对象是否是类的实例（包括子类关系）。由于C继承自B继承自A，c是C的实例，也是A的子类的实例，因此isinstance(c, A)返回True。\n\n正确答案是D选项：以上都对"
+    },
+    {
+      "id": "exam063",
+      "difficulty": "hard",
+      "topic": "Python基础与OOP",
+      "question": "下列哪种方式可以创建对象的浅拷贝？（ ）",
+      "options": [
+        "赋值 `obj2 = obj1`",
+        "`copy.copy(obj1)`",
+        "`copy.deepcopy(obj1)`",
+        "`obj1.clone()`"
+      ],
+      "answer": 1,
+      "explanation": "浅拷贝（copy.copy()）创建新对象，但内部嵌套对象仍共享引用。赋值（obj2=obj1）只是创建引用，不是拷贝。\n\n正确答案是B选项：`copy.copy(obj1)`"
+    },
+    {
+      "id": "exam064",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于Python中的浅拷贝（Shallow Copy），下列说法正确的是？",
+      "options": [
+        "浅拷贝会递归地复制对象内的所有子对象。",
+        "使用`copy.deepcopy()`方法可以实现浅拷贝。",
+        "浅拷贝只复制父对象，对象内部的子对象不会被复制，而是共享引用。",
+        "对于不可变对象（如元组），浅拷贝和深拷贝的行为完全不同。"
+      ],
+      "answer": 2,
+      "explanation": "浅拷贝只复制父对象，对象内部的子对象不会被复制，而是共享引用。copy.copy()实现浅拷贝，copy.deepcopy()实现深拷贝。\n\n正确答案是C选项：浅拷贝只复制父对象，对象内部的子对象不会被复制，而是共享引用。"
+    },
+    {
+      "id": "exam065",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "执行以下代码后，`list_b`的值是什么？\n\n```python\n   1import copy\n   2list_a = [1, 2, [3, 4]]\n   3list_b = copy.copy(list_a)\n   4list_a[2].append(5)\n```",
+      "options": [
+        "`[1, 2, [3, 4]]`",
+        "`[1, 2, [3, 4, 5]]`",
+        "`[1, 2, [3, 4], 5]`",
+        "报错"
+      ],
+      "answer": 1,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是B选项：`[1, 2, [3, 4, 5]]`"
+    },
+    {
+      "id": "exam066",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下哪个模块提供了深拷贝（Deep Copy）的功能？",
+      "options": [
+        "`copy`",
+        "`clone`",
+        "`pickle`",
+        "`json`"
+      ],
+      "answer": 0,
+      "explanation": "深拷贝（copy.deepcopy()）递归复制对象及其所有子对象，创建完全独立的对象。copy模块同时提供了copy()和deepcopy()函数。\n\n正确答案是A选项：`copy`"
+    },
+    {
+      "id": "exam067",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "对于包含嵌套列表的字典`d = {'a': [1, 2]}`，执行`d_copy = d.copy()`后，修改`d['a'].append(3)`，`d_copy`的值会变为？",
+      "options": [
+        "`{'a': [1, 2]}`",
+        "`{'a': [1, 2, 3]}`",
+        "`{'a': [3]}`",
+        "报错"
+      ],
+      "answer": 1,
+      "explanation": "字典的copy()方法执行的是浅拷贝。对于包含嵌套列表的字典，浅拷贝只复制字典本身，嵌套列表仍然是共享引用。\n\n正确答案是B选项：`{'a': [1, 2, 3]}`"
+    },
+    {
+      "id": "exam068",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于Python中的闭包（Closure），以下描述错误的是？",
+      "options": [
+        "闭包是指在一个函数内部定义的另一个函数。",
+        "内部函数可以引用外部函数的变量。",
+        "即使外部函数已经执行完毕，闭包仍然可以访问其作用域中的变量。",
+        "闭包中的变量一旦创建就无法被修改。"
+      ],
+      "answer": 3,
+      "explanation": "闭包是指在一个函数内部定义的另一个函数，内部函数可以引用外部函数的变量。即使外部函数已经执行完毕，闭包仍然可以访问其作用域中的变量。闭包用于数据隐藏和创建带有状态的函数。\n\n正确答案是D选项：闭包中的变量一旦创建就无法被修改。"
+    },
+    {
+      "id": "exam069",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "分析以下代码，`counter(5)`的返回值是多少？\n\n```python\n   1def create_multiplier(n):\n   2    def multiplier(x):\n   3        return x * n\n   4    return multiplier\n   5\n   6counter = create_multiplier(2)\n   7result = counter(5)\n```",
+      "options": [
+        "5",
+        "7",
+        "10",
+        "25"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是C选项：10"
+    },
+    {
+      "id": "exam070",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下代码的输出结果是什么？\n\n```python\n   1def outer_func(msg):\n   2    message = msg\n   3    def inner_func():\n   4        print(message)\n   5    return inner_func\n   6\n   7my_func = outer_func(\"Hello\")\n   8my_func()\n```",
+      "options": [
+        "报错，`message`未定义",
+        "`Hello`",
+        "`msg`",
+        "无输出"
+      ],
+      "answer": 1,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是B选项：`Hello`"
+    },
+    {
+      "id": "exam071",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "闭包的主要作用是什么？",
+      "options": [
+        "提高代码执行速度。",
+        "实现数据隐藏和创建带有状态的函数。",
+        "替代所有的类。",
+        "减少内存占用。"
+      ],
+      "answer": 1,
+      "explanation": "闭包是指在一个函数内部定义的另一个函数，内部函数可以引用外部函数的变量。即使外部函数已经执行完毕，闭包仍然可以访问其作用域中的变量。闭包用于数据隐藏和创建带有状态的函数。\n\n正确答案是B选项：实现数据隐藏和创建带有状态的函数。"
+    },
+    {
+      "id": "exam072",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于装饰器（Decorator），下列说法正确的是？",
+      "options": [
+        "装饰器是一个普通的函数，用于修改其他函数的行为。",
+        "装饰器只能在类的方法上使用。",
+        "使用装饰器会改变原函数的源代码。",
+        "一个函数只能被一个装饰器装饰。"
+      ],
+      "answer": 0,
+      "explanation": "装饰器是一个接收函数作为参数并返回新函数的可调用对象，用于在不修改原函数代码的情况下增加功能。使用@decorator语法糖等价于func = decorator(func)。\n\n正确答案是A选项：装饰器是一个普通的函数，用于修改其他函数的行为。"
+    },
+    {
+      "id": "exam073",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "`@staticmethod`和`@classmethod`都是Python中的内置装饰器，它们的区别是？",
+      "options": [
+        "`@staticmethod`需要`cls`参数，`@classmethod`需要`self`参数。",
+        "`@classmethod`的第一个参数是类本身（通常命名为`cls`），而`@staticmethod`不需要表示类或实例的参数。",
+        "`@staticmethod`可以访问类属性，而`@classmethod`不能。",
+        "两者没有区别，可以互换使用。"
+      ],
+      "answer": 1,
+      "explanation": "装饰器是一个接收函数作为参数并返回新函数的可调用对象，用于在不修改原函数代码的情况下增加功能。使用@decorator语法糖等价于func = decorator(func)。\n\n正确答案是B选项：`@classmethod`的第一个参数是类本身（通常命名为`cls`），而`@staticmethod`不需要表示类或实例的参数。"
+    },
+    {
+      "id": "exam074",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "分析以下代码，`say_hello()`函数被调用时，会先执行哪个函数？\n\n```python\n    1def decorator_one(func):\n    2    def wrapper():\n    3        print(\"Decorator One: Before\")\n    4        func()\n    5        print(\"Decorator One: After\")\n    6    return wrapper\n    7\n    8def decorator_two(func):\n    9    def wrapper():\n    10        print(\"Decorator Two: Before\")\n    11        func()\n    12        print(\"Decorator Two: After\")\n    13    return wrapper\n    14\n    15@decorator_one\n    16@decorator_two\n    17def say_hello():\n    18    print(\"Hello!\")\n    19\n    20say_hello()\n```",
+      "options": [
+        "`decorator_one`的`wrapper`",
+        "`decorator_two`的`wrapper`",
+        "`say_hello`",
+        "同时执行"
+      ],
+      "answer": 0,
+      "explanation": "装饰器是一个接收函数作为参数并返回新函数的可调用对象，用于在不修改原函数代码的情况下增加功能。使用@decorator语法糖等价于func = decorator(func)。\n\n正确答案是A选项：`decorator_one`的`wrapper`"
+    },
+    {
+      "id": "exam075",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "编写一个装饰器来记录函数的执行时间，通常需要导入哪个模块？",
+      "options": [
+        "`os`",
+        "`sys`",
+        "`time`",
+        "`datetime`"
+      ],
+      "answer": 2,
+      "explanation": "装饰器是一个接收函数作为参数并返回新函数的可调用对象，用于在不修改原函数代码的情况下增加功能。使用@decorator语法糖等价于func = decorator(func)。\n\n正确答案是C选项：`time`"
+    },
+    {
+      "id": "exam076",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "在面向对象编程中，关于“类”和“对象”的描述，正确的是？",
+      "options": [
+        "类是对象的实例。",
+        "对象是类的蓝图或模板。",
+        "类是对象的蓝图或模板，对象是类的实例。",
+        "类和对象是同一个概念。"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是C选项：类是对象的蓝图或模板，对象是类的实例。"
+    },
+    {
+      "id": "exam077",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "Python中，用于初始化新创建对象的特殊方法是？",
+      "options": [
+        "`__new__`",
+        "`__init__`",
+        "`__str__`",
+        "`__main__`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是B选项：`__init__`"
+    },
+    {
+      "id": "exam078",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "在类的方法定义中，第一个参数`self`代表什么？",
+      "options": [
+        "类本身",
+        "类的父类",
+        "类的实例对象",
+        "一个普通的参数，可以随意命名"
+      ],
+      "answer": 2,
+      "explanation": "在类的方法定义中，第一个参数self代表类的实例对象（不是类本身）。通过self可以访问实例属性和方法。self是一个约定名称，可以用其他名称，但不推荐。\n\n正确答案是C选项：类的实例对象"
+    },
+    {
+      "id": "exam079",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "下列关于继承的描述，错误的是？",
+      "options": [
+        "子类可以继承父类的属性和方法。",
+        "子类可以重写（Override）父类的方法。",
+        "Python不支持多重继承。",
+        "`super()`函数可以用来调用父类的方法。"
+      ],
+      "answer": 2,
+      "explanation": "Python支持多重继承（一个子类可以有多个直接父类）。子类可以继承父类的属性和方法，可以重写父类的方法。当多个父类有同名方法时，遵循MRO顺序。\n\n正确答案是C选项：Python不支持多重继承。"
+    },
+    {
+      "id": "exam080",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于封装（Encapsulation），以下说法正确的是？",
+      "options": [
+        "将数据和方法捆绑在一起，并对外隐藏内部实现细节。",
+        "意味着所有属性和方法都必须是公开的（public）。",
+        "在Python中，通过在变量名前加两个下划线`__`来强制实现私有化，无法从外部访问。",
+        "封装会降低代码的安全性。"
+      ],
+      "answer": 0,
+      "explanation": "封装将数据和方法捆绑在一起，对外隐藏内部实现细节。Python中通过在变量名前加两个下划线__实现名称改写，但并非强制私有（仍可通过_类名__属性名访问）。\n\n正确答案是A选项：将数据和方法捆绑在一起，并对外隐藏内部实现细节。"
+    },
+    {
+      "id": "exam081",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "分析以下代码，`p1.get_name()`的输出是什么？\n\n```python\n    1class Person:\n    2    def __init__(self, name):\n    3        self.__name = name  # 私有属性\n    4\n    5    def get_name(self):\n    6        return self.__name\n    7\n    8p1 = Person(\"Alice\")\n    9print(p1.get_name())\n```",
+      "options": [
+        "`Alice`",
+        "报错，无法访问私有属性",
+        "`__name`",
+        "`Person`"
+      ],
+      "answer": 0,
+      "explanation": "在类的方法定义中，第一个参数self代表类的实例对象（不是类本身）。通过self可以访问实例属性和方法。self是一个约定名称，可以用其他名称，但不推荐。\n\n正确答案是A选项：`Alice`"
+    },
+    {
+      "id": "exam082",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "多态（Polymorphism）在Python中主要体现在？",
+      "options": [
+        "一个类只能有一个父类。",
+        "不同的类可以对同一消息（方法调用）做出不同的响应。",
+        "变量可以随时改变其数据类型。",
+        "函数可以有多个返回值。"
+      ],
+      "answer": 1,
+      "explanation": "Python中的多态主要体现在不同的类可以对同一消息（方法调用）做出不同的响应。Python的\"鸭子类型\"使得即使没有继承关系，只要对象实现了相同的方法即可实现多态。\n\n正确答案是B选项：不同的类可以对同一消息（方法调用）做出不同的响应。"
+    },
+    {
+      "id": "exam083",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于`__str__`和`__repr__`方法，下列说法正确的是？",
+      "options": [
+        "`__str__`用于开发者调试，`__repr__`用于用户友好显示。",
+        "`__repr__`的目标是返回一个明确的、无歧义的字符串表示，理想情况下可以用来重建对象。",
+        "如果没有定义`__str__`，调用`str(obj)`时会报错。",
+        "两者功能完全相同。"
+      ],
+      "answer": 1,
+      "explanation": "__repr__的目标是返回一个明确的、无歧义的字符串表示，理想情况下可以用来重建对象。__str__用于用户友好显示。如果没有定义__str__，str(obj)会调用__repr__。\n\n正确答案是B选项：`__repr__`的目标是返回一个明确的、无歧义的字符串表示，理想情况下可以用来重建对象。"
+    },
+    {
+      "id": "exam084",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "执行以下代码，输出结果是？\n\n```python\n    1class A:\n    2    def __init__(self):\n    3        self.x = 1\n    4class B(A):\n    5    def __init__(self):\n    6        super().__init__()\n    7        self.x = 2\n    8        self.y = 3\n    9\n    10b = B()\n    11print(b.x, b.y)\n```",
+      "options": [
+        "`1 3`",
+        "`2 3`",
+        "`1 2`",
+        "`2 1`"
+      ],
+      "answer": 1,
+      "explanation": "在类的方法定义中，第一个参数self代表类的实例对象（不是类本身）。通过self可以访问实例属性和方法。self是一个约定名称，可以用其他名称，但不推荐。\n\n正确答案是B选项：`2 3`"
+    },
+    {
+      "id": "exam085",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下哪个选项是定义抽象基类（Abstract Base Class, ABC）的正确方式？",
+      "options": [
+        "继承`object`类。",
+        "继承`abc.ABC`类，并使用`@abstractmethod`装饰器。",
+        "在类名后加`Abstract`关键字。",
+        "Python不支持抽象基类。"
+      ],
+      "answer": 1,
+      "explanation": "定义抽象基类需要继承abc.ABC类，并使用@abstractmethod装饰器标记抽象方法。Python通过abc模块支持抽象基类。\n\n正确答案是B选项：继承`abc.ABC`类，并使用`@abstractmethod`装饰器。"
+    },
+    {
+      "id": "exam086",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于Python的垃圾回收机制，下列说法错误的是？",
+      "options": [
+        "Python主要使用引用计数来管理内存。",
+        "当一个对象的引用计数变为0时，它占用的内存会被立即回收。",
+        "垃圾回收机制可以完全避免内存泄漏。",
+        "循环引用可能导致对象无法被引用计数机制回收，需要额外的垃圾回收器来处理。"
+      ],
+      "answer": 2,
+      "explanation": "Python主要使用引用计数管理内存，当一个对象的引用计数变为0时立即回收内存。但循环引用可能导致内存泄漏，需要额外的垃圾回收器（gc模块）来处理。\n\n正确答案是C选项：垃圾回收机制可以完全避免内存泄漏。"
+    },
+    {
+      "id": "exam087",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下代码的输出是什么？\n\n```python\n    1def func(a, b=[]):\n    2    b.append(a)\n    3    return b\n    4\n    5print(func(1))\n    6print(func(2))\n```",
+      "options": [
+        "`[1]` 和 `[2]`",
+        "`[1]` 和 `[1, 2]`",
+        "`[1]` 和 `[2, 1]`",
+        "报错"
+      ],
+      "answer": 1,
+      "explanation": "Python函数的默认参数在函数定义时创建一次，多次调用共享同一个可变对象。第一次调用func(1)后b=[1]，第二次调用func(2)后b=[1,2]。\n\n正确答案是B选项：`[1]` 和 `[1, 2]`"
+    },
+    {
+      "id": "exam088",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "`*args`和`**kwargs`在函数定义中的作用是？",
+      "options": [
+        "`*args`用于接收任意数量的关键字参数，`**kwargs`用于接收任意数量的位置参数。",
+        "`*args`用于接收任意数量的位置参数，`**kwargs`用于接收任意数量的关键字参数。",
+        "两者都用于接收位置参数。",
+        "两者都用于接收关键字参数。"
+      ],
+      "answer": 1,
+      "explanation": "*args用于接收任意数量的位置参数（打包为元组），**kwargs用于接收任意数量的关键字参数（打包为字典）。\n\n正确答案是B选项：`*args`用于接收任意数量的位置参数，`**kwargs`用于接收任意数量的关键字参数。"
+    },
+    {
+      "id": "exam089",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下哪个是Python中的可迭代对象（Iterable）？",
+      "options": [
+        "整数（int）",
+        "浮点数（float）",
+        "列表（list）",
+        "以上都不是"
+      ],
+      "answer": 1,
+      "explanation": "列表（list）是可迭代对象（Iterable），实现了__iter__()方法。整数（int）和浮点数（float）不是可迭代对象。\n\n正确答案是B选项：浮点数（float）"
+    },
+    {
+      "id": "exam090",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "生成器（Generator）和列表（List）的主要区别是什么？",
+      "options": [
+        "生成器一次性生成所有元素并存储在内存中。",
+        "列表是惰性计算的，生成器是即时计算的。",
+        "生成器是惰性计算的，可以节省大量内存。",
+        "生成器只能用于数字，列表可以用于任何类型。"
+      ],
+      "answer": 2,
+      "explanation": "生成器是惰性计算的，按需生成值，可以节省大量内存（尤其是处理大数据集时）。使用yield关键字的函数是生成器函数。生成器表达式使用圆括号。\n\n正确答案是C选项：生成器是惰性计算的，可以节省大量内存。"
+    },
+    {
+      "id": "exam091",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "使用`yield`关键字的函数被称为？",
+      "options": [
+        "普通函数",
+        "递归函数",
+        "生成器函数",
+        "闭包函数"
+      ],
+      "answer": 2,
+      "explanation": "使用yield关键字的函数被称为生成器函数。调用生成器函数返回一个生成器对象，该对象可以迭代生成值。\n\n正确答案是C选项：生成器函数"
+    },
+    {
+      "id": "exam092",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下代码的输出是？\n\n```python\n    1gen = (x * 2 for x in range(3))\n    2print(list(gen))\n```",
+      "options": [
+        "`[0, 1, 2]`",
+        "`[0, 2, 4]`",
+        "`(0, 2, 4)`",
+        "报错"
+      ],
+      "answer": 3,
+      "explanation": "生成器表达式(x*2 for x in range(3))是惰性计算的，list(gen)将其转换为列表[0*2, 1*2, 2*2]=[0,2,4]。\n\n正确答案是D选项：报错"
+    },
+    {
+      "id": "exam093",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于`try...except...else...finally`语句，`else`代码块在何时执行？",
+      "options": [
+        "无论是否发生异常都会执行。",
+        "只有当`try`块中没有发生异常时才会执行。",
+        "只有当`try`块中发生异常时才会执行。",
+        "在`finally`块执行之后执行。"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是C选项：只有当`try`块中发生异常时才会执行。"
+    },
+    {
+      "id": "exam094",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下代码会捕获哪种异常？\n\n```python\n    1try:\n    2    result = 10 / 0\n    3except ZeroDivisionError:\n    4    print(\"除零错误\")\n```",
+      "options": [
+        "`ValueError`",
+        "`TypeError`",
+        "`ZeroDivisionError`",
+        "`NameError`"
+      ],
+      "answer": 2,
+      "explanation": "10/0会引发ZeroDivisionError（除零错误），被except ZeroDivisionError捕获。\n\n正确答案是C选项：`ZeroDivisionError`"
+    },
+    {
+      "id": "exam095",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "使用`with`语句打开文件的主要优点是什么？",
+      "options": [
+        "可以提高文件读取速度。",
+        "可以自动关闭文件，即使发生异常。",
+        "可以同时打开多个文件。",
+        "可以加密文件内容。"
+      ],
+      "answer": 2,
+      "explanation": "with语句的主要优点是可以自动关闭文件（调用__exit__方法），即使发生异常。这确保资源被正确释放。\n\n正确答案是C选项：可以同时打开多个文件。"
+    },
+    {
+      "id": "exam096",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "正则表达式`r'\\d+'`匹配的是？",
+      "options": [
+        "一个或多个字母字符",
+        "一个或多个数字字符",
+        "一个或多个空白字符",
+        "一个或多个特殊字符"
+      ],
+      "answer": 1,
+      "explanation": "正则表达式r'\\d+'匹配一个或多个数字字符。\\d表示数字，+表示一个或多个。\n\n正确答案是B选项：一个或多个数字字符"
+    },
+    {
+      "id": "exam097",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "`lambda`函数通常用于？",
+      "options": [
+        "定义复杂的、多行的函数。",
+        "定义简单的、单行的匿名函数。",
+        "定义类的构造方法。",
+        "定义装饰器。"
+      ],
+      "answer": 2,
+      "explanation": "lambda用于定义简单的单行匿名函数。lambda x, y: x + y定义了一个接受两个参数并返回它们和的函数。调用f(3,4)返回7。\n\n正确答案是C选项：定义类的构造方法。"
+    },
+    {
+      "id": "exam098",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下`lambda`表达式的返回值是什么？\n\n```python\n    1f = lambda x, y: x + y\n    2f(3, 4)\n```",
+      "options": [
+        "`7`",
+        "`12`",
+        "`'34'`",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "lambda用于定义简单的单行匿名函数。lambda x, y: x + y定义了一个接受两个参数并返回它们和的函数。调用f(3,4)返回7。\n\n正确答案是A选项：`7`"
+    },
+    {
+      "id": "exam099",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "`map(function, iterable)`函数的作用是？",
+      "options": [
+        "过滤`iterable`中的元素。",
+        "将`function`应用于`iterable`的每个元素，并返回一个迭代器。",
+        "对`iterable`中的元素进行排序。",
+        "查找`iterable`中的最大值。"
+      ],
+      "answer": 1,
+      "explanation": "map(function, iterable)将function应用于iterable的每个元素，并返回一个迭代器（惰性求值）。这与列表推导式类似。\n\n正确答案是B选项：将`function`应用于`iterable`的每个元素，并返回一个迭代器。"
+    },
+    {
+      "id": "exam100",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "`filter(function, iterable)`函数的作用是？",
+      "options": [
+        "将`function`应用于`iterable`的每个元素。",
+        "根据`function`的返回值（True/False）来过滤`iterable`中的元素。",
+        "合并两个`iterable`。",
+        "反转`iterable`。"
+      ],
+      "answer": 1,
+      "explanation": "filter(function, iterable)根据function的返回值（True/False）来过滤iterable中的元素，只保留返回True的元素。\n\n正确答案是B选项：根据`function`的返回值（True/False）来过滤`iterable`中的元素。"
+    },
+    {
+      "id": "exam101",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "关于Python的GIL（全局解释器锁），下列说法正确的是？",
+      "options": [
+        "GIL使得Python的多线程可以充分利用多核CPU。",
+        "GIL是一个互斥锁，它保证同一时刻只有一个线程在执行Python字节码。",
+        "GIL只在多进程编程中存在。",
+        "GIL可以提高I/O密集型任务的性能。"
+      ],
+      "answer": 1,
+      "explanation": "GIL（全局解释器锁）是CPython中的一个互斥锁，它保证同一时刻只有一个线程执行Python字节码。这使得多线程无法充分利用多核CPU。\n\n正确答案是B选项：GIL是一个互斥锁，它保证同一时刻只有一个线程在执行Python字节码。"
+    },
+    {
+      "id": "exam102",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "对于CPU密集型任务，为了提高性能，应该优先使用？",
+      "options": [
+        "多线程（`threading`模块）",
+        "多进程（`multiprocessing`模块）",
+        "协程（`asyncio`模块）",
+        "以上都可以，效果一样"
+      ],
+      "answer": 1,
+      "explanation": "对于CPU密集型任务，由于GIL的存在，多线程无法提高性能，应使用多进程（multiprocessing模块）来利用多核CPU。\n\n正确答案是B选项：多进程（`multiprocessing`模块）"
+    },
+    {
+      "id": "exam103",
+      "difficulty": "hard",
+      "topic": "闭包与装饰器",
+      "question": "以下哪个选项可以正确地创建一个集合（Set）？",
+      "options": [
+        "`s = {}`",
+        "`s = []`",
+        "`s = set()`",
+        "`s = ()`"
+      ],
+      "answer": 2,
+      "explanation": "本题考查Python高级编程概念。\n\n正确答案是C选项：`s = set()`"
+    },
+    {
+      "id": "exam104",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于Python中的深拷贝与浅拷贝，下列说法正确的是（）",
+      "options": [
+        "浅拷贝会递归地复制对象及其内部的所有子对象",
+        "深拷贝只复制对象的顶层结构，内部嵌套的对象仍然是引用",
+        "对于只包含不可变对象（如整数、字符串）的列表，深拷贝和浅拷贝的效果在数据表现上通常一致",
+        "使用`copy.copy()`进行深拷贝比`copy.deepcopy()`速度快且更安全"
+      ],
+      "answer": 2,
+      "explanation": "对于只包含不可变对象（如整数、字符串）的列表，深拷贝和浅拷贝的效果在数据表现上通常一致，因为不可变对象无法被修改，共享引用是安全的。\n\n正确答案是C选项：对于只包含不可变对象（如整数、字符串）的列表，深拷贝和浅拷贝的效果在数据表现上通常一致"
+    },
+    {
+      "id": "exam105",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "在Python中，关于递归函数的描述，错误的是（）",
+      "options": [
+        "递归函数必须包含一个或多个基准情况（Base Case）以终止递归",
+        "递归深度没有限制，可以无限递归下去",
+        "递归可以使代码更简洁，但可能会带来栈溢出的风险",
+        "计算阶乘是递归的一个典型应用场景"
+      ],
+      "answer": 1,
+      "explanation": "递归深度有限制（默认约1000层），超出会引发RecursionError。计算斐波那契时，朴素递归存在大量重复计算（指数级复杂度），效率极低。\n\n正确答案是B选项：递归深度没有限制，可以无限递归下去"
+    },
+    {
+      "id": "exam106",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "下列关于Python进程与线程的描述，正确的是（）",
+      "options": [
+        "线程是操作系统资源分配的最小单位",
+        "进程是CPU调度和分派的基本单位",
+        "同一进程内的多个线程共享该进程的内存空间",
+        "一个进程崩溃不会影响同一进程内的其他线程"
+      ],
+      "answer": 2,
+      "explanation": "进程是操作系统资源分配的最小单位，线程是CPU调度和分派的基本单位。同一进程内的多个线程共享该进程的内存空间。\n\n正确答案是C选项：同一进程内的多个线程共享该进程的内存空间"
+    },
+    {
+      "id": "exam107",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于Python的`threading`模块，下列说法错误的是（）",
+      "options": [
+        "`threading.Thread`类用于创建线程对象",
+        "调用线程对象的`start()`方法会启动线程并执行`run()`方法中的代码",
+        "线程的`join()`方法用于阻塞当前线程，直到被调用的线程执行完毕",
+        "`threading`模块可以完全利用多核CPU的优势进行并行计算"
+      ],
+      "answer": 3,
+      "explanation": "本题考查并发编程的核心概念。\n\n正确答案是D选项：`threading`模块可以完全利用多核CPU的优势进行并行计算"
+    },
+    {
+      "id": "exam108",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "Python中全局解释器锁（GIL）的主要作用是（）",
+      "options": [
+        "防止多个线程同时修改全局变量",
+        "确保同一时刻只有一个线程执行Python字节码",
+        "提高多线程程序在I/O密集型任务中的执行效率",
+        "管理Python的内存分配和垃圾回收"
+      ],
+      "answer": 1,
+      "explanation": "GIL（全局解释器锁）确保同一时刻只有一个线程执行Python字节码。这是CPython解释器的一个特性，简化了内存管理但限制了并行性。\n\n正确答案是B选项：确保同一时刻只有一个线程执行Python字节码"
+    },
+    {
+      "id": "exam109",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于协程（Coroutine），下列说法正确的是（）",
+      "options": [
+        "协程是比线程更轻量级的存在，其调度完全由用户程序控制",
+        "协程只能在单线程中运行，无法实现并发",
+        "使用`async`关键字定义的函数，调用时会立即执行函数体",
+        "`await`关键字只能用在普通的`def`定义的函数中"
+      ],
+      "answer": 0,
+      "explanation": "协程是比线程更轻量级的用户态并发单位，其调度完全由用户程序控制而非操作系统。协程在单线程内实现并发，切换开销远小于线程。\n\n正确答案是A选项：协程是比线程更轻量级的存在，其调度完全由用户程序控制"
+    },
+    {
+      "id": "exam110",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "下列代码片段中，关于装饰器的作用描述正确的是（）\n\n```python\ndef my_decorator(func):\n    def wrapper():\n        print(\"Something is happening before the function is called.\")\n        func()\n        print(\"Something is happening after the function is called.\")\n    return wrapper\n\n@my_decorator\ndef say_whee():\n    print(\"Whee!\")\n```",
+      "options": [
+        "`say_whee()`函数被调用时，只会打印\"Whee!\"",
+        "`my_decorator`是一个普通的函数，与装饰器模式无关",
+        "`@my_decorator`语法糖等价于`say_whee = my_decorator(say_whee)`",
+        "装饰器会修改原函数`say_whee`的函数名和文档字符串，使其变为`wrapper`"
+      ],
+      "answer": 2,
+      "explanation": "@my_decorator语法糖等价于say_whee = my_decorator(say_whee)。装饰器会在不修改原函数源码的情况下增强其功能。\n\n正确答案是C选项：`@my_decorator`语法糖等价于`say_whee = my_decorator(say_whee)`"
+    },
+    {
+      "id": "exam111",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于闭包（Closure），下列说法错误的是（）",
+      "options": [
+        "闭包是指一个函数对象，它可以记住并访问定义时的词法作用域",
+        "闭包必须包含一个内部函数",
+        "内部函数必须引用外部函数的变量才能形成闭包",
+        "闭包中的变量一旦创建，就不能在外部被修改"
+      ],
+      "answer": 3,
+      "explanation": "本题考查并发编程的核心概念。\n\n正确答案是D选项：闭包中的变量一旦创建，就不能在外部被修改"
+    },
+    {
+      "id": "exam112",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "在Python中，实现多进程主要使用的模块是（）",
+      "options": [
+        "`threading`",
+        "`asyncio`",
+        "`multiprocessing`",
+        "`concurrent.futures`（仅用于线程）"
+      ],
+      "answer": 2,
+      "explanation": "Python中实现多进程主要使用multiprocessing模块。multiprocessing.Queue用于进程间通信，threading.Queue用于线程间通信。\n\n正确答案是C选项：`multiprocessing`"
+    },
+    {
+      "id": "exam113",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于`multiprocessing.Queue`和`threading.Queue`，下列说法正确的是（）",
+      "options": [
+        "两者完全通用，可以互换使用",
+        "`multiprocessing.Queue`用于进程间通信，`threading.Queue`用于线程间通信",
+        "`threading.Queue`比`multiprocessing.Queue`性能更好，因为不需要序列化",
+        "`multiprocessing.Queue`不能在不同进程间传递数据"
+      ],
+      "answer": 1,
+      "explanation": "Python中实现多进程主要使用multiprocessing模块。multiprocessing.Queue用于进程间通信，threading.Queue用于线程间通信。\n\n正确答案是B选项：`multiprocessing.Queue`用于进程间通信，`threading.Queue`用于线程间通信"
+    },
+    {
+      "id": "exam114",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "下列哪种场景最适合使用多线程（）",
+      "options": [
+        "进行大量的数学矩阵运算（CPU密集型）",
+        "处理大规模图像渲染（CPU密集型）",
+        "网络爬虫抓取大量网页（I/O密集型）",
+        "视频编码压缩（CPU密集型）"
+      ],
+      "answer": 2,
+      "explanation": "多线程最适合I/O密集型任务，如网络爬虫抓取大量网页。CPU密集型任务（如矩阵运算、图像渲染）应使用多进程。\n\n正确答案是C选项：网络爬虫抓取大量网页（I/O密集型）"
+    },
+    {
+      "id": "exam115",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于`asyncio`库中的事件循环（Event Loop），下列说法错误的是（）",
+      "options": [
+        "事件循环是异步编程的核心，负责调度和执行协程",
+        "一个程序中只能有一个事件循环",
+        "事件循环会不断轮询，检查是否有任务就绪",
+        "`asyncio.run()`是Python 3.7+推荐的运行异步程序的方式"
+      ],
+      "answer": 1,
+      "explanation": "事件循环是异步编程的核心，负责调度和执行协程。asyncio.run()是Python 3.7+推荐的运行异步程序的方式。一个程序可以创建多个事件循环。\n\n正确答案是B选项：一个程序中只能有一个事件循环"
+    },
+    {
+      "id": "exam116",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "下列关于`copy`模块的说法，正确的是（）",
+      "options": [
+        "`copy.copy()`对不可变对象（如元组）进行拷贝时，会创建一个新的对象",
+        "`copy.deepcopy()`会拷贝对象及其所有子对象，无论子对象是否可变",
+        "对于自定义类的实例，浅拷贝不会拷贝其`__dict__`属性",
+        "浅拷贝的速度一定比深拷贝慢，因为它需要递归"
+      ],
+      "answer": 1,
+      "explanation": "copy.deepcopy()会递归地拷贝对象及其所有子对象，无论子对象是否可变。浅拷贝不会拷贝嵌套的子对象。\n\n正确答案是B选项：`copy.deepcopy()`会拷贝对象及其所有子对象，无论子对象是否可变"
+    },
+    {
+      "id": "exam117",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于线程锁（Lock），下列说法正确的是（）",
+      "options": [
+        "锁可以被多个线程同时获取",
+        "使用锁的目的是为了提高程序的运行速度",
+        "锁用于保护共享资源，防止多个线程同时访问造成数据不一致",
+        "一旦线程获取了锁，就永远不需要释放"
+      ],
+      "answer": 2,
+      "explanation": "线程锁（Lock）用于保护共享资源，防止多个线程同时访问造成数据不一致。锁只能被一个线程获取，使用后必须释放。\n\n正确答案是C选项：锁用于保护共享资源，防止多个线程同时访问造成数据不一致"
+    },
+    {
+      "id": "exam118",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "递归函数计算斐波那契数列（如`fib(n) = fib(n-1) + fib(n-2)`）的主要缺点是（）",
+      "options": [
+        "代码过于复杂，难以理解",
+        "存在大量的重复计算，效率极低",
+        "无法计算较大的`n`值",
+        "必须使用`while`循环才能实现"
+      ],
+      "answer": 1,
+      "explanation": "递归深度有限制（默认约1000层），超出会引发RecursionError。计算斐波那契时，朴素递归存在大量重复计算（指数级复杂度），效率极低。\n\n正确答案是B选项：存在大量的重复计算，效率极低"
+    },
+    {
+      "id": "exam119",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于装饰器带参数的情况，下列说法正确的是（）",
+      "options": [
+        "装饰器不能带参数",
+        "带参数的装饰器需要三层函数嵌套",
+        "带参数的装饰器只需要两层函数嵌套",
+        "`@decorator(arg)`等价于`func = decorator(func, arg)`"
+      ],
+      "answer": 1,
+      "explanation": "带参数的装饰器需要三层函数嵌套：外层接收参数，中间层接收函数，内层包装函数。@decorator(arg)等价于func = decorator(arg)(func)。\n\n正确答案是B选项：带参数的装饰器需要三层函数嵌套"
+    },
+    {
+      "id": "exam120",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "在Python中，`if __name__ == '__main__':`在多进程编程中的作用是（）",
+      "options": [
+        "防止子进程无限递归创建新进程（尤其是在Windows上）",
+        "确保只有主进程才能执行后续代码",
+        "提高程序的运行速度",
+        "这是一个可选的语法，不加也可以正常运行"
+      ],
+      "answer": 0,
+      "explanation": "Python中实现多进程主要使用multiprocessing模块。multiprocessing.Queue用于进程间通信，threading.Queue用于线程间通信。\n\n正确答案是A选项：防止子进程无限递归创建新进程（尤其是在Windows上）"
+    },
+    {
+      "id": "exam121",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于协程的状态，下列说法错误的是（）",
+      "options": [
+        "协程可以处于挂起（Suspended）状态",
+        "协程可以处于运行（Running）状态",
+        "协程一旦挂起，就无法恢复执行",
+        "`await`表达式会导致协程挂起，等待异步操作完成"
+      ],
+      "answer": 2,
+      "explanation": "协程是比线程更轻量级的用户态并发单位，其调度完全由用户程序控制而非操作系统。协程在单线程内实现并发，切换开销远小于线程。\n\n正确答案是C选项：协程一旦挂起，就无法恢复执行"
+    },
+    {
+      "id": "exam122",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于`concurrent.futures`模块的描述，错误的是（）",
+      "options": [
+        "它提供了`ThreadPoolExecutor`和`ProcessPoolExecutor`两个类",
+        "它可以简化多线程和多进程编程",
+        "`Future`对象代表一个异步计算的结果",
+        "它不支持提交多个任务并等待所有任务完成"
+      ],
+      "answer": 3,
+      "explanation": "concurrent.futures模块提供了ThreadPoolExecutor和ProcessPoolExecutor，简化了多线程/多进程编程。Future对象代表一个异步计算的结果。\n\n正确答案是D选项：它不支持提交多个任务并等待所有任务完成"
+    },
+    {
+      "id": "exam123",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于浅拷贝，下列说法正确的是（）",
+      "options": [
+        "浅拷贝会创建一个全新的对象，并且该对象内部的所有元素也是全新的",
+        "浅拷贝只复制父对象，子对象（嵌套的对象）仍然通过引用共享",
+        "浅拷贝使用`copy.deepcopy()`函数实现",
+        "对浅拷贝得到的对象的子对象进行修改，不会影响原对象"
+      ],
+      "answer": 1,
+      "explanation": "对于只包含不可变对象（如整数、字符串）的列表，深拷贝和浅拷贝的效果在数据表现上通常一致，因为不可变对象无法被修改，共享引用是安全的。\n\n正确答案是B选项：浅拷贝只复制父对象，子对象（嵌套的对象）仍然通过引用共享"
+    },
+    {
+      "id": "exam124",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "在Python中，关于`threading.Event`对象，下列说法正确的是（）",
+      "options": [
+        "它用于在线程之间传递数据",
+        "它用于实现线程间的互斥",
+        "它用于线程间的简单信号通知，一个线程设置事件，其他线程等待事件",
+        "它用于限制同时访问某个资源的线程数量"
+      ],
+      "answer": 2,
+      "explanation": "threading.Event用于线程间的简单信号通知。一个线程设置事件（set()），其他线程等待事件（wait()）被设置。\n\n正确答案是C选项：它用于线程间的简单信号通知，一个线程设置事件，其他线程等待事件"
+    },
+    {
+      "id": "exam125",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于递归的基准情况（Base Case），下列说法错误的是（）",
+      "options": [
+        "基准情况是递归终止的条件",
+        "没有基准情况，递归会无限进行下去，导致栈溢出",
+        "一个递归函数只能有一个基准情况",
+        "基准情况通常是问题规模最小的情况，可以直接求解"
+      ],
+      "answer": 2,
+      "explanation": "递归深度有限制（默认约1000层），超出会引发RecursionError。计算斐波那契时，朴素递归存在大量重复计算（指数级复杂度），效率极低。\n\n正确答案是C选项：一个递归函数只能有一个基准情况"
+    },
+    {
+      "id": "exam126",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "下列关于Python进程通信的说法，错误的是（）",
+      "options": [
+        "进程间可以通过`multiprocessing.Queue`进行通信",
+        "进程间可以通过`multiprocessing.Pipe`进行通信",
+        "进程间可以通过共享内存（`multiprocessing.Value`或`multiprocessing.Array`）进行通信",
+        "进程间不能共享任何数据，因为它们是独立的"
+      ],
+      "answer": 3,
+      "explanation": "进程间可以通过multiprocessing.Queue、Pipe、共享内存（Value/Array）等多种方式通信。进程之间并非完全独立，可以通过这些机制共享数据。\n\n正确答案是D选项：进程间不能共享任何数据，因为它们是独立的"
+    },
+    {
+      "id": "exam127",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于装饰器，下列说法错误的是（）",
+      "options": [
+        "装饰器本质上是一个函数",
+        "装饰器可以接受函数作为参数",
+        "装饰器可以修改原函数的行为",
+        "一个函数只能被一个装饰器装饰"
+      ],
+      "answer": 3,
+      "explanation": "本题考查并发编程的核心概念。\n\n正确答案是D选项：一个函数只能被一个装饰器装饰"
+    },
+    {
+      "id": "exam128",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于协程和线程的区别，下列说法正确的是（）",
+      "options": [
+        "协程是抢占式调度，线程是协作式调度",
+        "协程的切换开销比线程大",
+        "协程在单线程内实现并发，线程可以由操作系统调度到多核上并行",
+        "协程可以访问线程的局部变量"
+      ],
+      "answer": 2,
+      "explanation": "协程是比线程更轻量级的用户态并发单位，其调度完全由用户程序控制而非操作系统。协程在单线程内实现并发，切换开销远小于线程。\n\n正确答案是C选项：协程在单线程内实现并发，线程可以由操作系统调度到多核上并行"
+    },
+    {
+      "id": "exam129",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "下列关于`copy`模块中`deepcopy`的实现原理，描述最准确的是（）",
+      "options": [
+        "它只复制对象的`__dict__`属性",
+        "它会递归地复制对象及其所有子对象，但对于不可变对象（如整数、字符串）可能仍会共享引用",
+        "它通过序列化和反序列化对象来实现深拷贝",
+        "它只复制对象的顶层，不复制嵌套对象"
+      ],
+      "answer": 1,
+      "explanation": "copy.deepcopy()会递归地拷贝对象及其所有子对象，无论子对象是否可变。浅拷贝不会拷贝嵌套的子对象。\n\n正确答案是B选项：它会递归地复制对象及其所有子对象，但对于不可变对象（如整数、字符串）可能仍会共享引用"
+    },
+    {
+      "id": "exam130",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于`multiprocessing.Pool`，下列说法错误的是（）",
+      "options": [
+        "它可以创建一个进程池",
+        "`Pool.map()`方法可以将一个函数应用到一个可迭代对象的每个元素上",
+        "进程池中的进程数量默认是CPU的核心数",
+        "`Pool`只能用于CPU密集型任务，不能用于I/O密集型任务"
+      ],
+      "answer": 3,
+      "explanation": "Python中实现多进程主要使用multiprocessing模块。multiprocessing.Queue用于进程间通信，threading.Queue用于线程间通信。\n\n正确答案是D选项：`Pool`只能用于CPU密集型任务，不能用于I/O密集型任务"
+    },
+    {
+      "id": "exam131",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于闭包，下列说法正确的是（）",
+      "options": [
+        "闭包中的外部函数变量在内部函数被调用时才会被创建",
+        "闭包可以访问和修改外部函数的局部变量（使用`nonlocal`关键字）",
+        "闭包中的内部函数不能作为返回值返回",
+        "闭包会使得外部函数的局部变量在外部函数返回后立即被销毁"
+      ],
+      "answer": 1,
+      "explanation": "本题考查并发编程的核心概念。\n\n正确答案是B选项：闭包可以访问和修改外部函数的局部变量（使用`nonlocal`关键字）"
+    },
+    {
+      "id": "exam132",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "在Python中，关于`threading.RLock`（可重入锁），下列说法正确的是（）",
+      "options": [
+        "它和普通锁`Lock`没有区别",
+        "同一个线程可以多次获取同一个`RLock`，而不会导致死锁",
+        "`RLock`只能被一个线程获取，即使该线程已经持有了锁",
+        "使用`RLock`时，不需要调用`release()`方法"
+      ],
+      "answer": 1,
+      "explanation": "线程锁（Lock）用于保护共享资源，防止多个线程同时访问造成数据不一致。锁只能被一个线程获取，使用后必须释放。\n\n正确答案是B选项：同一个线程可以多次获取同一个`RLock`，而不会导致死锁"
+    },
+    {
+      "id": "exam133",
+      "difficulty": "hard",
+      "topic": "线程进程协程",
+      "question": "关于异步编程中的`await`关键字，下列说法错误的是（）",
+      "options": [
+        "`await`只能用在`async def`定义的协程函数中",
+        "`await`后面通常跟着一个可等待对象（如协程、Future、Task）",
+        "`await`会阻塞整个程序的执行，直到异步操作完成",
+        "`await`会让出当前协程的执行权，允许事件循环运行其他任务"
+      ],
+      "answer": 2,
+      "explanation": "await只能用在async def定义的协程函数中，后面跟着可等待对象。await会挂起当前协程但不阻塞整个程序（让出执行权给事件循环运行其他任务）。\n\n正确答案是C选项：`await`会阻塞整个程序的执行，直到异步操作完成"
+    },
+    {
+      "id": "exam134",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个 IP 地址是 IPv4 的环回地址（Loopback）？",
+      "options": [
+        "0.0.0.0",
+        "127.0.0.1",
+        "192.168.1.1",
+        "255.255.255.255"
+      ],
+      "answer": 1,
+      "explanation": "127.0.0.1是IPv4的环回地址（Loopback），用于本机内部网络通信。0.0.0.0表示所有网络接口，192.168.1.1是私有地址，255.255.255.255是广播地址。\n\n正确答案是B选项：127.0.0.1"
+    },
+    {
+      "id": "exam135",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "TCP 协议属于 OSI 模型中的哪一层？",
+      "options": [
+        "网络层",
+        "传输层",
+        "会话层",
+        "应用层"
+      ],
+      "answer": 1,
+      "explanation": "TCP协议属于OSI模型中的传输层（第4层），提供端到端的可靠通信。网络层（第3层）负责路由和寻址（IP协议）。\n\n正确答案是B选项：传输层"
+    },
+    {
+      "id": "exam136",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "UDP 协议的首部长度固定为多少字节？",
+      "options": [
+        "8 字节",
+        "20 字节",
+        "32 字节",
+        "64 字节"
+      ],
+      "answer": 0,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是A选项：8 字节"
+    },
+    {
+      "id": "exam137",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个端口号通常用于 HTTP 服务？",
+      "options": [
+        "21",
+        "22",
+        "80",
+        "443"
+      ],
+      "answer": 2,
+      "explanation": "端口80通常用于HTTP服务，443用于HTTPS，21用于FTP，22用于SSH。\n\n正确答案是C选项：80"
+    },
+    {
+      "id": "exam138",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "关于 TCP 和 UDP 的描述，正确的是？",
+      "options": [
+        "TCP 比 UDP 传输速度更快",
+        "UDP 提供可靠的数据传输",
+        "TCP 是面向连接的协议",
+        "UDP 会进行流量控制"
+      ],
+      "answer": 2,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是C选项：TCP 是面向连接的协议"
+    },
+    {
+      "id": "exam139",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "在 Python 中，创建 UDP 套接字应使用哪个参数？",
+      "options": [
+        "`socket.SOCK_STREAM`",
+        "`socket.SOCK_DGRAM`",
+        "`socket.SOCK_RAW`",
+        "`socket.SOCK_RDM`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是B选项：`socket.SOCK_DGRAM`"
+    },
+    {
+      "id": "exam140",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个 IP 地址属于私有 IP 地址范围？",
+      "options": [
+        "8.8.8.8",
+        "172.16.0.1",
+        "1.1.1.1",
+        "9.9.9.9"
+      ],
+      "answer": 1,
+      "explanation": "私有IP地址范围：10.0.0.0/8、172.16.0.0/12（172.16.0.1属于此范围）、192.168.0.0/16。8.8.8.8是Google的公共DNS，1.1.1.1是Cloudflare的公共DNS。\n\n正确答案是B选项：172.16.0.1"
+    },
+    {
+      "id": "exam141",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "TCP 协议使用什么机制保证数据的可靠传输？",
+      "options": [
+        "广播",
+        "确认与重传",
+        "组播",
+        "存储转发"
+      ],
+      "answer": 1,
+      "explanation": "TCP通过确认与重传（ACK和超时重传）机制保证数据的可靠传输。此外还有序列号、校验和、流量控制等机制。\n\n正确答案是B选项：确认与重传"
+    },
+    {
+      "id": "exam142",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "当 TCP 连接建立时，需要经过几次握手？",
+      "options": [
+        "1 次",
+        "2 次",
+        "3 次",
+        "4 次"
+      ],
+      "answer": 2,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是C选项：3 次"
+    },
+    {
+      "id": "exam143",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个应用通常使用 UDP 协议？",
+      "options": [
+        "网页浏览（HTTP）",
+        "电子邮件（SMTP）",
+        "域名解析（DNS）",
+        "文件传输（FTP）"
+      ],
+      "answer": 2,
+      "explanation": "DNS（域名解析）通常使用UDP协议，因为DNS查询通常是短小且一次的请求-响应。HTTP、SMTP、FTP使用TCP协议。\n\n正确答案是C选项：域名解析（DNS）"
+    },
+    {
+      "id": "exam144",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "端口号的范围是？",
+      "options": [
+        "0 – 255",
+        "0 – 1023",
+        "0 – 65535",
+        "1 – 10000"
+      ],
+      "answer": 2,
+      "explanation": "端口号范围是0-65535（16位无符号整数）。0-1023为知名端口，1024-49151为注册端口，49152-65535为动态/私有端口。\n\n正确答案是C选项：0 – 65535"
+    },
+    {
+      "id": "exam145",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个函数用于将 Python 字符串编码为字节串以便通过套接字发送？",
+      "options": [
+        "`str()`",
+        "`int()`",
+        "`encode()`",
+        "`format()`"
+      ],
+      "answer": 2,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是C选项：`encode()`"
+    },
+    {
+      "id": "exam146",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "在 TCP 四次挥手过程中，主动关闭连接的一方会进入什么状态？",
+      "options": [
+        "CLOSE_WAIT",
+        "TIME_WAIT",
+        "LISTEN",
+        "SYN_SENT"
+      ],
+      "answer": 1,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是B选项：TIME_WAIT"
+    },
+    {
+      "id": "exam147",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "UDP 的“无连接”特性意味着？",
+      "options": [
+        "发送数据前必须建立连接",
+        "发送数据前不需要建立连接",
+        "数据传输过程中会保持一条固定路径",
+        "必须使用三次握手"
+      ],
+      "answer": 1,
+      "explanation": "UDP的\"无连接\"特性意味着发送数据前不需要建立连接。发送方直接向目标IP和端口发送数据报即可。\n\n正确答案是B选项：发送数据前不需要建立连接"
+    },
+    {
+      "id": "exam148",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个是 TCP 的知名端口号（用于 SSH）？",
+      "options": [
+        "22",
+        "23",
+        "25",
+        "110"
+      ],
+      "answer": 0,
+      "explanation": "SSH（安全外壳协议）使用TCP端口22。端口23是Telnet，25是SMTP，110是POP3。\n\n正确答案是A选项：22"
+    },
+    {
+      "id": "exam149",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "当一台主机想要获取另一台主机的 MAC 地址时，会使用什么协议？ （注意：本题虽与 IP 相关，但属于网络层辅助协议，仍属于 IP 通信知识）",
+      "options": [
+        "ARP",
+        "ICMP",
+        "DNS",
+        "DHCP"
+      ],
+      "answer": 0,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是A选项：ARP"
+    },
+    {
+      "id": "exam150",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个 Python 方法用于接收 UDP 数据？",
+      "options": [
+        "`recv()`",
+        "`recvfrom()`",
+        "`read()`",
+        "`accept()`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是B选项：`recvfrom()`"
+    },
+    {
+      "id": "exam151",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "TCP 头部中用于标识数据字节顺序的字段是？",
+      "options": [
+        "校验和",
+        "窗口大小",
+        "序列号",
+        "紧急指针"
+      ],
+      "answer": 2,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是C选项：序列号"
+    },
+    {
+      "id": "exam152",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "若两台主机之间使用 UDP 发送 1000 个数据包，最可能发生的情况是？",
+      "options": [
+        "所有包一定会按序到达",
+        "所有包一定会全部到达",
+        "部分包可能丢失或乱序",
+        "必须先建立连接"
+      ],
+      "answer": 2,
+      "explanation": "UDP是不可靠协议，发送1000个数据包时，部分包可能丢失或乱序到达。UDP不保证可靠交付和顺序。\n\n正确答案是C选项：部分包可能丢失或乱序"
+    },
+    {
+      "id": "exam153",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下哪个 IP 地址表示“所有网络”或“默认路由”？",
+      "options": [
+        "0.0.0.0",
+        "255.255.255.255",
+        "127.0.0.1",
+        "192.168.0.0"
+      ],
+      "answer": 0,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是A选项：0.0.0.0"
+    },
+    {
+      "id": "exam154",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "在 Python 中，创建一个 TCP 套接字的正确代码是？",
+      "options": [
+        "`socket.socket(socket.AF_INET, socket.SOCK_DGRAM)`",
+        "`socket.socket(socket.AF_INET, socket.SOCK_STREAM)`",
+        "`socket.socket(socket.AF_INET6, socket.SOCK_RAW)`",
+        "`socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是B选项：`socket.socket(socket.AF_INET, socket.SOCK_STREAM)`"
+    },
+    {
+      "id": "exam155",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "以下关于端口号的描述，错误的是？",
+      "options": [
+        "0~1023 端口为知名端口，通常固定分配给特定服务",
+        "1024~49151 为注册端口，可由普通用户程序使用",
+        "49152~65535 为动态或私有端口",
+        "端口号最大为 99999"
+      ],
+      "answer": 3,
+      "explanation": "本题考查网络编程的基础概念。\n\n正确答案是D选项：端口号最大为 99999"
+    },
+    {
+      "id": "exam156",
+      "difficulty": "hard",
+      "topic": "网络编程",
+      "question": "当使用 `socket.bind(('0.0.0.0', 8888))` 时，含义是？",
+      "options": [
+        "只监听本地环回地址",
+        "监听本机所有可用的网络接口",
+        "监听本机第一个网络接口",
+        "监听任意远程主机的 8888 端口"
+      ],
+      "answer": 1,
+      "explanation": "socket.bind(('0.0.0.0', 8888))表示监听本机所有可用的网络接口（所有IP地址），而不是只监听某个特定IP。\n\n正确答案是B选项：监听本机所有可用的网络接口"
+    },
+    {
+      "id": "exam157",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在Python正则表达式中，用于匹配字符串开头的元字符是：",
+      "options": [
+        "`$`",
+        "`^`",
+        "`\\b`",
+        "`*`"
+      ],
+      "answer": 1,
+      "explanation": "^是正则表达式中匹配字符串开头的元字符。$匹配结尾，\\b匹配单词边界，*表示零个或多个。\n\n正确答案是B选项：`^`"
+    },
+    {
+      "id": "exam158",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "下列关于TCP协议和UDP协议的描述，错误的是：",
+      "options": [
+        "TCP是面向连接的协议，UDP是无连接的协议",
+        "TCP提供可靠的数据传输，UDP不保证数据的可靠性",
+        "UDP的传输速度通常比TCP快，适用于实时性要求高的场景",
+        "TCP和UDP都工作在OSI模型的网络层"
+      ],
+      "answer": 3,
+      "explanation": "本题考查正则表达式和文件操作的基本概念。\n\n正确答案是D选项：TCP和UDP都工作在OSI模型的网络层"
+    },
+    {
+      "id": "exam159",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在Python中，使用`open()`函数打开文件时，模式`'rb'`表示：",
+      "options": [
+        "以文本模式读取文件",
+        "以二进制模式写入文件",
+        "以二进制模式读取文件",
+        "以文本模式追加写入文件"
+      ],
+      "answer": 2,
+      "explanation": "模式'rb'表示以二进制模式读取文件。'r'是文本读取，'wb'是二进制写入，'ab'是二进制追加。\n\n正确答案是C选项：以二进制模式读取文件"
+    },
+    {
+      "id": "exam160",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "下列哪个正则表达式可以正确匹配一个标准的IPv4地址（如192.168.1.1）？",
+      "options": [
+        "`\\d+\\.\\d+\\.\\d+\\.\\d+`",
+        "`\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}`",
+        "`[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+`",
+        "以上都可以（注：仅从格式匹配角度，不考虑数值范围0-255的严格校验）"
+      ],
+      "answer": 3,
+      "explanation": "要匹配IPv4地址格式（如192.168.1.1），\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}可以匹配。虽然不严格校验0-255范围，但从格式匹配角度，A、B、C选项都可以。\n\n正确答案是D选项：以上都可以（注：仅从格式匹配角度，不考虑数值范围0-255的严格校验）"
+    },
+    {
+      "id": "exam161",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在Python的`socket`模块中，用于创建TCP套接字的代码是：",
+      "options": [
+        "`socket.socket(socket.AF_INET, socket.SOCK_DGRAM)`",
+        "`socket.socket(socket.AF_INET, socket.SOCK_STREAM)`",
+        "`socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)`",
+        "`socket.socket(socket.AF_INET, socket.SOCK_RAW)`"
+      ],
+      "answer": 1,
+      "explanation": "创建TCP套接字的代码是socket.socket(socket.AF_INET, socket.SOCK_STREAM)。SOCK_DGRAM用于UDP。\n\n正确答案是B选项：`socket.socket(socket.AF_INET, socket.SOCK_STREAM)`"
+    },
+    {
+      "id": "exam162",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "关于Python异常处理，下列说法正确的是：",
+      "options": [
+        "`try`块中发生异常后，`finally`块中的代码不会被执行",
+        "`except`块可以有多个，用于捕获不同类型的异常",
+        "`else`块只有在`try`块发生异常时才会执行",
+        "一个`try`块只能对应一个`except`块"
+      ],
+      "answer": 1,
+      "explanation": "try块可以有多个except块用于捕获不同类型的异常。finally块始终执行，else块只在try块没有异常时执行。\n\n正确答案是B选项：`except`块可以有多个，用于捕获不同类型的异常"
+    },
+    {
+      "id": "exam163",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "正则表达式`r'\\d{3}-\\d{4}'`可以匹配下列哪个字符串？",
+      "options": [
+        "`12-3456`",
+        "`123-4567`",
+        "`1234-567`",
+        "`1234567`"
+      ],
+      "answer": 1,
+      "explanation": "正则表达式r'\\d{3}-\\d{4}'匹配3个数字-4个数字的格式。123-4567符合此模式。\n\n正确答案是B选项：`123-4567`"
+    },
+    {
+      "id": "exam164",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在文件操作中，使用`with open('data.txt', 'w') as f:`的主要优势是：",
+      "options": [
+        "可以提高文件读写速度",
+        "可以自动关闭文件，即使在处理过程中发生异常",
+        "可以以二进制模式打开文件",
+        "可以同时读取和写入文件"
+      ],
+      "answer": 1,
+      "explanation": "with open()的主要优势是自动关闭文件，即使在处理过程中发生异常也会正确关闭。这是通过上下文管理器协议实现的。\n\n正确答案是B选项：可以自动关闭文件，即使在处理过程中发生异常"
+    },
+    {
+      "id": "exam165",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "下列关于UDP通信的描述，正确的是：",
+      "options": [
+        "通信前必须建立三次握手",
+        "数据传输是有序的",
+        "适合用于视频直播、语音通话等场景",
+        "接收端必须确认收到数据包"
+      ],
+      "answer": 2,
+      "explanation": "UDP适合用于视频直播、语音通话等实时性要求高但可容忍少量丢包的场景。UDP不需要建立连接，也不保证有序到达。\n\n正确答案是C选项：适合用于视频直播、语音通话等场景"
+    },
+    {
+      "id": "exam166",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "想要匹配包含至少一个数字的字符串，应使用的正则表达式是：",
+      "options": [
+        "`\\d*`",
+        "`\\d+`",
+        "`\\d?`",
+        "`\\D+`"
+      ],
+      "answer": 1,
+      "explanation": "本题考查正则表达式和文件操作的基本概念。\n\n正确答案是B选项：`\\d+`"
+    },
+    {
+      "id": "exam167",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在Python中，捕获所有标准异常基类的关键字是：",
+      "options": [
+        "`BaseException`",
+        "`Exception`",
+        "`Error`",
+        "`StandardError`"
+      ],
+      "answer": 1,
+      "explanation": "try块可以有多个except块用于捕获不同类型的异常。finally块始终执行，else块只在try块没有异常时执行。\n\n正确答案是B选项：`Exception`"
+    },
+    {
+      "id": "exam168",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "若要从字符串`\"Contact: admin@example.com\"`中提取邮箱地址，最合适的正则方法是：",
+      "options": [
+        "`re.match(r'\\w+@\\w+\\.\\w+', text)`",
+        "`re.search(r'\\w+@\\w+\\.\\w+', text)`",
+        "`re.split(r'\\w+@\\w+\\.\\w+', text)`",
+        "`re.sub(r'\\w+@\\w+\\.\\w+', '', text)`"
+      ],
+      "answer": 1,
+      "explanation": "re.search()在字符串中搜索匹配（返回第一个匹配），适合从字符串中提取子串。re.match()只从开头匹配。re.search(r'\\w+@\\w+\\.\\w+', text)可提取邮箱地址。\n\n正确答案是B选项：`re.search(r'\\w+@\\w+\\.\\w+', text)`"
+    },
+    {
+      "id": "exam169",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "文件指针操作`f.seek(0, 2)`的含义是：",
+      "options": [
+        "将指针移动到文件开头",
+        "将指针移动到当前位置之后",
+        "将指针移动到文件末尾",
+        "读取文件的第2个字节"
+      ],
+      "answer": 2,
+      "explanation": "f.seek(offset, whence)中，whence=0表示从开头，1表示当前位置，2表示末尾。f.seek(0, 2)将指针移动到文件末尾。\n\n正确答案是C选项：将指针移动到文件末尾"
+    },
+    {
+      "id": "exam170",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "关于TCP的“三次握手”，第一次握手是由谁发起的？",
+      "options": [
+        "服务器",
+        "客户端",
+        "路由器",
+        "防火墙"
+      ],
+      "answer": 1,
+      "explanation": "本题考查正则表达式和文件操作的基本概念。\n\n正确答案是B选项：客户端"
+    },
+    {
+      "id": "exam171",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "下列代码片段中，能够正确处理文件读取过程中可能出现的`FileNotFoundError`的是：\n\n```python\n1try:\n2    f = open('test.txt')\n3except IOError:\n4    print(\"IO Error\")\n```\n\n```python\n1try:\n2    f = open('test.txt')\n3except FileNotFoundError:\n4    print(\"File not found\")\n```\n\n```python\n1f = open('test.txt')\n2if not f:\n3    print(\"File not found\")\n```\n\n```python\n1try:\n2    f = open('test.txt')\n3finally:\n4    print(\"File not found\")\n```",
+      "options": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "answer": 1,
+      "explanation": "在Python中，可以专门捕获FileNotFoundError异常来处理文件不存在的情况。使用except FileNotFoundError:可以精确捕获此异常。"
+    },
+    {
+      "id": "exam172",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "正则表达式中的非贪婪匹配（最小匹配）是通过在量词后添加什么符号实现的？",
+      "options": [
+        "`*`",
+        "`+`",
+        "`?`",
+        "`!`"
+      ],
+      "answer": 2,
+      "explanation": "正则表达式中，在量词（*、+等）后添加?可以实现非贪婪匹配（最小匹配）。例如*?、+?。\n\n正确答案是C选项：`?`"
+    },
+    {
+      "id": "exam173",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在UDP套接字编程中，服务端用于接收数据的方法是：",
+      "options": [
+        "`accept()`",
+        "`recv()`",
+        "`recvfrom()`",
+        "`listen()`"
+      ],
+      "answer": 2,
+      "explanation": "本题考查正则表达式和文件操作的基本概念。\n\n正确答案是C选项：`recvfrom()`"
+    },
+    {
+      "id": "exam174",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "若要以追加模式打开文件，且文件不存在时自动创建，应使用的模式是：",
+      "options": [
+        "`'w'`",
+        "`'a'`",
+        "`'r+'`",
+        "`'x'`"
+      ],
+      "answer": 1,
+      "explanation": "'a'表示追加模式，写入时从文件末尾追加，文件不存在时自动创建。'w'是覆盖模式，'r+'是读写模式，'x'是排他创建模式。\n\n正确答案是B选项：`'a'`"
+    },
+    {
+      "id": "exam175",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "下列哪个异常是在除数为零时触发的？",
+      "options": [
+        "`ValueError`",
+        "`TypeError`",
+        "`ZeroDivisionError`",
+        "`ArithmeticError`"
+      ],
+      "answer": 2,
+      "explanation": "try块可以有多个except块用于捕获不同类型的异常。finally块始终执行，else块只在try块没有异常时执行。\n\n正确答案是C选项：`ZeroDivisionError`"
+    },
+    {
+      "id": "exam176",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "正则表达式`r'^[A-Za-z]+$'`的含义是：",
+      "options": [
+        "匹配由字母组成的字符串，且字符串前后不能有其他字符",
+        "匹配包含字母的任意字符串",
+        "匹配以字母开头的字符串",
+        "匹配以字母结尾的字符串"
+      ],
+      "answer": 0,
+      "explanation": "正则表达式r'^[A-Za-z]+$'匹配由字母组成的字符串，且必须从头到尾都是字母（^匹配开头，$匹配结尾，+表示一个或多个）。\n\n正确答案是A选项：匹配由字母组成的字符串，且字符串前后不能有其他字符"
+    },
+    {
+      "id": "exam177",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "在TCP通信中，`socket.bind()`方法通常在哪个端调用？",
+      "options": [
+        "仅在客户端",
+        "仅在服务端",
+        "客户端和服务端都需要",
+        "都不需要"
+      ],
+      "answer": 1,
+      "explanation": "创建TCP套接字的代码是socket.socket(socket.AF_INET, socket.SOCK_STREAM)。SOCK_DGRAM用于UDP。\n\n正确答案是B选项：仅在服务端"
+    },
+    {
+      "id": "exam178",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "下列关于`json`模块和文件操作的描述，正确的是：",
+      "options": [
+        "`json.dump()`用于将Python对象序列化为JSON字符串",
+        "`json.load()`用于从文件中读取并解析JSON数据",
+        "读取JSON文件时不需要使用`open()`函数",
+        "JSON文件只能以二进制模式读取"
+      ],
+      "answer": 1,
+      "explanation": "json.load()用于从文件中读取并解析JSON数据。json.dump()用于将Python对象写入JSON文件。\n\n正确答案是B选项：`json.load()`用于从文件中读取并解析JSON数据"
+    },
+    {
+      "id": "exam179",
+      "difficulty": "hard",
+      "topic": "正则与文件操作",
+      "question": "想要匹配HTML标签`<div>content</div>`中的`content`内容，应使用的正则表达式是：",
+      "options": [
+        "`<div>(.*)</div>`",
+        "`<div>(.*?)</div>`",
+        "`<div>(.+)</div>`",
+        "`<div>(.+?)</div>`"
+      ],
+      "answer": 1,
+      "explanation": "要匹配HTML标签<div>content</div>中的content内容，应使用非贪婪匹配<div>(.*?)</div>，以避免贪婪匹配跨多个标签。\n\n正确答案是B选项：`<div>(.*?)</div>`"
+    }
+  ]
+}
