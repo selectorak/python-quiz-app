@@ -136,9 +136,19 @@ async function autoSubmitDueToTimeout() {
     submitBtn.disabled = true;
     submitBtn.textContent = '时间到，提交中...';
     try {
+        // 将洗牌后的索引映射回原始索引
+        const originalAnswers = {};
+        for (const [qid, shuffledIdx] of Object.entries(answers)) {
+            const q = questions.find(qq => qq.id === qid);
+            if (q && q._shuffleMapping) {
+                originalAnswers[qid] = q._shuffleMapping[shuffledIdx];
+            } else {
+                originalAnswers[qid] = shuffledIdx;
+            }
+        }
         const resp = await fetchWithTimeout('/api/submit', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ answers, bank: currentBank }),
+            body: JSON.stringify({ answers: originalAnswers, bank: currentBank }),
             _loadingText: '正在批改答案...',
         });
         if (!resp.ok) throw new Error((await resp.json().catch(() => ({}))).error || `错误 (${resp.status})`);
@@ -406,9 +416,19 @@ async function submitQuiz() {
     submitBtn.disabled = true; submitBtn.textContent = '批改中...';
     stopTimer();
     try {
+        // 将洗牌后的索引映射回原始索引，再发给后端比较
+        const originalAnswers = {};
+        for (const [qid, shuffledIdx] of Object.entries(answers)) {
+            const q = questions.find(qq => qq.id === qid);
+            if (q && q._shuffleMapping) {
+                originalAnswers[qid] = q._shuffleMapping[shuffledIdx];
+            } else {
+                originalAnswers[qid] = shuffledIdx;
+            }
+        }
         const resp = await fetchWithTimeout('/api/submit', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ answers, bank: currentBank }),
+            body: JSON.stringify({ answers: originalAnswers, bank: currentBank }),
             _loadingText: '正在批改答案...',
         });
         if (!resp.ok) throw new Error((await resp.json().catch(() => ({}))).error || `错误 (${resp.status})`);

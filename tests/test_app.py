@@ -109,7 +109,7 @@ def test_get_questions_all(client):
     resp = client.get("/api/questions?bank=classic&count=0")
     assert resp.status_code == 200
     data = resp.get_json()
-    assert len(data["questions"]) == 60  # 经典题库共 60 题
+    assert len(data["questions"]) == 160  # 经典题库共 160 题
 
 
 def test_submit_classic(client):

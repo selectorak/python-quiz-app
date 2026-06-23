@@ -839,6 +839,1406 @@
       ],
       "answer": 2,
       "explanation": "A 错误：asyncio.run() 每次创建新事件循环。B 错误：任务被调度但等待事件循环调度。C 正确。D 错误：asyncio 是单线程并发。"
+    },
+    {
+      "id": "py061",
+      "difficulty": "medium",
+      "topic": "列表操作",
+      "question": "以下代码输出什么？\n\n```python\na = [1, 2, 3]\nb = a\na += [4, 5]\nprint(a, b)\n```",
+      "options": [
+        "[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]",
+        "[1, 2, 3, 4, 5] [1, 2, 3]",
+        "报错",
+        "[1, 2, 3] [1, 2, 3]"
+      ],
+      "answer": 0,
+      "explanation": "a += [4,5] 调用 __iadd__，就地修改列表。b 也引用同一个列表对象，所以两者都变成 [1,2,3,4,5]。"
+    },
+    {
+      "id": "py062",
+      "difficulty": "medium",
+      "topic": "列表操作",
+      "question": "以下代码输出什么？\n\n```python\na = [1, 2, 3]\nb = a\na = a + [4, 5]\nprint(a, b)\n```",
+      "options": [
+        "[1, 2, 3, 4, 5] [1, 2, 3]",
+        "[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]",
+        "报错",
+        "[1, 2, 3] [1, 2, 3, 4, 5]"
+      ],
+      "answer": 0,
+      "explanation": "a = a + [4,5] 调用 __add__，创建新列表并赋值给 a。b 仍然指向原列表 [1,2,3]。"
+    },
+    {
+      "id": "py063",
+      "difficulty": "medium",
+      "topic": "集合操作",
+      "question": "以下代码输出什么？\n\n```python\nA = {1, 2, 3, 4}\nB = {3, 4, 5, 6}\nprint(A & B)\nprint(A - B)\nprint(A ^ B)\n```",
+      "options": [
+        "{3,4} {1,2} {1,2,5,6}",
+        "{3,4,5,6} {1,2} {5,6}",
+        "{3,4} {1,2} {5,6}",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "& 交集={3,4}；- 差集={1,2}；^ 对称差集={1,2,5,6}（即并集-交集）。"
+    },
+    {
+      "id": "py064",
+      "difficulty": "medium",
+      "topic": "字典操作",
+      "question": "以下代码输出什么？\n\n```python\nd = {'a': 1, 'b': 2}\nd2 = d | {'c': 3, 'b': 4}\nprint(d)\nprint(d2)\n```",
+      "options": [
+        "{'a':1,'b':2} {'a':1,'b':4,'c':3}",
+        "{'a':1,'b':4} {'a':1,'b':4,'c':3}",
+        "报错",
+        "{'a':1,'b':2} {'a':1,'b':2,'c':3}"
+      ],
+      "answer": 0,
+      "explanation": "| 运算符（Python 3.9+）合并字典，返回新字典，不修改原字典。右侧覆盖左侧的 'b'。"
+    },
+    {
+      "id": "py065",
+      "difficulty": "easy",
+      "topic": "range",
+      "question": "以下代码输出什么？\n\n```python\nprint(list(range(10, 0, -3)))\n```",
+      "options": [
+        "[10, 7, 4, 1]",
+        "[10, 7, 4]",
+        "[10, 7, 4, 1, -2]",
+        "[]"
+      ],
+      "answer": 0,
+      "explanation": "range(10,0,-3) 从 10 开始，步长 -3，到 >0 为止：10,7,4,1。"
+    },
+    {
+      "id": "py066",
+      "difficulty": "easy",
+      "topic": "字符串",
+      "question": "以下表达式的结果是什么？\n\n```python\n' '.join(['hello', 'world', '!']).title()\n```",
+      "options": [
+        "'Hello World !'",
+        "'Hello World !'",
+        "'Hello World !'",
+        "'hello world !'"
+      ],
+      "answer": 0,
+      "explanation": "join 用空格连接列表元素得到 'hello world !'，title() 将每个单词的首字母大写。"
+    },
+    {
+      "id": "py067",
+      "difficulty": "medium",
+      "topic": "lambda",
+      "question": "以下代码输出什么？\n\n```python\nfuncs = [lambda x: x + n for n in range(3)]\nprint([f(10) for f in funcs])\n```",
+      "options": [
+        "[12, 12, 12]",
+        "[10, 11, 12]",
+        "报错",
+        "[12, 11, 10]"
+      ],
+      "answer": 0,
+      "explanation": "闭包延迟绑定，循环结束后 n=2。所有函数都使用同一个 n。要得到 [10,11,12] 需用默认参数：lambda x, n=n: x+n。"
+    },
+    {
+      "id": "py068",
+      "difficulty": "hard",
+      "topic": "lambda",
+      "question": "以下代码输出什么？\n\n```python\nprint((lambda f: f(0, lambda: 1))(lambda x, g: x + g())))\n```",
+      "options": [
+        "1",
+        "报错语法错误",
+        "0",
+        "None"
+      ],
+      "answer": 0,
+      "explanation": "外层调用 lambda f: f(0, lambda: 1)，传入的 f= lambda x,g: x+g()。f(0, lambda:1) → 0 + 1() → 1。注意：最后多了一个括号导致语法错误。"
+    },
+    {
+      "id": "py069",
+      "difficulty": "easy",
+      "topic": "map/filter",
+      "question": "以下代码输出什么？\n\n```python\nresult = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, range(10))))\nprint(result)\n```",
+      "options": [
+        "[0, 4, 16, 36, 64]",
+        "[1, 9, 25, 49, 81]",
+        "[0, 2, 4, 6, 8]",
+        "[4, 16, 36, 64]"
+      ],
+      "answer": 0,
+      "explanation": "filter 筛选偶数 [0,2,4,6,8]，map 对每个取平方得 [0,4,16,36,64]。"
+    },
+    {
+      "id": "py070",
+      "difficulty": "medium",
+      "topic": "sorted",
+      "question": "以下代码输出什么？\n\n```python\nstudents = [('Alice', 85), ('Bob', 92), ('Eve', 78)]\nresult = sorted(students, key=lambda s: s[1], reverse=True)\nprint(result)\n```",
+      "options": [
+        "[('Bob',92), ('Alice',85), ('Eve',78)]",
+        "[('Eve',78), ('Alice',85), ('Bob',92)]",
+        "[('Bob',92), ('Eve',78), ('Alice',85)]",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "sorted 按成绩（索引1）降序排列：Bob(92) → Alice(85) → Eve(78)。"
+    },
+    {
+      "id": "py071",
+      "difficulty": "medium",
+      "topic": "os模块",
+      "question": "关于 os.path 模块，以下哪项是正确的？",
+      "options": [
+        "os.path.abspath('..') 返回绝对路径",
+        "os.path.exists() 会判断文件内容是否为空",
+        "os.path.join('a', '/b') 返回 'a/b'",
+        "os.path.isdir() 判断是否是符号链接"
+      ],
+      "answer": 0,
+      "explanation": "abspath 将相对路径转为绝对路径。B：exists 只判断是否存在；C：join 遇到绝对路径会丢弃前面的部分；D：isdir 判断目录。"
+    },
+    {
+      "id": "py072",
+      "difficulty": "medium",
+      "topic": "sys模块",
+      "question": "以下代码输出什么？\n\n```python\nimport sys\nprint(sys.argv)\n```\n（假设运行命令：python script.py --help -v）",
+      "options": [
+        "['script.py', '--help', '-v']",
+        "['python', 'script.py', '--help', '-v']",
+        "['script.py', '--help', '-v']",
+        "['--help', '-v']"
+      ],
+      "answer": 0,
+      "explanation": "sys.argv[0] 是脚本文件名，后续元素是命令行参数。"
+    },
+    {
+      "id": "py073",
+      "difficulty": "medium",
+      "topic": "random",
+      "question": "以下代码可能输出什么？\n\n```python\nimport random\nrandom.seed(42)\nprint([random.randint(1, 6) for _ in range(3)])\n```",
+      "options": [
+        "每次运行结果相同",
+        "每次运行结果不同",
+        "报错：seed 未定义",
+        "只输出 [1,6]"
+      ],
+      "answer": 0,
+      "explanation": "random.seed(42) 固定随机种子，只要 seed 相同，后续随机数序列就相同。"
+    },
+    {
+      "id": "py074",
+      "difficulty": "medium",
+      "topic": "math模块",
+      "question": "关于 math 模块，以下哪项是正确的？",
+      "options": [
+        "math.sqrt(-1) 返回复数",
+        "math.ceil(3.5) 返回 4",
+        "math.floor(-3.5) 返回 -3",
+        "math.pi 是精确的圆周率"
+      ],
+      "answer": 1,
+      "explanation": "sqrt(-1) 抛出 ValueError；ceil(3.5)=4 向上取整正确；floor(-3.5)=-4（向下）；pi 是浮点数近似值。"
+    },
+    {
+      "id": "py075",
+      "difficulty": "medium",
+      "topic": "datetime",
+      "question": "以下代码输出什么？\n\n```python\nfrom datetime import datetime, timedelta\nd1 = datetime(2024, 1, 1)\nd2 = datetime(2024, 1, 10)\nprint((d2 - d1).days)\n```",
+      "options": [
+        "9",
+        "10",
+        "timedelta(9)",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "两个 datetime 相减得到 timedelta，.days 属性返回天数差。1月1日到1月10日是 9 天。"
+    },
+    {
+      "id": "py076",
+      "difficulty": "medium",
+      "topic": "json模块",
+      "question": "以下代码输出什么？\n\n```python\nimport json\ndata = {'name': 'Alice', 'scores': [90, 85], 'active': True}\nprint(json.dumps(data, indent=2))\n```",
+      "options": [
+        "格式化输出的 JSON 字符串，含缩进",
+        "报错：True 不能序列化",
+        "一行 JSON 字符串",
+        "报错：键名没有引号"
+      ],
+      "answer": 0,
+      "explanation": "json.dumps 将 Python 对象转为 JSON 字符串。indent=2 添加缩进。bool 值 True 会被序列化为 true。"
+    },
+    {
+      "id": "py077",
+      "difficulty": "medium",
+      "topic": "re模块",
+      "question": "以下代码输出什么？\n\n```python\nimport re\npattern = r'(\\d{4})-(\\d{2})-(\\d{2})'\ntext = '2024-03-15'\nprint(re.sub(pattern, r'\\3/\\2/\\1', text))\n```",
+      "options": [
+        "15/03/2024",
+        "2024/03/15",
+        "03/15/2024",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "sub 用替换字符串，\\1、\\2、\\3 引用捕获组。将 yyyy-mm-dd 转为 dd/mm/yyyy。"
+    },
+    {
+      "id": "py078",
+      "difficulty": "medium",
+      "topic": "hashlib",
+      "question": "以下代码输出什么？\n\n```python\nimport hashlib\nh = hashlib.sha256()\nh.update(b'hello')\nprint(len(h.hexdigest()))\n```",
+      "options": [
+        "64",
+        "32",
+        "256",
+        "128"
+      ],
+      "answer": 0,
+      "explanation": "SHA-256 输出 32 字节（256 位），hexdigest() 将每个字节转为 2 位十六进制字符，共 64 字符。"
+    },
+    {
+      "id": "py079",
+      "difficulty": "medium",
+      "topic": "base64",
+      "question": "以下代码输出什么？\n\n```python\nimport base64\ndata = b'hello'\nencoded = base64.b64encode(data)\nprint(encoded)\n```",
+      "options": [
+        "b'aGVsbG8='",
+        "b'aGVsbG8=='",
+        "b'hello'",
+        "b'68656c6c6f'"
+      ],
+      "answer": 0,
+      "explanation": "base64 编码每 3 字节转为 4 字符。'hello' 是 5 字节，补 1 字节填充，输出 'aGVsbG8='。"
+    },
+    {
+      "id": "py080",
+      "difficulty": "medium",
+      "topic": "csv模块",
+      "question": "以下代码的正确输出是？\n\n```python\nimport csv, io\nout = io.StringIO()\nw = csv.writer(out)\nw.writerow(['a', 'b, c', 'd'])\nprint(out.getvalue())\n```",
+      "options": [
+        "a,\"b, c\",d\\r\\n",
+        "a,b,c,d\\r\\n",
+        "a,b\\,c,d\\r\\n",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "CSV 写入器自动用双引号包裹含逗号的字段。"
+    },
+    {
+      "id": "py081",
+      "difficulty": "hard",
+      "topic": "sqlite3",
+      "question": "以下代码执行后，cursor.rowcount 的值是？\n\n```python\nimport sqlite3\nconn = sqlite3.connect(':memory:')\nc = conn.cursor()\nc.execute('CREATE TABLE t (x)')\nc.execute('INSERT INTO t VALUES (1)')\nc.execute('UPDATE t SET x = 2 WHERE x = 1')\nprint(c.rowcount)\n```",
+      "options": [
+        "1",
+        "0",
+        "2",
+        "None"
+      ],
+      "answer": 0,
+      "explanation": "UPDATE 影响了一行，rowcount 返回被修改的行数。"
+    },
+    {
+      "id": "py082",
+      "difficulty": "medium",
+      "topic": "urllib",
+      "question": "关于 urllib.parse，以下哪项是正确的？",
+      "options": [
+        "urlparse 可以解析 URL 的各部分",
+        "urlencode 对 URL 进行编码",
+        "quote 将字典转为查询字符串",
+        "urljoin 合并两个完整 URL"
+      ],
+      "answer": 0,
+      "explanation": "urlparse 解析 URL 为 scheme/netloc/path/params/query/fragment。B：urlencode 只能编码 dict；C：quote 对字符串编码；D：urljoin 用第二个 URL 覆盖第一个。"
+    },
+    {
+      "id": "py083",
+      "difficulty": "medium",
+      "topic": "filter/reduce",
+      "question": "以下代码输出什么？\n\n```python\nfrom functools import reduce\nresult = reduce(lambda a, b: a + b, [1, 2, 3, 4, 5], 10)\nprint(result)\n```",
+      "options": [
+        "25",
+        "15",
+        "10",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "reduce 累计计算：10+1+2+3+4+5=25。初始值 10 作为第一个参数传给 lambda 的 a。"
+    },
+    {
+      "id": "py084",
+      "difficulty": "medium",
+      "topic": "any/all",
+      "question": "以下代码输出什么？\n\n```python\nnums = [0, 1, 2, 3]\nprint(any(nums))\nprint(all(nums))\n```",
+      "options": [
+        "True False",
+        "False True",
+        "True True",
+        "False False"
+      ],
+      "answer": 0,
+      "explanation": "any 任一元素为真→True（0 为假但 1 为真）。all 全部元素为真→False（0 为假）。"
+    },
+    {
+      "id": "py085",
+      "difficulty": "medium",
+      "topic": "zip",
+      "question": "以下代码输出什么？\n\n```python\nkeys = ['a', 'b', 'c']\nvals = [1, 2, 3, 4]\nresult = dict(zip(keys, vals))\nprint(result)\n```",
+      "options": [
+        "{'a':1, 'b':2, 'c':3}",
+        "{'a':1, 'b':2, 'c':3, 'd':4}",
+        "报错",
+        "{'a':1, 'b':2}"
+      ],
+      "answer": 0,
+      "explanation": "zip 以最短的可迭代对象为准，keys 只有 3 个元素，所以只取前 3 个 value。"
+    },
+    {
+      "id": "py086",
+      "difficulty": "hard",
+      "topic": "partial",
+      "question": "以下代码输出什么？\n\n```python\nfrom functools import partial\n\ndef power(base, exp):\n    return base ** exp\n\nsquare = partial(power, exp=2)\ncube = partial(power, exp=3)\nprint(square(5), cube(5))\n```",
+      "options": [
+        "25 125",
+        "32 243",
+        "报错：参数顺序不对",
+        "5 5"
+      ],
+      "answer": 0,
+      "explanation": "partial 冻结 power 的 exp 参数。square(5) 等价于 power(5,exp=2)=25；cube(5)=power(5,exp=3)=125。"
+    },
+    {
+      "id": "py087",
+      "difficulty": "medium",
+      "topic": "异常链",
+      "question": "以下代码输出什么？\n\n```python\ntry:\n    try:\n        1/0\n    except ZeroDivisionError:\n        raise ValueError('错误') from None\nexcept ValueError as e:\n    print(e.__cause__)\n```",
+      "options": [
+        "None",
+        "ZeroDivisionError",
+        "repr(ZeroDivisionError)",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "raise ... from None 会抑制异常链，__cause__ 被设为 None。"
+    },
+    {
+      "id": "py088",
+      "difficulty": "medium",
+      "topic": "assert",
+      "question": "以下哪项关于 assert 的描述是正确的？",
+      "options": [
+        "assert 条件失败时抛出 AssertionError",
+        "assert 在优化模式（-O）下仍执行",
+        "assert 只能用于函数内部",
+        "assert 可以捕获异常"
+      ],
+      "answer": 0,
+      "explanation": "assert 条件为假时抛出 AssertionError。B：-O 模式下 assert 被跳过。C：assert 可用于任何位置。D：assert 不捕获异常。"
+    },
+    {
+      "id": "py089",
+      "difficulty": "medium",
+      "topic": "异常处理",
+      "question": "以下代码输出什么？\n\n```python\ntry:\n    pass\nexcept:\n    print(1)\nelse:\n    print(2)\nfinally:\n    print(3)\n```",
+      "options": [
+        "2\\n3",
+        "1",
+        "3",
+        "1\\n3"
+      ],
+      "answer": 0,
+      "explanation": "try 块正常执行没有异常，执行 else 块（2），然后执行 finally 块（3）。没有异常时不执行 except。"
+    },
+    {
+      "id": "py090",
+      "difficulty": "hard",
+      "topic": "traceback",
+      "question": "以下哪项不是获取异常信息的标准方式？",
+      "options": [
+        "traceback.format_exc()",
+        "sys.exc_info()",
+        "str(e) 获取异常消息",
+        "exception.get_message()"
+      ],
+      "answer": 3,
+      "explanation": "Python 没有 exception.get_message()。traceback.format_exc() 返回完整回溯字符串；sys.exc_info() 返回 (type, value, traceback)；str(e) 返回异常消息。"
+    },
+    {
+      "id": "py091",
+      "difficulty": "hard",
+      "topic": "MRO继承",
+      "question": "以下代码输出什么？\n\n```python\nclass A:\n    def m(self):\n        return 'A'\nclass B(A):\n    def m(self):\n        return 'B' + super().m()\nclass C(A):\n    def m(self):\n        return 'C' + super().m()\nclass D(B, C):\n    def m(self):\n        return 'D' + super().m()\n\nprint(D().m())\n```",
+      "options": [
+        "DBCA",
+        "DABC",
+        "DCBA",
+        "DBC"
+      ],
+      "answer": 0,
+      "explanation": "MRO（C3 线性化）：D→B→C→A。super() 按 MRO 顺序调用下一个类的方法。"
+    },
+    {
+      "id": "py092",
+      "difficulty": "hard",
+      "topic": "property深入",
+      "question": "以下代码输出什么？\n\n```python\nclass Circle:\n    def __init__(self, radius):\n        self._radius = radius\n    @property\n    def radius(self):\n        return self._radius\n    @radius.setter\n    def radius(self, value):\n        if value <= 0:\n            raise ValueError\n        self._radius = value\n    @property\n    def area(self):\n        return 3.14 * self._radius ** 2\n\nc = Circle(5)\nprint(c.radius, c.area)\nc.radius = 10\nprint(c.area)\n```",
+      "options": [
+        "5 78.5\\n314.0",
+        "5 78.5\\n314.0",
+        "报错：不能修改 radius",
+        "5 78.5\\n100"
+      ],
+      "answer": 0,
+      "explanation": "property 让 radius 有 getter/setter，area 是只读计算属性。radius=5 面积=78.5；radius=10 面积=314。"
+    },
+    {
+      "id": "py093",
+      "difficulty": "medium",
+      "topic": "类方法 vs 静态方法",
+      "question": "以下哪项关于 @classmethod 和 @staticmethod 的描述是正确的？",
+      "options": [
+        "@classmethod 可以访问类属性，@staticmethod 不可以",
+        "@staticmethod 可以访问实例属性",
+        "@classmethod 第一个参数是 self",
+        "@staticmethod 必须定义在类外部"
+      ],
+      "answer": 0,
+      "explanation": "classmethod 第一个参数是 cls，可以访问类属性。staticmethod 与普通函数类似，不能自动访问类或实例。"
+    },
+    {
+      "id": "py094",
+      "difficulty": "hard",
+      "topic": "抽象基类",
+      "question": "以下代码哪一行会报错？\n\n```python\nfrom abc import ABC, abstractmethod\n\nclass Animal(ABC):\n    @abstractmethod\n    def speak(self):\n        pass\n\nclass Dog(Animal):\n    pass\n\nclass Cat(Animal):\n    def speak(self):\n        return 'meow'\n\n# a = Animal()  # 行 1\n# d = Dog()     # 行 2\n# c = Cat()     # 行 3\n```",
+      "options": [
+        "行 1 和 行 2 都会报错",
+        "只有行 1 报错",
+        "行 1、2、3 都报错",
+        "只有行 2 报错"
+      ],
+      "answer": 0,
+      "explanation": "Animal 有抽象方法不能实例化。Dog 没有实现抽象方法也不能实例化。Cat 实现了 speak 可以实例化。"
+    },
+    {
+      "id": "py095",
+      "difficulty": "hard",
+      "topic": "运算符重载",
+      "question": "以下代码输出什么？\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __add__(self, other):\n        return Vector(self.x + other.x, self.y + other.y)\n    def __repr__(self):\n        return f'V({self.x},{self.y})'\n    def __eq__(self, other):\n        return self.x == other.x and self.y == other.y\n\nv1 = Vector(1, 2)\nv2 = Vector(3, 4)\nprint(v1 + v2)\nprint(v1 == Vector(1, 2))\n```",
+      "options": [
+        "V(4,6)\\nTrue",
+        "V(4,6)\\nFalse",
+        "报错：不支持 +",
+        "V(1,2,3,4)\\nTrue"
+      ],
+      "answer": 0,
+      "explanation": "__add__ 重载 +，返回新 Vector。__eq__ 重载 ==，比较坐标。"
+    },
+    {
+      "id": "py096",
+      "difficulty": "medium",
+      "topic": "with语句",
+      "question": "以下代码输出什么？\n\n```python\nclass Managed:\n    def __enter__(self):\n        print('enter')\n        return self\n    def __exit__(self, *args):\n        print('exit')\n\nwith Managed() as m:\n    print('body')\n```",
+      "options": [
+        "enter\\nbody\\nexit",
+        "enter\\nbody",
+        "body\\nexit",
+        "enter\\nexit\\nbody"
+      ],
+      "answer": 0,
+      "explanation": "with 语句先调用 __enter__（print enter），执行 with 块（print body），最后调用 __exit__（print exit）。"
+    },
+    {
+      "id": "py097",
+      "difficulty": "hard",
+      "topic": "contextmanager",
+      "question": "以下代码输出什么？\n\n```python\nfrom contextlib import contextmanager\n\n@contextmanager\ndef tag(name):\n    print(f'<{name}>')\n    yield\n    print(f'</{name}>')\n\nwith tag('div'):\n    print('  content')\n```",
+      "options": [
+        "<div>\\n  content\\n</div>",
+        "<div></div>\\n  content",
+        "  content\\n<div></div>",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "@contextmanager 让生成器作为上下文管理器。yield 之前的代码在 __enter__ 执行，之后的在 __exit__ 执行。"
+    },
+    {
+      "id": "py098",
+      "difficulty": "medium",
+      "topic": "文件操作",
+      "question": "以下代码的正确描述是？\n\n```python\nwith open('test.txt', 'w') as f:\n    f.write('hello')\n```",
+      "options": [
+        "写入 'hello'，自动关闭文件",
+        "写入 'hello'，需要手动 f.close()",
+        "报错：文件不存在",
+        "以只读模式打开文件"
+      ],
+      "answer": 0,
+      "explanation": "with 语句确保文件自动关闭，即使发生异常。'w' 模式不存在则创建，存在则覆盖。"
+    },
+    {
+      "id": "py099",
+      "difficulty": "medium",
+      "topic": "tempfile",
+      "question": "关于 tempfile 模块，以下哪项是正确的？",
+      "options": [
+        "NamedTemporaryFile 在关闭后文件自动删除",
+        "mkstemp 返回文件路径字符串",
+        "TemporaryDirectory 必须在 with 外手动清理",
+        "tempfile 创建的临时文件在 /tmp 目录"
+      ],
+      "answer": 0,
+      "explanation": "NamedTemporaryFile 默认 delete=True，关闭后自动删除。mkstemp 返回 (fd, path)。TemporaryDirectory 支持 with 自动清理。"
+    },
+    {
+      "id": "py100",
+      "difficulty": "medium",
+      "topic": "shutil",
+      "question": "关于 shutil 模块，以下哪项是正确的？",
+      "options": [
+        "shutil.rmtree 递归删除目录",
+        "shutil.copy 复制目录",
+        "shutil.move 只能移动文件不能重命名",
+        "shutil.copytree 复制单个文件"
+      ],
+      "answer": 0,
+      "explanation": "rmtree 递归删除目录树。copy 复制文件（不是目录），move 可重命名，copytree 复制整个目录。"
+    },
+    {
+      "id": "py101",
+      "difficulty": "hard",
+      "topic": "timeit",
+      "question": "以下代码的正确用法是？\n\n```python\nimport timeit\ntimeit.timeit('[x**2 for x in range(100)]', number=10000)\n```",
+      "options": [
+        "测量列表推导式的执行时间",
+        "修改列表推导式本身",
+        "返回列表推导式的结果",
+        "编译列表推导式"
+      ],
+      "answer": 0,
+      "explanation": "timeit.timeit 执行指定代码 number 次，返回总耗时（秒）。常用于性能对比。"
+    },
+    {
+      "id": "py102",
+      "difficulty": "hard",
+      "topic": "生成器性能",
+      "question": "以下关于生成器性能的描述，正确的是？",
+      "options": [
+        "生成器一次只产生一个值，节省内存",
+        "生成器比列表推导式运行更快",
+        "生成器可以重复使用",
+        "生成器支持索引访问"
+      ],
+      "answer": 0,
+      "explanation": "生成器惰性求值，一次产生一个值，内存占用小。B：通常更慢（有 yield 开销）。C：生成器只能用一次。D：不支持索引。"
+    },
+    {
+      "id": "py103",
+      "difficulty": "hard",
+      "topic": "内存视图",
+      "question": "以下关于 memoryview 的描述，正确的是？",
+      "options": [
+        "memoryview 共享原对象内存，避免拷贝",
+        "memoryview 会深拷贝数据",
+        "memoryview 只能用于 bytes",
+        "memoryview 不支持切片"
+      ],
+      "answer": 0,
+      "explanation": "memoryview 提供缓冲区协议访问，不拷贝数据。可用于 bytes、bytearray、array 等支持缓冲区协议的对象。"
+    },
+    {
+      "id": "py104",
+      "difficulty": "medium",
+      "topic": "__slots__性能",
+      "question": "以下关于 __slots__ 的描述，正确的是？",
+      "options": [
+        "__slots__ 通过禁止 __dict__ 节省内存",
+        "__slots__ 可以让类动态添加属性",
+        "__slots__ 会降低属性访问速度",
+        "__slots__ 只能用于新式类"
+      ],
+      "answer": 0,
+      "explanation": "__slots__ 声明固定属性名，实例不再有 __dict__，大幅节省内存。B：禁止动态添加属性。C：实际上加快属性访问。D：Python 3 只有新式类。"
+    },
+    {
+      "id": "py105",
+      "difficulty": "medium",
+      "topic": "缓存",
+      "question": "以下代码输出什么？\n\n```python\nfrom functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fib(n):\n    if n < 2:\n        return n\n    return fib(n-1) + fib(n-2)\n\nprint(fib(6))\nprint(fib.cache_info().hits)\n```",
+      "options": [
+        "8\\n（有命中次数）",
+        "6\\n0",
+        "13\\n（有命中次数）",
+        "8\\n0"
+      ],
+      "answer": 0,
+      "explanation": "fib(6)=8。lru_cache 缓存中间结果，递归过程中多次命中缓存。cache_info().hits > 0。"
+    },
+    {
+      "id": "py106",
+      "difficulty": "hard",
+      "topic": "协程深入",
+      "question": "以下代码输出什么？\n\n```python\nasync def count():\n    print(1)\n    await asyncio.sleep(0)\n    print(2)\n\nimport asyncio\nasyncio.run(count())\n```",
+      "options": [
+        "1\\n2",
+        "1",
+        "2\\n1",
+        "报错：asyncio.sleep 需要参数"
+      ],
+      "answer": 0,
+      "explanation": "await asyncio.sleep(0) 主动让出控制权，但因为没有其他协程，立即恢复执行。输出 1 和 2。"
+    },
+    {
+      "id": "py107",
+      "difficulty": "hard",
+      "topic": "async for",
+      "question": "以下代码输出什么？\n\n```python\nclass AsyncRange:\n    def __init__(self, n):\n        self.n = n\n        self.i = 0\n    def __aiter__(self):\n        return self\n    async def __anext__(self):\n        if self.i >= self.n:\n            raise StopAsyncIteration\n        self.i += 1\n        return self.i\n\nasync def main():\n    async for i in AsyncRange(3):\n        print(i)\n\nimport asyncio\nasyncio.run(main())\n```",
+      "options": [
+        "1\\n2\\n3",
+        "[1,2,3]",
+        "报错：__aiter__ 必须是异步",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "异步迭代器通过 __aiter__ 返回 self，__anext__ 是协程。async for 依次 await 获取值直到 StopAsyncIteration。"
+    },
+    {
+      "id": "py108",
+      "difficulty": "hard",
+      "topic": "多进程 vs 多线程",
+      "question": "关于 Python 多进程和多线程，以下正确的说法是？",
+      "options": [
+        "多进程可以绕过 GIL 实现 CPU 并行",
+        "多线程可以充分利用多核 CPU",
+        "多进程之间共享全局变量很方便",
+        "多线程比多进程更安全不易出错"
+      ],
+      "answer": 0,
+      "explanation": "Python 的 GIL 使多线程不能并行执行 CPU 密集型任务。多进程有独立 GIL，可以实现真正的并行。B 错误（GIL 限制）。C 错误（进程不共享内存）。"
+    },
+    {
+      "id": "py109",
+      "difficulty": "hard",
+      "topic": "线程同步",
+      "question": "以下哪项不是 Python 线程同步的机制？",
+      "options": [
+        "threading.Lock",
+        "threading.Semaphore",
+        "threading.Event",
+        "threading.Future"
+      ],
+      "answer": 3,
+      "explanation": "Future 在 concurrent.futures 模块中，不是 threading 模块的同步机制。Lock/Semaphore/Event 都是 threading 的标准同步工具。"
+    },
+    {
+      "id": "py110",
+      "difficulty": "hard",
+      "topic": "协程 vs 线程",
+      "question": "协程相比线程的优势不包括？",
+      "options": [
+        "真正的并行执行",
+        "更低的上下文切换开销",
+        "更高的并发数量",
+        "无需锁机制处理共享数据"
+      ],
+      "answer": 0,
+      "explanation": "协程是单线程并发，不是并行执行（不能利用多核）。B：协程切换开销远低于线程。C：协程数量可达数十万。D：协程在单个线程中运行，无竞态条件。"
+    },
+    {
+      "id": "py111",
+      "difficulty": "hard",
+      "topic": "装饰器带参数",
+      "question": "以下代码输出什么？\n\n```python\ndef repeat(n):\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            results = []\n            for _ in range(n):\n                results.append(func(*args, **kwargs))\n            return results\n        return wrapper\n    return decorator\n\n@repeat(3)\ndef greet(name):\n    return f'Hello {name}'\n\nprint(greet('Alice'))\n```",
+      "options": [
+        "['Hello Alice', 'Hello Alice', 'Hello Alice']",
+        "['Hello Alice']",
+        "Hello Alice\\nHello Alice\\nHello Alice",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "repeat(3) 返回 decorator，@decorator 应用给 greet。wrapper 调用原函数 3 次并收集结果到列表。"
+    },
+    {
+      "id": "py112",
+      "difficulty": "hard",
+      "topic": "描述符应用",
+      "question": "以下关于描述符的应用场景，描述正确的是？",
+      "options": [
+        "property 是基于描述符实现的",
+        "描述符只能用于验证数据",
+        "__getattr__ 不是描述符协议",
+        "描述符必须定义在类外部"
+      ],
+      "answer": 0,
+      "explanation": "@property 本质上是描述符（property 类实现了 __get__/__set__/__delete__）。B 不全面：描述符还可用于延迟加载/缓存等。C：描述符协议是 __get__/__set__/__delete__。"
+    },
+    {
+      "id": "py113",
+      "difficulty": "medium",
+      "topic": "socket",
+      "question": "关于 Python socket 编程，以下正确的是？",
+      "options": [
+        "socket.socket() 默认创建 TCP 套接字",
+        "UDP 是面向连接的",
+        "socket.accept() 返回新 socket 对象",
+        "服务端必须先 connect 再 bind"
+      ],
+      "answer": 0,
+      "explanation": "socket() 默认 SOCK_STREAM（TCP）。B：UDP 无连接。C：accept() 返回 (client_socket, addr) 二元组。D：服务端先 bind 再 listen，不 connect。"
+    },
+    {
+      "id": "py114",
+      "difficulty": "hard",
+      "topic": "selectors",
+      "question": "以下关于 selectors 模块的描述，正确的是？",
+      "options": [
+        "selectors 提供高效的 I/O 多路复用",
+        "selectors 用于多线程",
+        "selectors 只支持 Linux",
+        "selectors 自动处理数据读写"
+      ],
+      "answer": 0,
+      "explanation": "selectors 封装了 select/poll/epoll/kqueue 等 I/O 多路复用机制。B：用于单线程并发。C：跨平台。D：只通知就绪状态，不处理数据。"
+    },
+    {
+      "id": "py115",
+      "difficulty": "medium",
+      "topic": "unittest",
+      "question": "以下关于 unittest 的描述，正确的是？",
+      "options": [
+        "setUp 在每个测试方法之前执行",
+        "test_ 前缀的方法不是必须的",
+        "assertEqual 比 == 更慢",
+        "tearDown 只在测试通过时执行"
+      ],
+      "answer": 0,
+      "explanation": "setUp 在每个 test_ 方法前执行。B：测试方法必须以 test 开头才能被自动发现。C：assertEqual 提供更好的错误信息。D：tearDown 无论测试是否通过都会执行。"
+    },
+    {
+      "id": "py116",
+      "difficulty": "medium",
+      "topic": "doctest",
+      "question": "以下代码执行 doctest 的结果是？\n\n```python\ndef add(a, b):\n    '''返回 a + b\n    >>> add(2, 3)\n    5\n    >>> add(-1, 1)\n    0\n    '''\n    return a + b\n```",
+      "options": [
+        "测试通过",
+        "测试失败：第一个用例返回 5",
+        "测试失败：第二个用例返回 0",
+        "报错：doctest 不能测试负数"
+      ],
+      "answer": 0,
+      "explanation": "两个用例都正确，doctest 测试通过。doctest 会运行文档字符串中的 >>> 示例并对比输出。"
+    },
+    {
+      "id": "py117",
+      "difficulty": "hard",
+      "topic": "profiling",
+      "question": "以下哪个模块不用于 Python 性能分析？",
+      "options": [
+        "cProfile",
+        "timeit",
+        "memory_profiler",
+        "json"
+      ],
+      "answer": 3,
+      "explanation": "json 是序列化模块，不用于性能分析。cProfile 是函数调用分析器，timeit 测量代码段耗时，memory_profiler 分析内存使用。"
+    },
+    {
+      "id": "py118",
+      "difficulty": "medium",
+      "topic": "__all__",
+      "question": "以下代码的正确描述是？\n\n```python\n# module.py\n__all__ = ['func_a', 'CONST']\n\ndef func_a(): pass\ndef func_b(): pass\nCONST = 42\n```",
+      "options": [
+        "from module import * 只导入 func_a 和 CONST",
+        "from module import * 导入所有名称",
+        "func_b 不能被外部访问",
+        "CONST 不会导出"
+      ],
+      "answer": 0,
+      "explanation": "__all__ 列表控制 from module import * 的行为，只导入列表中列出的名称。func_b 仍然可以直接导入（from module import func_b）。"
+    },
+    {
+      "id": "py119",
+      "difficulty": "medium",
+      "topic": "importlib",
+      "question": "关于 importlib 模块，以下正确的是？",
+      "options": [
+        "importlib.import_module('os') 等价于 import os",
+        "importlib 只能导入标准库",
+        "importlib.reload 在 Python 3 中已废弃",
+        "importlib 不能导入相对路径"
+      ],
+      "answer": 0,
+      "explanation": "import_module 动态导入模块。B：可以导入任何模块。C：reload 仍然可用。D：支持相对导入（需指定 package 参数）。"
+    },
+    {
+      "id": "py120",
+      "difficulty": "easy",
+      "topic": "PEP8",
+      "question": "关于 PEP 8 编码规范，以下正确的是？",
+      "options": [
+        "推荐 4 空格缩进",
+        "行最大长度 99 字符",
+        "函数名用驼峰命名法",
+        "类名用小写加下划线"
+      ],
+      "answer": 0,
+      "explanation": "PEP 8 推荐 4 空格缩进。B：最大行长度 79 字符。C：函数名应小写加下划线。D：类名用驼峰命名法。"
+    },
+    {
+      "id": "py121",
+      "difficulty": "hard",
+      "topic": "__call__",
+      "question": "以下代码输出什么？\n\n```python\nclass Counter:\n    def __init__(self):\n        self.count = 0\n    def __call__(self):\n        self.count += 1\n        return self.count\n\nc = Counter()\nprint(c())\nprint(c())\nprint(c())\n```",
+      "options": [
+        "1\\n2\\n3",
+        "0\\n0\\n0",
+        "报错：Counter 不可调用",
+        "1\\n1\\n1"
+      ],
+      "answer": 0,
+      "explanation": "__call__ 使实例可调用。c() 每次调用递增 count 并返回。"
+    },
+    {
+      "id": "py122",
+      "difficulty": "hard",
+      "topic": "__str__ vs __repr__",
+      "question": "以下代码输出什么？\n\n```python\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __repr__(self):\n        return f'Point({self.x}, {self.y})'\n    def __str__(self):\n        return f'({self.x}, {self.y})'\n\np = Point(3, 4)\nprint(str(p))\nprint(repr(p))\n```",
+      "options": [
+        "(3, 4)\\nPoint(3, 4)",
+        "Point(3, 4)\\n(3, 4)",
+        "(3, 4)\\n(3, 4)",
+        "Point(3, 4)\\nPoint(3, 4)"
+      ],
+      "answer": 0,
+      "explanation": "str() 调用 __str__ 返回用户友好的字符串。repr() 调用 __repr__ 返回开发者友好的字符串。"
+    },
+    {
+      "id": "py123",
+      "difficulty": "hard",
+      "topic": "__iter__ 与 __next__",
+      "question": "以下代码输出什么？\n\n```python\nclass CountDown:\n    def __init__(self, n):\n        self.n = n\n    def __iter__(self):\n        return self\n    def __next__(self):\n        if self.n <= 0:\n            raise StopIteration\n        self.n -= 1\n        return self.n + 1\n\nprint(list(CountDown(3)))\n```",
+      "options": [
+        "[3, 2, 1]",
+        "[1, 2, 3]",
+        "[2, 1, 0]",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "CountDown 是迭代器。__iter__ 返回 self，__next__ 从 n 递减到 1 后抛出 StopIteration。"
+    },
+    {
+      "id": "py124",
+      "difficulty": "medium",
+      "topic": "__contains__",
+      "question": "以下代码输出什么？\n\n```python\nclass Range:\n    def __init__(self, start, end):\n        self.start = start\n        self.end = end\n    def __contains__(self, x):\n        return self.start <= x < self.end\n\nr = Range(1, 10)\nprint(5 in r)\nprint(15 in r)\n```",
+      "options": [
+        "True\\nFalse",
+        "False\\nFalse",
+        "True\\nTrue",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "__contains__ 定义 in 运算符的行为。5 在 [1,10) 内返回 True，15 不在返回 False。"
+    },
+    {
+      "id": "py125",
+      "difficulty": "medium",
+      "topic": "鸭子类型",
+      "question": "'如果它走路像鸭子，叫起来像鸭子，那它就是鸭子' 描述的是 Python 的什么特性？",
+      "options": [
+        "鸭子类型（Duck Typing）",
+        "强类型",
+        "静态类型",
+        "元编程"
+      ],
+      "answer": 0,
+      "explanation": "鸭子类型关注对象的行为（方法）而非类型。只要对象有需要的方法，就可以传入，不要求继承特定类。"
+    },
+    {
+      "id": "py126",
+      "difficulty": "medium",
+      "topic": "自省",
+      "question": "以下哪个函数不能用于运行时自省？",
+      "options": [
+        "type()",
+        "isinstance()",
+        "hasattr()",
+        "compile()"
+      ],
+      "answer": 3,
+      "explanation": "compile() 编译代码字符串为字节码对象，不用于自省。type() 获取类型，isinstance() 检查类型，hasattr() 检查属性是否存在。"
+    },
+    {
+      "id": "py127",
+      "difficulty": "medium",
+      "topic": "EAFP vs LBYL",
+      "question": "Python 推荐的编码风格是 EAFP（Easier to Ask for Forgiveness than Permission），以下哪个示例符合这个风格？",
+      "options": [
+        "try: x = d['key']; except KeyError: handle()",
+        "if 'key' in d: x = d['key']",
+        "x = d.get('key', default)",
+        "必选先检查再操作"
+      ],
+      "answer": 0,
+      "explanation": "EAFP 是先用 try 执行，再捕获异常。LBYL（LBYL = Look Before You Leap）是先检查再操作。Python 推崇 EAFP。"
+    },
+    {
+      "id": "py128",
+      "difficulty": "medium",
+      "topic": "可变默认参数",
+      "question": "以下代码输出什么？\n\n```python\ndef add_item(item, lst=[]):\n    lst.append(item)\n    return lst\n\nprint(add_item(1))\nprint(add_item(2))\n```",
+      "options": [
+        "[1]\\n[1, 2]",
+        "[1]\\n[2]",
+        "报错",
+        "[1]\\n[1]"
+      ],
+      "answer": 0,
+      "explanation": "默认参数在函数定义时计算一次。lst=[] 只创建一次，多次调用共享同一个列表。这是经典陷阱，应使用 lst=None 并在函数内创建新列表。"
+    },
+    {
+      "id": "py129",
+      "difficulty": "hard",
+      "topic": "闭包陷阱",
+      "question": "以下代码输出什么？\n\n```python\ndef make_counters():\n    counters = []\n    for i in range(3):\n        def counter():\n            return i\n        counters.append(counter)\n    return counters\n\nfor c in make_counters():\n    print(c())\n```",
+      "options": [
+        "2\\n2\\n2",
+        "0\\n1\\n2",
+        "报错",
+        "0\\n0\\n0"
+      ],
+      "answer": 0,
+      "explanation": "闭包延迟绑定，循环结束时 i=2。所有计数器函数返回的值都是 2。要修复：用默认参数 counter(i=i): return i。"
+    },
+    {
+      "id": "py130",
+      "difficulty": "medium",
+      "topic": "collections.deque",
+      "question": "以下关于 collections.deque 的描述，正确的是？",
+      "options": [
+        "deque 支持两端高效插入和删除",
+        "deque 的随机访问比 list 快",
+        "deque 是线程不安全的",
+        "deque 不能限制最大长度"
+      ],
+      "answer": 0,
+      "explanation": "deque（双端队列）两端 O(1) 插入/删除。B：随机访问比 list 慢（O(n)）。C：deque 的 append/pop 是线程安全的。D：可以用 maxlen 参数限制长度。"
+    },
+    {
+      "id": "py131",
+      "difficulty": "medium",
+      "topic": "Counter",
+      "question": "以下代码输出什么？\n\n```python\nfrom collections import Counter\nc = Counter('abracadabra')\nprint(c.most_common(2))\n```",
+      "options": [
+        "[('a', 5), ('b', 2)]",
+        "[('a', 5), ('r', 2)]",
+        "[('a', 5), ('d', 1)]",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "Counter 统计可哈希对象。'abracadabra' 中 a 出现 5 次、b 2 次、r 2 次。most_common(2) 返回出现最多的 2 个。"
+    },
+    {
+      "id": "py132",
+      "difficulty": "medium",
+      "topic": "defaultdict",
+      "question": "以下代码输出什么？\n\n```python\nfrom collections import defaultdict\nd = defaultdict(list)\nd['a'].append(1)\nd['a'].append(2)\nd['b'].append(3)\nprint(dict(d))\n```",
+      "options": [
+        "{'a': [1, 2], 'b': [3]}",
+        "报错：键不存在",
+        "{'a': 1, 'b': 3}",
+        "{'a': [1, 2], 'b': [3]}"
+      ],
+      "answer": 0,
+      "explanation": "defaultdict(list) 对于不存在的键自动创建空列表作为默认值。三次访问后得到 {'a':[1,2], 'b':[3]}。"
+    },
+    {
+      "id": "py133",
+      "difficulty": "medium",
+      "topic": "namedtuple",
+      "question": "以下代码输出什么？\n\n```python\nfrom collections import namedtuple\nPoint = namedtuple('Point', ['x', 'y'])\np = Point(3, 4)\nprint(p.x + p.y)\nprint(p[0] + p[1])\n```",
+      "options": [
+        "7\\n7",
+        "7\\n报错",
+        "报错：namedtuple 不支持索引",
+        "3\\n3"
+      ],
+      "answer": 0,
+      "explanation": "namedtuple 既支持属性访问（p.x），也支持索引访问（p[0]）。两种方式都得到 3+4=7。"
+    },
+    {
+      "id": "py134",
+      "difficulty": "medium",
+      "topic": "yield",
+      "question": "以下代码输出什么？\n\n```python\ndef gen():\n    yield 1\n    yield 2\n    yield 3\n\ng = gen()\nprint(next(g))\nprint(next(g))\nprint(list(g))\n```",
+      "options": [
+        "1\\n2\\n[3]",
+        "[1, 2, 3]\\nStopIteration",
+        "1\\n2\\n[1,2,3]",
+        "1\\n2\\n[3]"
+      ],
+      "answer": 0,
+      "explanation": "生成器逐个产生值。前两次 next 消耗 1 和 2，第三次 list(g) 收集剩余 [3]。"
+    },
+    {
+      "id": "py135",
+      "difficulty": "hard",
+      "topic": "yield from",
+      "question": "以下代码输出什么？\n\n```python\ndef flatten(nested):\n    for item in nested:\n        if isinstance(item, list):\n            yield from flatten(item)\n        else:\n            yield item\n\nprint(list(flatten([1, [2, [3, 4], 5], 6])))\n```",
+      "options": [
+        "[1, 2, 3, 4, 5, 6]",
+        "[1, 2, [3, 4], 5, 6]",
+        "[1, [2, [3, 4], 5], 6]",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "yield from 递归委托给子生成器。flatten 递归展开嵌套列表，得到平坦化的元素序列。"
+    },
+    {
+      "id": "py136",
+      "difficulty": "hard",
+      "topic": "send 给生成器",
+      "question": "以下代码输出什么？\n\n```python\ndef coro():\n    total = 0\n    while True:\n        x = yield total\n        total += x\n\nc = coro()\nnext(c)\nprint(c.send(10))\nprint(c.send(20))\n```",
+      "options": [
+        "10\\n30",
+        "0\\n10",
+        "10\\n20",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "next(c) 启动协程到第一个 yield，此时 total=0。c.send(10) 将 yield 表达式值设为 10，total=10，打印 10。c.send(20) total=30，打印 30。"
+    },
+    {
+      "id": "py137",
+      "difficulty": "medium",
+      "topic": "type hints 基础",
+      "question": "以下哪项是合法的类型注解？",
+      "options": [
+        "def greet(name: str) -> str:",
+        "def greet(name -> str) -> str:",
+        "def greet(name: str) -> str",
+        "def greet(name: str) -> string:"
+      ],
+      "answer": 0,
+      "explanation": "Python 函数注解语法：参数 : 类型，返回值 -> 类型。str 是内建类型。D 的 string 是未定义的。"
+    },
+    {
+      "id": "py138",
+      "difficulty": "hard",
+      "topic": "TypeAlias",
+      "question": "以下代码的正确描述是？\n\n```python\nfrom typing import TypeAlias\nVector: TypeAlias = list[float]\n\ndef scale(v: Vector, factor: float) -> Vector:\n    return [x * factor for x in v]\n```",
+      "options": [
+        "Vector 是 list[float] 的类型别名",
+        "TypeAlias 是 Python 3.12+ 的特性",
+        "类型检查器会强制 scale 返回 list[float]",
+        "以上都正确"
+      ],
+      "answer": 3,
+      "explanation": "TypeAlias 声明类型别名（Python 3.12+ 可用 typing_extensions）。这样使代码更清晰，类型检查器会验证类型。"
+    },
+    {
+      "id": "py139",
+      "difficulty": "hard",
+      "topic": "TypedDict",
+      "question": "以下代码的正确描述是？\n\n```python\nfrom typing import TypedDict\n\nclass Person(TypedDict):\n    name: str\n    age: int\n\np: Person = {'name': 'Alice', 'age': 30}\n```",
+      "options": [
+        "TypedDict 定义字典的结构化类型",
+        "TypedDict 会在运行时验证键类型",
+        "不能用普通字典赋值给 TypedDict",
+        "TypedDict 需要 Python 3.11+"
+      ],
+      "answer": 0,
+      "explanation": "TypedDict 让字典有结构化类型注解。它只在类型检查时生效，不提供运行时验证。Python 3.8+ 可用。"
+    },
+    {
+      "id": "py140",
+      "difficulty": "hard",
+      "topic": "Protocol",
+      "question": "以下代码的正确描述是？\n\n```python\nfrom typing import Protocol\n\nclass Drawable(Protocol):\n    def draw(self) -> None: ...\n\ndef render(obj: Drawable):\n    obj.draw()\n\nclass Circle:\n    def draw(self):\n        print('circle')\n\nrender(Circle())\n```",
+      "options": [
+        "Circle 满足 Drawable 协议，无需继承",
+        "Circle 必须显式继承 Drawable",
+        "Protocol 只能用于抽象基类",
+        "render 调用会报类型错误"
+      ],
+      "answer": 0,
+      "explanation": "Protocol 实现结构子类型化（鸭子类型的形式化）。只要对象有 draw 方法就满足 Drawable 协议，无需显式继承。"
+    },
+    {
+      "id": "py141",
+      "difficulty": "hard",
+      "topic": "asyncio.gather",
+      "question": "关于 asyncio.gather 的描述，正确的是？",
+      "options": [
+        "gather 并发执行所有协程，返回按传入顺序排列的结果",
+        "gather 按完成顺序返回结果",
+        "gather 只能接受 1 个协程",
+        "gather 会阻塞事件循环"
+      ],
+      "answer": 0,
+      "explanation": "asyncio.gather 并发运行所有协程，**按传入顺序**返回结果列表。return_exceptions=True 可让异常作为结果返回。"
+    },
+    {
+      "id": "py142",
+      "difficulty": "hard",
+      "topic": "asyncio.wait",
+      "question": "以下代码描述正确的是？\n\n```python\nimport asyncio\n\nasync def main():\n    tasks = [asyncio.create_task(asyncio.sleep(i)) for i in [1, 2, 3]]\n    done, pending = await asyncio.wait(tasks, timeout=1.5)\n    print(len(done), len(pending))\n\nasyncio.run(main())\n```",
+      "options": [
+        "await asyncio.wait 返回 (done, pending) 二元组",
+        "1.5 秒后所有任务都完成",
+        "timeout 后 pending 会被取消",
+        "asyncio.wait 按顺序执行任务"
+      ],
+      "answer": 0,
+      "explanation": "asyncio.wait 接受任务集合并返回 (done, pending)。timeout=1.5 秒后，只有 1 秒的 sleep 完成，2 和 3 秒的未完成仍在 pending。"
+    },
+    {
+      "id": "py143",
+      "difficulty": "hard",
+      "topic": "asyncio.create_task",
+      "question": "以下关于 asyncio.create_task 的描述，正确的是？",
+      "options": [
+        "create_task 将协程调度为 Task 并立即开始执行",
+        "create_task 不会执行协程直到 await",
+        "create_task 只能在 Jupyter 中使用",
+        "Task 对象不能取消"
+      ],
+      "answer": 0,
+      "explanation": "create_task 将协程包装为 Task，立即调度到事件循环。B 错误：它会立即开始执行。D 错误：Task.cancel() 可取消。"
+    },
+    {
+      "id": "py144",
+      "difficulty": "hard",
+      "topic": "装饰器类",
+      "question": "以下代码输出什么？\n\n```python\nclass Logger:\n    def __init__(self, func):\n        self.func = func\n    def __call__(self, *args, **kwargs):\n        print(f'Calling {self.func.__name__}')\n        return self.func(*args, **kwargs)\n\n@Logger\ndef add(a, b):\n    return a + b\n\nprint(add(3, 4))\n```",
+      "options": [
+        "Calling add\\n7",
+        "7\\nCalling add",
+        "Calling add\\nCalling add\\n7",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "类装饰器 @Logger 等价于 add = Logger(add)。Logger 实例的 __call__ 被调用时打印日志，然后执行原函数。"
+    },
+    {
+      "id": "py145",
+      "difficulty": "hard",
+      "topic": "__init_subclass__",
+      "question": "以下代码输出什么？\n\n```python\nclass Base:\n    def __init_subclass__(cls, **kwargs):\n        super().__init_subclass__(**kwargs)\n        cls.required = ['name', 'age']\n\nclass Person(Base):\n    pass\n\nprint(Person.required)\n```",
+      "options": [
+        "['name', 'age']",
+        "[]",
+        "报错：__init_subclass__ 未定义",
+        "None"
+      ],
+      "answer": 0,
+      "explanation": "__init_subclass__ 在子类被创建时自动调用。可以在其中为子类添加属性或执行注册逻辑。"
+    },
+    {
+      "id": "py146",
+      "difficulty": "hard",
+      "topic": "__set_name__",
+      "question": "以下代码输出什么？\n\n```python\nclass Field:\n    def __set_name__(self, owner, name):\n        print(f'Field: {owner.__name__}.{name}')\n\nclass Model:\n    name = Field()\n    age = Field()\n```",
+      "options": [
+        "Field: Model.name\\nField: Model.age",
+        "Field: Model.name",
+        "什么也不输出",
+        "报错：Field 必须完整实现描述符"
+      ],
+      "answer": 0,
+      "explanation": "在类创建时，__set_name__ 为每个 Field 描述符实例调用，传入所属类和属性名。即使没有 __get__/__set__，__set_name__ 仍然会被调用。"
+    },
+    {
+      "id": "py147",
+      "difficulty": "medium",
+      "topic": "struct 模块",
+      "question": "以下代码输出什么？\n\n```python\nimport struct\n# 整数 42 的 4 字节小端表示\npacked = struct.pack('<I', 42)\nprint(len(packed))\n```",
+      "options": [
+        "4",
+        "2",
+        "8",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "< 小端，I 无符号 4 字节整数。pack 将 42 编码为 4 字节。"
+    },
+    {
+      "id": "py148",
+      "difficulty": "medium",
+      "topic": "configparser",
+      "question": "以下哪项不是 configparser 的正确用法？",
+      "options": [
+        "config['section']['key'] 读取配置值",
+        "config.has_section('section') 检查节是否存在",
+        "config.read('config.ini') 读取文件",
+        "config['section'] = 'value' 直接赋值"
+      ],
+      "answer": 3,
+      "explanation": "configparser 不支持 config['section'] = 'value' 这种直接赋值。正确的赋值方式 config['section'] = {'key': 'value'}。"
+    },
+    {
+      "id": "py149",
+      "difficulty": "medium",
+      "topic": "logging",
+      "question": "以下关于 logging 模块的描述，正确的是？",
+      "options": [
+        "logging.basicConfig 设置根日志器的配置",
+        "logging 默认输出到 stderr",
+        "日志级别 DEBUG < INFO < ERROR < WARNING",
+        "getLogger(__name__) 是最佳实践"
+      ],
+      "answer": 0,
+      "explanation": "basicConfig 配置根日志器。B：默认输出到 stderr。C：正确顺序是 DEBUG<INFO<WARNING<ERROR<CRITICAL。D：使用 __name__ 作为 logger 名称是最佳实践。"
+    },
+    {
+      "id": "py150",
+      "difficulty": "medium",
+      "topic": "pdb",
+      "question": "以下关于 pdb 的描述，正确的是？",
+      "options": [
+        "import pdb; pdb.set_trace() 设置断点",
+        "Python 3.7+ 可用 breakpoint() 替代",
+        "pdb 中 n 是下一步(next)",
+        "以上都正确"
+      ],
+      "answer": 3,
+      "explanation": "pdb.set_trace() 设置断点。Python 3.7+ 的 breakpoint() 更方便。n(next) 执行下一行。"
+    },
+    {
+      "id": "py151",
+      "difficulty": "medium",
+      "topic": "__debug__",
+      "question": "以下代码在正常模式下输出什么？\n\n```python\nif __debug__:\n    print('debug mode')\nelse:\n    print('optimized mode')\n```",
+      "options": [
+        "debug mode",
+        "optimized mode",
+        "什么也不输出",
+        "报错：__debug__ 未定义"
+      ],
+      "answer": 0,
+      "explanation": "__debug__ 默认是 True。只用 -O（优化）模式运行时才变为 False。"
+    },
+    {
+      "id": "py152",
+      "difficulty": "medium",
+      "topic": "pickle",
+      "question": "以下关于 pickle 的描述，正确的是？",
+      "options": [
+        "pickle 可以序列化包含循环引用的对象",
+        "pickle 序列化比 json 更安全",
+        "pickle 序列化后的数据是文本格式",
+        "pickle 不支持自定义类的序列化"
+      ],
+      "answer": 0,
+      "explanation": "pickle 通过引用计数处理循环引用。B：pickle 不安全，会执行任意代码。C：pickle 是二进制格式。D：pickle 支持自定义类。"
+    },
+    {
+      "id": "py153",
+      "difficulty": "medium",
+      "topic": "marshal",
+      "question": "关于 marshal 模块，以下正确的是？",
+      "options": [
+        "marshal 用于 Python 内部对象序列化（.pyc 文件）",
+        "marshal 比 pickle 更安全",
+        "marshal 可以序列化任意 Python 对象",
+        "marshal 跨版本兼容"
+      ],
+      "answer": 0,
+      "explanation": "marshal 专为 Python .pyc 文件设计。B：同样不安全。C：只能序列化部分类型（不能序列化用户类实例）。D：不保证跨版本兼容。"
+    },
+    {
+      "id": "py154",
+      "difficulty": "hard",
+      "topic": "__prepare__",
+      "question": "以下关于元类的 __prepare__ 方法的描述，正确的是？",
+      "options": [
+        "__prepare__ 在 __new__ 之前调用，返回类命名空间",
+        "__prepare__ 必须返回一个 dict",
+        "__prepare__ 不能被子类覆盖",
+        "__prepare__ 已被 Python 3 废弃"
+      ],
+      "answer": 0,
+      "explanation": "__prepare__ 在类创建早期调用，返回用于填充类属性的命名空间对象。可以返回 OrderedDict 等控制属性顺序。默认为 dict。"
+    },
+    {
+      "id": "py155",
+      "difficulty": "hard",
+      "topic": "上下文变量",
+      "question": "以下关于 contextvars 模块的描述，正确的是？",
+      "options": [
+        "contextvars 在异步编程中隔离上下文状态",
+        "contextvars 等同于全局变量",
+        "contextvars 只能用于多线程",
+        "contextvars 是 Python 3.5 的特性"
+      ],
+      "answer": 0,
+      "explanation": "contextvars 为每个上下文（协程/任务/线程）维护独立的变量副本，完美解决异步编程中上下文传递问题。Python 3.7+ 引入。"
+    },
+    {
+      "id": "py156",
+      "difficulty": "hard",
+      "topic": "弱引用",
+      "question": "以下关于 weakref 模块的描述，正确的是？",
+      "options": [
+        "弱引用不增加对象的引用计数",
+        "弱引用可以阻止对象被垃圾回收",
+        "weakref.ref 可以引用任意对象",
+        "弱引用不能用于类实例"
+      ],
+      "answer": 0,
+      "explanation": "弱引用不增加引用计数，不阻止对象被回收。C：不是所有对象都支持弱引用（如 int、str、list、tuple、dict 等内建类型不支持）。"
+    },
+    {
+      "id": "py157",
+      "difficulty": "medium",
+      "topic": "enum 进阶",
+      "question": "以下代码输出什么？\n\n```python\nfrom enum import IntEnum, auto\n\nclass Status(IntEnum):\n    PENDING = 1\n    ACTIVE = auto()\n    INACTIVE = auto()\n\nprint(Status.ACTIVE.value)\nprint(Status(3))\n```",
+      "options": [
+        "2\\nStatus.INACTIVE",
+        "auto\\nStatus.ACTIVE",
+        "1\\nStatus.PENDING",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "IntEnum 是 int 的子类。auto() 自动赋值为上一个值 +1。PENDING=1, ACTIVE=2, INACTIVE=3。Status(3) 通过值 3 查找到 INACTIVE。"
+    },
+    {
+      "id": "py158",
+      "difficulty": "hard",
+      "topic": "heapq",
+      "question": "以下代码输出什么？\n\n```python\nimport heapq\n\ndata = [3, 1, 4, 1, 5, 9, 2, 6]\nheapq.heapify(data)\nprint(heapq.nlargest(3, data))\nprint(heapq.nsmallest(3, data))\n```",
+      "options": [
+        "[9, 6, 5]\\n[1, 1, 2]",
+        "[9, 6, 5]\\n[1, 2, 3]",
+        "[1, 1, 2]\\n[9, 6, 5]",
+        "[5, 6, 9]\\n[1, 1, 2]"
+      ],
+      "answer": 0,
+      "explanation": "heapify 将列表转为堆（最小堆）。nlargest(3) 和 nsmallest(3) 分别返回最大和最小的 3 个元素。"
+    },
+    {
+      "id": "py159",
+      "difficulty": "medium",
+      "topic": "bisect",
+      "question": "以下代码输出什么？\n\n```python\nimport bisect\ndata = [1, 3, 5, 7, 9]\nprint(bisect.bisect_left(data, 5))\nprint(bisect.bisect_right(data, 5))\n```",
+      "options": [
+        "2\\n3",
+        "3\\n2",
+        "2\\n2",
+        "报错"
+      ],
+      "answer": 0,
+      "explanation": "bisect_left 返回插入位置（相同元素左侧），data[2]=5 索引 2。bisect_right 返回插入位置（相同元素右侧），索引 3。"
+    },
+    {
+      "id": "py160",
+      "difficulty": "hard",
+      "topic": "array 数组",
+      "question": "关于 array 模块，以下正确的是？",
+      "options": [
+        "array('i') 存储有符号整数数组，比 list 内存效率更高",
+        "array 可以存储任意 Python 对象",
+        "array 支持任意类型的混合存储",
+        "array 的 append 操作比 list 慢"
+      ],
+      "answer": 0,
+      "explanation": "array 是类型化数组，所有元素类型相同，比 list 更节省内存。B：只能存储指定类型（'i'=int, 'f'=float 等）。C：不支持混合类型。D：append 性能与 list 相近。"
     }
   ]
 }
